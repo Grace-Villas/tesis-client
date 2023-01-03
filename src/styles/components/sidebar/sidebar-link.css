@@ -1,0 +1,54 @@
+.custom-nav {
+   padding-top: 0.5rem;
+}
+
+.custom-link {
+   margin: 0 15px;
+   padding: 10px 15px 10px 15px;
+}
+
+.custom-link-item {
+   color: #625f6e;
+}
+
+.custom-link:has(> .active) {
+   color: #FFFFFF;
+   background: linear-gradient(118deg, #7367f0, rgba(115, 103, 240, 0.7));
+
+   box-shadow: 0 0 5px 1px rgba(115, 103, 240, 0.7);
+
+   border-radius: 4px;
+
+   z-index: 1;
+}
+
+.custom-link .active {
+   color: #FFFFFF;
+}
+
+.custom-link svg {
+   width: 20px;
+   height: 20px;
+   font-size: 1.45rem;
+   margin-right: 1.1rem;
+   flex-shrink: 0;
+}
+
+.custom-nested-link {
+   cursor: pointer;
+}
+
+.custom-nested-link.open > .custom-link {
+   color: #565360;
+   background: whitesmoke;
+
+   border-radius: 6px;
+}
+
+.custom-nested-links {
+   /* display: none; */
+
+   overflow: hidden;
+
+   transition: height 0.3s ease;
+}

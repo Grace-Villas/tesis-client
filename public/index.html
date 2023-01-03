@@ -9,12 +9,11 @@
       name="description"
       content="Web site created using create-react-app"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -24,9 +23,35 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Logistics-chain</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+    
+    <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/vendors/css/vendors.min.css">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/css/components.css">
+    <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/css/themes/semi-dark-layout.css">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/css/core/menu/menu-types/vertical-menu.css">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="%PUBLIC_URL%/css/style.css">
+    <!-- END: Custom CSS-->
   </head>
-  <body>
+  <body
+    class="pace-done vertical-layout navbar-floating"
+    data-open="click"
+    data-menu="vertical-menu-modern"
+    data-col
+  >
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <!--
