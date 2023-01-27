@@ -1,5 +1,7 @@
 .custom-nav {
    padding-top: 0.5rem;
+   
+   height: 100%;
 }
 
 .custom-link {
@@ -51,4 +53,8 @@
    overflow: hidden;
 
    transition: height 0.3s ease;
+}
+
+.custom-nested-links > .custom-link:first-child {
+   margin-top: 7px;
 }

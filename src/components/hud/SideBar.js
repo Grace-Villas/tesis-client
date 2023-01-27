@@ -11,7 +11,7 @@ import { toggleSidebar } from '../../actions/ui';
 
 // Components
 import Icon from '../ui/Icon';
-import NestedLinkButton from './NestedSideBarLink';
+import NestedSidebarLink from './NestedSideBarLink';
 import SideBarLink from './SideBarLink';
 
 
@@ -19,7 +19,6 @@ import SideBarLink from './SideBarLink';
 // Custom hooks
 import { useSidebar } from '../../hooks/useSidebar';
 import { useWindowDimensions } from '../../hooks/useDimensions';
-import NestedSidebarLink from './NestedSideBarLink';
 
 
 
@@ -61,10 +60,7 @@ const SideBar = () => {
          onMouseLeave={handleOnMouseLeave}
       >
          <div
-            className={hovered
-               ? "navbar-header expanded"
-               : "navbar-header"
-            }
+            className={hovered ? "navbar-header expanded" : "navbar-header"}
          >
             <ul className="nav navbar-nav flex-row" style={{height: '100%'}}>
                <li className="nav-item me-auto d-flex align-items-center">
