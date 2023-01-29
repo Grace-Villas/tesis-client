@@ -48,6 +48,10 @@
    border-radius: 6px;
 }
 
+.custom-nested-link:not(.open):hover > .custom-link {
+   color: #6D62E4;
+}
+
 .custom-nested-arrow {
    transition: transform 0.3s ease;
 }

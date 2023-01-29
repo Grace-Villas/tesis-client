@@ -108,10 +108,10 @@ const SideBar = () => {
             <div className="navigation navigation-main custom-nav" id="main-menu-navigation" data-menu="menu-navigation">
                <SideBarLink text='Inicio' icon='Home' url='/' />
 
-               <NestedSidebarLink text='Empresas' icon='Briefcase' basePath='/business'>
-                  <SideBarLink text='Lista' icon='Circle' url='/business' />
+               <NestedSidebarLink text='Clientes' icon='Briefcase' basePath='/clients'>
+                  <SideBarLink text='Lista' icon='Circle' url='/clients' />
                   
-                  <SideBarLink text='Crear' icon='Circle' url='/business/create' />
+                  <SideBarLink text='Crear' icon='Circle' url='/clients/create' />
                </NestedSidebarLink>
 
                <NestedSidebarLink text='Usuarios' icon='Users' basePath='/users'>
