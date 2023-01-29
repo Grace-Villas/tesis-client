@@ -53,7 +53,13 @@
 }
 
 .custom-nested-arrow {
+   display: flex;
+
    transition: transform 0.3s ease;
+}
+
+.menu-collapsed:not(:has(.expanded)) .custom-nested-arrow {
+   display: none;
 }
 
 .custom-nested-link.open .custom-nested-arrow {

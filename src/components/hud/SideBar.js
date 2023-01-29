@@ -34,7 +34,11 @@ const SideBar = () => {
 
    useSidebar();
 
-   const handleCollapsedMenu = () => dispatch(toggleSidebar(!sidebar));
+   const handleCollapsedMenu = (e) => {
+      e.preventDefault();
+
+      dispatch(toggleSidebar(!sidebar));
+   }
 
    const handleHovered = () => !sidebar && setHovered(true);
 
@@ -74,7 +78,7 @@ const SideBar = () => {
                </li>
 
                <li className="nav-item nav-toggle d-flex align-items-center">
-                  <a className="nav-link modern-nav-toggle pe-0 my-0" onClick={() => handleCollapsedMenu()}>
+                  <a href='#' className="nav-link modern-nav-toggle pe-0 my-0" onClick={handleCollapsedMenu}>
                      <Icon
                         icon='X'
                         className="d-block d-xl-none toggle-icon font-medium-4"
@@ -124,6 +128,18 @@ const SideBar = () => {
                   <SideBarLink text='Lista' icon='Circle' url='/roles' />
 
                   <SideBarLink text='Crear' icon='Circle' url='/roles/create' />
+               </NestedSidebarLink>
+
+               <NestedSidebarLink text='Estados' icon='MapPin' basePath='/states'>
+                  <SideBarLink text='Lista' icon='Circle' url='/states' />
+
+                  <SideBarLink text='Crear' icon='Circle' url='/states/create' />
+               </NestedSidebarLink>
+
+               <NestedSidebarLink text='Ciudades' icon='MapPin' basePath='/cities'>
+                  <SideBarLink text='Lista' icon='Circle' url='/cities' />
+
+                  <SideBarLink text='Crear' icon='Circle' url='/cities/create' />
                </NestedSidebarLink>
             </div>
          </div>
