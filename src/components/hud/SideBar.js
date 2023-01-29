@@ -78,7 +78,7 @@ const SideBar = () => {
                </li>
 
                <li className="nav-item nav-toggle d-flex align-items-center">
-                  <a href='#' className="nav-link modern-nav-toggle pe-0 my-0" onClick={handleCollapsedMenu}>
+                  <a href='/#' className="nav-link modern-nav-toggle pe-0 my-0" onClick={handleCollapsedMenu}>
                      <Icon
                         icon='X'
                         className="d-block d-xl-none toggle-icon font-medium-4"
