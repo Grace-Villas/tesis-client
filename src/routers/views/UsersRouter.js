@@ -1,12 +1,12 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 
 
 // Views
-import UsersCreate from "../../views/users/UsersCreate";
-import UsersDetail from "../../views/users/UsersDetail";
-import UsersEdit from "../../views/users/UsersEdit";
-import UsersList from "../../views/users/UsersList";
+import UsersCreate from '../../views/users/UsersCreate';
+import UsersDetail from '../../views/users/UsersDetail';
+import UsersEdit from '../../views/users/UsersEdit';
+import UsersList from '../../views/users/UsersList';
 
 
 
