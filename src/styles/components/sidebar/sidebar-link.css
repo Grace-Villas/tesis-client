@@ -28,7 +28,8 @@
    color: #FFFFFF;
 }
 
-.custom-link svg {
+.custom-link > svg,
+.custom-link > a > svg {
    width: 20px;
    height: 20px;
    font-size: 1.45rem;
@@ -47,6 +48,14 @@
    border-radius: 6px;
 }
 
+.custom-nested-arrow {
+   transition: transform 0.3s ease;
+}
+
+.custom-nested-link.open .custom-nested-arrow {
+   transform: rotateZ(90deg);
+}
+
 .custom-nested-links {
    /* display: none; */
 
@@ -57,4 +66,11 @@
 
 .custom-nested-links > .custom-link:first-child {
    margin-top: 7px;
+}
+
+.custom-nested-links > .custom-link > a > svg {
+   width: 12px;
+   height: 12px;
+   margin-right: calc(1.1rem + 4px);
+   margin-left: 4px;
 }
