@@ -106,10 +106,24 @@ const SideBar = () => {
 
          <div className="main-menu-content overflow-auto custom-scrollbar">
             <div className="navigation navigation-main custom-nav" id="main-menu-navigation" data-menu="menu-navigation">
-               <SideBarLink text='Inicio' icon='Home' url='/asd' />
+               <SideBarLink text='Inicio' icon='Home' url='/' />
 
-               <NestedSidebarLink text='perro' icon='Home' basePath='/'>
-                  <SideBarLink text='Inicio' icon='Home' url='/' />
+               <NestedSidebarLink text='Empresas' icon='Briefcase' basePath='/business'>
+                  <SideBarLink text='Lista' icon='Circle' url='/business' />
+                  
+                  <SideBarLink text='Crear' icon='Circle' url='/business/create' />
+               </NestedSidebarLink>
+
+               <NestedSidebarLink text='Usuarios' icon='Users' basePath='/users'>
+                  <SideBarLink text='Lista' icon='Circle' url='/users' />
+
+                  <SideBarLink text='Crear' icon='Circle' url='/users/create' />
+               </NestedSidebarLink>
+
+               <NestedSidebarLink text='Roles' icon='Clipboard' basePath='/roles'>
+                  <SideBarLink text='Lista' icon='Circle' url='/roles' />
+
+                  <SideBarLink text='Crear' icon='Circle' url='/roles/create' />
                </NestedSidebarLink>
             </div>
          </div>

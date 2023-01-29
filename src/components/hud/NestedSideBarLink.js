@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 
 // Components
-import Icon from "../ui/Icon";
+import Icon from '../ui/Icon';
 
 
 
@@ -56,15 +56,17 @@ const NestedSidebarLink = ({text, basePath, icon, children}) => {
       <div
          className={handleOpenClass()}
       >
-         <div className="custom-link d-flex align-items-center" onClick={handleOpen}>
+         <div className='custom-link d-flex align-items-center' onClick={handleOpen}>
             <Icon icon={icon} />
 
-            <span className="menu-title text-truncate" data-i18n="Page Layouts" style={{lineHeight: '100%'}}>{text}</span>
+            <span className='menu-title text-truncate' data-i18n='Page Layouts' style={{lineHeight: '100%'}}>{text}</span>
 
-            <span className="badge badge-light-dark rounded-pill ms-auto me-1">1</span>
+            <span className='ms-auto custom-nested-arrow'>
+               <Icon icon='ChevronRight' size={14} />
+            </span>
          </div>
 
-         <div className="custom-nested-links" ref={nestedRef} style={handleNestedHeight()}>
+         <div className='custom-nested-links' ref={nestedRef} style={handleNestedHeight()}>
             {children}
          </div>
       </div>
