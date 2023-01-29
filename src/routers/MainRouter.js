@@ -18,6 +18,8 @@ import Dashboard from '../views/Dashboard';
 import ClientsRouter from './views/ClientsRouter';
 import UsersRouter from './views/UsersRouter';
 import RolesRouter from './views/RolesRouter';
+import CitiesRouter from './views/CitiesRouter';
+import StatesRouter from './views/StatesRouter';
 
 
 
@@ -38,6 +40,10 @@ const MainRouter = () => {
                <Route path='/users/*' element={<UsersRouter />} />
 
                <Route path='/roles/*' element={<RolesRouter />} />
+
+               <Route path='/states/*' element={<StatesRouter />} />
+
+               <Route path='/cities/*' element={<CitiesRouter />} />
             
                <Route path='*' element={<Navigate to='/' replace />} />
             </Routes>
