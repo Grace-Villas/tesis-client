@@ -15,7 +15,7 @@ import Dashboard from '../views/Dashboard';
 
 
 // Routers
-import BusinessRouter from './views/BusinessRouter';
+import ClientsRouter from './views/ClientsRouter';
 import UsersRouter from './views/UsersRouter';
 import RolesRouter from './views/RolesRouter';
 
@@ -33,7 +33,7 @@ const MainRouter = () => {
             <Routes>
                <Route path='/' element={<Dashboard />} />
 
-               <Route path='/business/*' element={<BusinessRouter />} />
+               <Route path='/clients/*' element={<ClientsRouter />} />
 
                <Route path='/users/*' element={<UsersRouter />} />
 
