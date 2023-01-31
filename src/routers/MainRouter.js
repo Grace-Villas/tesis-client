@@ -23,7 +23,14 @@ import StatesRouter from './views/StatesRouter';
 
 
 
+// Custom hooks
+import { useAuthenticated } from '../hooks/useAuthenticated';
+
+
+
 const MainRouter = () => {
+
+   useAuthenticated();
 
    return (
       <>

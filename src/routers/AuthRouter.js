@@ -1,15 +1,22 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 
 
 // Views
-import Login from "../views/auth/Login";
-import LostPassword from "../views/auth/LostPassword";
-import PasswordRecovery from "../views/auth/PasswordRecovery";
+import Login from '../views/auth/Login';
+import LostPassword from '../views/auth/LostPassword';
+import PasswordRecovery from '../views/auth/PasswordRecovery';
+
+
+
+// Custom hooks
+import { useAuthenticated } from '../hooks/useAuthenticated';
 
 
 
 const AuthRouter = () => {
+
+   useAuthenticated(false);
 
    return (
       <Routes>
