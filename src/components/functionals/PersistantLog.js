@@ -1,9 +1,28 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+
+
+// Actions
+import { startKeepLogged } from '../../actions/auth';
 
 
 
 const PersistantLog = ({children}) => {
 
-   // TODO: funcionalidad
+   const dispatch = useDispatch();
+
+   const { loadingData } = useSelector(state => state.auth);
+
+   useEffect(() => {
+      dispatch(startKeepLogged());
+   }, [dispatch]);
+
+   if (loadingData) {
+      return (
+         <></>
+      );
+   }
 
    return (
       <>{children}</>
