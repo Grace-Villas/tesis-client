@@ -4,6 +4,7 @@ import { composeWithDevTools } from "@redux-devtools/extension";
 
 // Importaciones de los reducers
 import {
+   authReducer,
    uiReducer,
 } from "../reducers";
 
@@ -21,6 +22,7 @@ const composedEnhancers = composeWithDevTools(...enhancers);
 // Main reducer
 const reducers = combineReducers({
    // Lista de reducers
+   auth: authReducer,
    ui: uiReducer,
 });
 
