@@ -1,4 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+
+
+// Actions
+import { startLogout } from '../../actions/auth';
 
 
 
@@ -8,6 +14,8 @@ import Icon from './Icon';
 
 
 const UserNavBarDropdown = () => {
+
+   const dispatch = useDispatch();
 
    const [isDisplayed, setIsDisplayed] = useState(false);
 
@@ -24,6 +32,12 @@ const UserNavBarDropdown = () => {
       if (isDisplayed) dropDown.current.classList.add('show');
       else dropDown.current.classList.remove('show');
    }, [isDisplayed]);
+
+   const handleLogout = (e) => {
+      e.preventDefault();
+
+      dispatch(startLogout());
+   }
 
    return (
       <li className={
@@ -112,12 +126,16 @@ const UserNavBarDropdown = () => {
                FAQ
             </a>
 
-            <a className="dropdown-item" href="/#">
+            <a
+               className="dropdown-item"
+               href="/#"
+               onClick={handleLogout}
+            >
                <Icon icon='Power' />
 
                <i className="me-50"></i>
 
-               Logout
+               Cerrar sesión
             </a>
          </div>
       </li>
