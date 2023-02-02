@@ -34,9 +34,11 @@ export const settingsReducer = (state = initialState, action) => {
          const rest = action.payload.key.substring(1, action.payload.key.length);
          const key = first + rest;
 
+         console.log(key);
+
          return {
             ...state,
-            [`loading${key}`]: action.payload
+            [`loading${key}`]: action.payload.state
          }
       }
 
