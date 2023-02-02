@@ -1,5 +1,5 @@
 
 
-@import url('./components/sidebar/sidebar-link.css');
+@import url('./components/sidebar/index.css');
 
-@import url('./components/spinners/loading-response.css');
+@import url('./components/spinners/index.css');
