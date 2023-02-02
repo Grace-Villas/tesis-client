@@ -8,6 +8,11 @@ import { startKeepLogged } from '../../actions/auth';
 
 
 
+// Components
+import LoadingPage from '../ui/spinners/LoadingPage';
+
+
+
 const PersistantLog = ({children}) => {
 
    const dispatch = useDispatch();
@@ -20,7 +25,7 @@ const PersistantLog = ({children}) => {
 
    if (loadingData) {
       return (
-         <></>
+         <LoadingPage />
       );
    }
 
