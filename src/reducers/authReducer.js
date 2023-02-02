@@ -6,6 +6,8 @@ export const types = {
 
    LOGIN: '[AUTH] set auth data',
    LOGOUT: '[AUTH] unset auth data',
+
+   SET_ATTRIBUTE: '[AUTH] set attribute'
 }
 
 
@@ -72,6 +74,12 @@ export const authReducer = (state = initialState, action) => {
             isAdmin: null,
             uuid: null,
             permissions: null,
+         }
+
+      case types.SET_ATTRIBUTE:
+         return {
+            ...state,
+            [action.payload.key]: action.payload.value
          }
 
       default:
