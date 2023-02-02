@@ -143,3 +143,12 @@ export const startKeepLogged = () => {
       }
    }
 }
+
+
+
+// Actualizando atributos de autenticación
+
+export const setAuthAttribute = (key, value) => ({
+   type: types.SET_ATTRIBUTE,
+   payload: { key, value }
+});
