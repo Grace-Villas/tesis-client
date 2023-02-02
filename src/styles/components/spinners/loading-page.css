@@ -1,0 +1,19 @@
+.loading-page-container {
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+
+   display: flex;
+   align-items: center;
+   justify-content: center;
+
+   background-color: #FFFFFF;
+
+   z-index: 1080;
+}
+
+.loading-page-container > * {
+   scale: 4;
+}
