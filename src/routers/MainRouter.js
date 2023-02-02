@@ -19,6 +19,7 @@ import ClientsRouter from './views/ClientsRouter';
 import UsersRouter from './views/UsersRouter';
 import RolesRouter from './views/RolesRouter';
 import CitiesRouter from './views/CitiesRouter';
+import SettingsRouter from './views/SettingsRouter';
 import StatesRouter from './views/StatesRouter';
 
 
@@ -51,6 +52,8 @@ const MainRouter = () => {
                <Route path='/states/*' element={<StatesRouter />} />
 
                <Route path='/cities/*' element={<CitiesRouter />} />
+
+               <Route path='/settings/*' element={<SettingsRouter />} />
             
                <Route path='*' element={<Navigate to='/' replace />} />
             </Routes>
