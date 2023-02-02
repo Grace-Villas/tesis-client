@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 
@@ -17,21 +18,31 @@ const UserNavBarDropdown = () => {
 
    const dispatch = useDispatch();
 
-   const [isDisplayed, setIsDisplayed] = useState(false);
+   const { name } = useSelector(state => state.auth);
 
-   const dropDown = useRef();
-   const userCard = useRef();
+   const [displayName, setDisplayName] = useState('');
 
-   //TODO: arreglar por click
-   const handleDropdown = (e) => {
-      e.preventDefault();
-      setIsDisplayed(!isDisplayed);
-   };
+   const [isOpen, setIsOpen] = useState(false);
 
    useEffect(() => {
-      if (isDisplayed) dropDown.current.classList.add('show');
-      else dropDown.current.classList.remove('show');
-   }, [isDisplayed]);
+      const splitted = name.split(' ');
+
+      const capitalized = splitted.map(word => {
+         const first = word.charAt(0).toLocaleUpperCase();
+         const rest = word.substring(1, word.length);
+         return first + rest;
+      });
+
+      const toDisplay = capitalized.join(' ');
+
+      setDisplayName(toDisplay);
+   }, [name]);
+
+   const handleDropdown = (e) => {
+      e.preventDefault();
+
+      setIsOpen(!isOpen);
+   };
 
    const handleLogout = (e) => {
       e.preventDefault();
@@ -40,13 +51,7 @@ const UserNavBarDropdown = () => {
    }
 
    return (
-      <li className={
-         isDisplayed
-            ? "nav-item dropdown dropdown-user show"
-            : "nav-item dropdown dropdown-user"
-      }
-         ref={userCard}
-      >
+      <li className={`nav-item dropdown dropdown-user ${isOpen && 'show'}`}>
          <a
             className="nav-link dropdown-toggle dropdown-user-link"
             id="dropdown-user"
@@ -56,14 +61,13 @@ const UserNavBarDropdown = () => {
             onClick={handleDropdown}
          >
             <div className="user-nav d-sm-flex d-none">
-               <span className="user-name fw-bolder">John Doe</span>
+               <span className="user-name fw-bolder">{displayName}</span>
 
                <span className="user-status">Admin</span>
             </div>
          </a>
          {/* data-bs-popper podría causar problemas con el dropdown (la posicion) */}
          <div
-            ref={dropDown}
             className="dropdown-menu dropdown-menu-end"
             aria-labelledby="dropdown-user"
             data-bs-popper="none"
@@ -102,29 +106,13 @@ const UserNavBarDropdown = () => {
 
             <div className="dropdown-divider" />
 
-            <a className="dropdown-item" href="/#">
+            <Link className="dropdown-item" to='/settings'>
                <Icon icon='Settings' />
 
                <i className="me-50"></i>
 
-               Settings
-            </a>
-
-            <a className="dropdown-item" href="/#">
-               <Icon icon='CreditCard' />
-
-               <i className="me-50"></i>
-
-               Pricing
-            </a>
-
-            <a className="dropdown-item" href="/#">
-               <Icon icon='HelpCircle' />
-
-               <i className="me-50"></i>
-
-               FAQ
-            </a>
+               Configuraciones
+            </Link>
 
             <a
                className="dropdown-item"
