@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
  * @param {} props 
  * @returns 
  */
-const Section = ({ children, size, sizeDesk, sizeTablet, classes }) => {
+const Section = ({children, size, sizeDesk, sizeTablet, classes}) => {
 
    return (
       <section className={`bg-white bg-gradient rounded-3 shadow-sm my-2 p-2 overflow-hidden ${size} ${sizeTablet} ${sizeDesk} ${classes}`}>
