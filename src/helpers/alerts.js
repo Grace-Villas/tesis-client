@@ -11,10 +11,14 @@ const swalWithBootstrapButtons = Swal.mixin({
    buttonsStyling: false
 });
 
-export const accountSuccessToast = () => {
+/**
+ * Toast posicionado en la esquina inferior derecha para mostrar un mensaje de éxito simple (Ícono y mensaje)
+ * @param {string} message Mensaje a mostrar en el toast
+ */
+export const simpleSuccessToast = (message) => {
    swalWithBootstrapButtons.fire({
       icon: 'success',
-      title: 'Cuenta actualizada satisfactoriamente',
+      title: message,
       toast: true,
       timer: 3000,
       position: 'bottom-end',

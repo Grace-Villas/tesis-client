@@ -12,6 +12,8 @@ const initialState = {
    newPasswordError: null,
    repeatNewPasswordError: null,
 
+   loadingSecurity: false,
+
    // Cuenta
    nameError: null,
    emailError: null,

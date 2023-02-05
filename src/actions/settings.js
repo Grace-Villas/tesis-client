@@ -1,6 +1,6 @@
 import { types } from '../reducers/settingsReducer';
 import { request } from '../helpers/request';
-import { accountSuccessToast } from '../helpers/alerts';
+import { simpleSuccessToast } from '../helpers/alerts';
 
 
 
@@ -40,7 +40,7 @@ export const startUpdateAccount = (name, email) => {
          dispatch(setAuthAttribute('name', user.name));
          dispatch(setAuthAttribute('email', user.email));
 
-         accountSuccessToast();
+         simpleSuccessToast('Cuenta actualizada satisfactoriamente');
       } catch (error) {
          console.log(error);
 
@@ -51,6 +51,36 @@ export const startUpdateAccount = (name, email) => {
       }
       
       dispatch(setLoading('account', false));
+   }
+}
+
+export const startUpdatePassword = (oldPassword, newPassword) => {
+   return async dispatch => {
+      dispatch(setLoading('security', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: '/auth/password',
+            method: 'PUT',
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            },
+            body: { oldPassword, newPassword }
+         });
+         simpleSuccessToast('Contraseña actualizada satisfactoriamente');
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         dispatch(setSettingsError('oldPassword', errors.find(err => err.param === 'oldPassword')?.msg || null));
+         dispatch(setSettingsError('newPassword', errors.find(err => err.param === 'newPassword')?.msg || null));
+      }
+      
+      dispatch(setLoading('security', false));
    }
 }
 
