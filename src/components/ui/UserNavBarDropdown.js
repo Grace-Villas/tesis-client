@@ -25,7 +25,7 @@ const UserNavBarDropdown = () => {
    const [isOpen, setIsOpen] = useState(false);
 
    useEffect(() => {
-      const splitted = name.split(' ');
+      const splitted = name?.split(' ') || [];
 
       const capitalized = splitted.map(word => {
          const first = word.charAt(0).toLocaleUpperCase();
