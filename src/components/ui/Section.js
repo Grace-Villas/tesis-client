@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 const Section = ({ children, size, sizeDesk, sizeTablet, classes }) => {
 
    return (
-      <section className={`bg-white bg-gradient rounded-3 shadow-sm my-2 py-1 px-2 overflow-hidden ${size} ${sizeTablet} ${sizeDesk} ${classes}`}>
+      <section className={`bg-white bg-gradient rounded-3 shadow-sm my-2 p-2 overflow-hidden ${size} ${sizeTablet} ${sizeDesk} ${classes}`}>
          {children}
       </section>
    );
