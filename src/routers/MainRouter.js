@@ -49,6 +49,8 @@ const MainRouter = () => {
 
                <Route path='/roles/*' element={<RolesRouter />} />
 
+               <Route path='/countries/*' element={<StatesRouter />} />
+
                <Route path='/states/*' element={<StatesRouter />} />
 
                <Route path='/cities/*' element={<CitiesRouter />} />
