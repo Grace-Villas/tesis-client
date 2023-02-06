@@ -6,6 +6,7 @@ import { isEmail } from 'validator';
 
 // Actions
 import { setSettingsError, startUpdateAccount } from '../../actions/settings';
+import { setBreadcrumb } from '../../actions/ui';
 
 
 
@@ -37,6 +38,22 @@ const SettingsAccount = () => {
          setEmail(auth.email);
       }
    }, []);
+
+   useEffect(() => {
+      dispatch(setBreadcrumb([
+         {
+            link: '/',
+            text: 'Dashboard'
+         },
+         {
+            link: '/settings',
+            text: 'Configuraciones'
+         },
+         {
+            text: 'Cuenta'
+         }
+      ]));
+   }, [dispatch]);
 
    // Errors and valids
    const handleInvalidName = (name) => {

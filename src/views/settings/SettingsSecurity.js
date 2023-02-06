@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Actions
 import { setSettingsError, startUpdatePassword } from '../../actions/settings';
+import { setBreadcrumb } from '../../actions/ui';
 
 
 
@@ -31,6 +32,22 @@ const SettingsSecurity = () => {
          setRepeatNewPassword('');
       }
    }, []);
+
+   useEffect(() => {
+      dispatch(setBreadcrumb([
+         {
+            link: '/',
+            text: 'Dashboard'
+         },
+         {
+            link: '/settings',
+            text: 'Configuraciones'
+         },
+         {
+            text: 'Seguridad'
+         }
+      ]));
+   }, [dispatch]);
 
    const handleOldPassword = (value) => {
       if (value.trim().length === 0) {

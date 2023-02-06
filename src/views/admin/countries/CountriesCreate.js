@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Actions
 import { setCountriesError, startCreateCountry } from '../../../actions/countries';
+import { setBreadcrumb } from '../../../actions/ui';
 
 
 
@@ -33,6 +34,22 @@ const CountriesCreate = () => {
    const [name, setName] = useState('');
    const [phoneExtension, setPhoneExtension] = useState('');
    const [locale, setLocale] = useState('');
+
+   useEffect(() => {
+      dispatch(setBreadcrumb([
+         {
+            link: '/',
+            text: 'Dashboard'
+         },
+         {
+            link: '/countries',
+            text: 'Países'
+         },
+         {
+            text: 'Crear'
+         }
+      ]));
+   }, [dispatch]);
 
    useEffect(() => {
       return () => {
