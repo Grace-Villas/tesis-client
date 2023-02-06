@@ -72,7 +72,7 @@ const CountriesDetail = () => {
       <>
          <div className='row invoice-preview mt-2'>
             <div className='col-xl-9 col-md-8 col-12 position-relative'>
-               <div className='card invoice-preview-card'>
+               <div className='card invoice-preview-card mb-2'>
                   <div className='card-body invoice-padding pb-0'>
                      <div className='d-flex justify-content-between flex-md-row flex-column invoice-spacing my-0'>
                         <h4 className='mb-0 fw-bolder'>Detalles del país</h4>
