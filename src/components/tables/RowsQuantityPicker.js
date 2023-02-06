@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Actions
 import { setPerPage } from '../../actions/tables';
+import { usePagination } from '../../hooks/usePagination';
 
 
 
@@ -14,18 +15,22 @@ const RowsQuantityPicker = () => {
 
    const { perPage } = useSelector(state => state.tables);
 
+   const { handlePage } = usePagination();
+
    useEffect(() => {
       const storedQty = localStorage.getItem('per-page');
 
       const numberQty = Number(storedQty || 10);
 
       dispatch(setPerPage(numberQty));
-   }, []);
+   }, [dispatch]);
 
    const handleQuantity = (e) => {
       dispatch(setPerPage(Number(e.target.value)));
 
       localStorage.setItem('per-page', Number(e.target.value));
+
+      handlePage(1);
    }
 
    return (
