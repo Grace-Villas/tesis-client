@@ -15,10 +15,11 @@ import Dashboard from '../views/Dashboard';
 
 
 // Routers
+import CitiesRouter from './views/CitiesRouter';
 import ClientsRouter from './views/ClientsRouter';
+import CountriesRouter from './views/CountriesRouter';
 import UsersRouter from './views/UsersRouter';
 import RolesRouter from './views/RolesRouter';
-import CitiesRouter from './views/CitiesRouter';
 import SettingsRouter from './views/SettingsRouter';
 import StatesRouter from './views/StatesRouter';
 
@@ -49,7 +50,7 @@ const MainRouter = () => {
 
                <Route path='/roles/*' element={<RolesRouter />} />
 
-               <Route path='/countries/*' element={<StatesRouter />} />
+               <Route path='/countries/*' element={<CountriesRouter />} />
 
                <Route path='/states/*' element={<StatesRouter />} />
 
