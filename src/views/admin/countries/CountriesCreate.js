@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -141,54 +141,70 @@ const CountriesCreate = () => {
 
    return (
       <>
-         <Section>
-            <form className='row' onSubmit={handleSubmit}>
-               <div className='col-12 pb-1 mb-1 border-bottom'>
-                  <h4 className='mb-0 fw-bolder'>Nuevo país</h4>
+         <div className='row invoice-preview mt-2'>
+            <div className='col-xl-9 col-md-8 col-12 position-relative'>
+               <Section className='mb-2'>
+                  <form className='row' onSubmit={handleSubmit}>
+                     <div className='col-12 pb-1 mb-1 border-bottom'>
+                        <h4 className='mb-0 fw-bolder'>Nuevo país</h4>
+                     </div>
+
+                     <Input
+                        value={name}
+                        setValue={handleName}
+                        title={'Nombre'}
+                        placeholder='Ingrese el nombre del país'
+                        containerClass='col-md-4 col-12 mb-1'
+                        error={nameError}
+                     />
+
+                     <Select
+                        value={locale}
+                        setValue={handleLocale}
+                        title='Código local'
+                        placeholder='Seleccione un código'
+                        options={locales.map(loc => ({ value: loc, text: loc}))}
+                        containerClass='col-md-4 col-12 mb-1'
+                        error={localeError}
+                     />
+
+                     <Input
+                        value={phoneExtension}
+                        setValue={handlePhoneExtension}
+                        title={'Extensión telefónica'}
+                        placeholder='Ingrese la extensión telefónica. Ejemplo: +58'
+                        containerClass='col-md-4 col-12 mb-1'
+                        error={phoneExtensionError}
+                     />
+
+                     <div className='col-12 d-flex justify-content-between'>
+                        <button
+                           type='reset'
+                           className='btn btn-outline-secondary waves-effect'
+                           onClick={handleDiscard}
+                        >Descartar</button>
+
+                        <button
+                           type='submit'
+                           className='btn btn-primary waves-effect waves-float waves-light'
+                        >Guardar</button>
+                     </div>
+                  </form>
+               </Section>
+            </div>
+            
+            <div className='col-xl-3 col-md-4 col-12 invoice-actions mt-md-0 mt-2'>
+               <div className='card'>
+                  <div className='card-body'>
+                     <Link
+                        to='/countries'
+                        className='btn btn-outline-secondary w-100 waves-effect waves-float waves-light'
+                     >Volver a listado</Link>
+                  </div>
                </div>
-
-               <Input
-                  value={name}
-                  setValue={handleName}
-                  title={'Nombre'}
-                  placeholder='Ingrese el nombre del país'
-                  containerClass='col-md-4 col-12 mb-1'
-                  error={nameError}
-               />
-
-               <Select
-                  value={locale}
-                  setValue={handleLocale}
-                  title='Código local'
-                  placeholder='Seleccione un código'
-                  options={locales.map(loc => ({ value: loc, text: loc}))}
-                  containerClass='col-md-4 col-12 mb-1'
-                  error={localeError}
-               />
-
-               <Input
-                  value={phoneExtension}
-                  setValue={handlePhoneExtension}
-                  title={'Extensión telefónica'}
-                  placeholder='Ingrese la extensión telefónica. Ejemplo: +58'
-                  containerClass='col-md-4 col-12 mb-1'
-                  error={phoneExtensionError}
-               />
-
-               <div className='col-12 d-flex justify-content-between'>
-                  <button
-                     type='reset'
-                     className='btn btn-outline-secondary waves-effect'
-                     onClick={handleDiscard}
-                  >Descartar</button>
-
-                  <button
-                     type='submit'
-                     className='btn btn-primary waves-effect waves-float waves-light'
-                  >Guardar</button>
-               </div>
-            </form>
-         </Section>
+            </div>
+         </div>
+         
 
          <LoadingResponse state={loadingCreate} />
       </>
