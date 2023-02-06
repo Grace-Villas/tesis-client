@@ -1,4 +1,4 @@
-.response-container {
+.loading-response-container {
    position: fixed;
    top: 0;
    right: 0;
@@ -14,6 +14,6 @@
    z-index: 1080;
 }
 
-.response-container > * {
+.loading-response-container > * {
    scale: 4;
 }
