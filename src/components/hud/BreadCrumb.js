@@ -22,20 +22,15 @@ const BreadCrumbs = () => {
             <div className='breadcrumb-wrapper'>
                <ol className='breadcrumb'>
                   {
-                     breadcrumb.map((bread, i) => {
-                        if (i === breadcrumb.length - 1) {
-                           return
-                        }
-
-                        return (
-                           <li
-                              key={'breadbrum-' + bread.link}
-                              className='breadcrumb-item'
-                           >
-                              <Link to={bread.link}>{bread.text}</Link>
-                           </li>
-                        )
-                     })
+                     breadcrumb.filter((_, i, breadcrumb) => (i + 1) !== breadcrumb.length)
+                     .map(bread => (
+                        <li
+                           key={'breadbrum-' + bread.link}
+                           className='breadcrumb-item'
+                        >
+                           <Link to={bread.link}>{bread.text}</Link>
+                        </li>
+                     ))
                   }
 
                   <li className='breadcrumb-item active'>
