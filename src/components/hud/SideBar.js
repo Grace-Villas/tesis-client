@@ -13,6 +13,7 @@ import { toggleSidebar } from '../../actions/ui';
 import Icon from '../ui/Icon';
 import NestedSidebarLink from './NestedSideBarLink';
 import SideBarLink from './SideBarLink';
+import SidebarTitle from './SidebarTitle';
 
 
 
@@ -118,6 +119,8 @@ const SideBar = () => {
                   <SideBarLink text='Crear' icon='Circle' url='/clients/create' />
                </NestedSidebarLink>
 
+               <SidebarTitle title='Usuarios' />
+
                <NestedSidebarLink text='Usuarios' icon='Users' basePath='/users'>
                   <SideBarLink text='Lista' icon='Circle' url='/users' />
 
@@ -129,6 +132,8 @@ const SideBar = () => {
 
                   <SideBarLink text='Crear' icon='Circle' url='/roles/create' />
                </NestedSidebarLink>
+
+               <SidebarTitle title='Ubicaciones' />
 
                <NestedSidebarLink text='Países' icon='MapPin' basePath='/countries'>
                   <SideBarLink text='Lista' icon='Circle' url='/countries' />
