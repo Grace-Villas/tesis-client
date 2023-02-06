@@ -13,7 +13,7 @@ import { setAuthAttribute } from './auth';
 
 export const setSettingsError = (key, error) => ({
    type: types.SET_ERROR,
-   payload: { key, error}
+   payload: { key, error }
 });
 
 export const startUpdateAccount = (name, email) => {
@@ -61,7 +61,7 @@ export const startUpdatePassword = (oldPassword, newPassword) => {
       try {
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
-         const response = await request({
+         await request({
             path: '/auth/password',
             method: 'PUT',
             headers: {
