@@ -30,14 +30,14 @@ const SettingsAccount = () => {
    useEffect(() => {
       setName(auth.name);
       setEmail(auth.email);
-   }, [auth]);
+   }, [auth.name, auth.email]);
 
    useEffect(() => {
       return () => {
          setName(auth.name);
          setEmail(auth.email);
       }
-   }, []);
+   }, [auth.name, auth.email]);
 
    useEffect(() => {
       dispatch(setBreadcrumb([
