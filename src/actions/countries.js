@@ -101,14 +101,16 @@ export const startGetCountries = (page, perPage) => {
       } catch (error) {
          console.log(error);
 
-         // TODO: manejar error de permiso
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
       }
       
       dispatch(setLoading('table', false));
    }
 }
 
-export const startDeleteCountry = (id, page, perPage) => {
+export const startDeleteCountry = (id, { page, perPage, navigate }) => {
    return async dispatch => {
       try {
          const { isConfirmed } = await simpleConfirmDialog('warning', '¿Está seguro?', '¿Desea eliminar el país seleccionado?');
@@ -141,8 +143,51 @@ export const startDeleteCountry = (id, page, perPage) => {
          arrayErrorToast(errors.map(error => error.msg));
       }
 
-      dispatch(startGetCountries(page, perPage));
+      if (!navigate) {
+         dispatch(startGetCountries(page, perPage));
+      } else {
+         navigate('/countries')
+      }
 
       dispatch(setLoading('delete', false));
+   }
+}
+
+export const setCountry = (country) => ({
+   type: types.SET_COUNTRY_DATA,
+   payload: country
+});
+
+export const startGetCountry = (id) => {
+   return async dispatch => {
+      dispatch(setLoading('detail', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: `/countries/${id}`,
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            }
+         });
+
+         const country = response.data;
+
+         const splitName = country.name.split(' ');
+
+         const mappedName = splitName.map(word => word.charAt(0).toLocaleUpperCase() + word.slice(1));
+
+         country.formatedName = mappedName.join(' ');
+
+         dispatch(setCountry(country));
+      } catch (error) {
+         console.log(error);
+
+         // TODO: manejar error de permiso
+      }
+      
+      dispatch(setLoading('detail', false));
    }
 }

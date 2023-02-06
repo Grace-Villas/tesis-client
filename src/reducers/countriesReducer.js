@@ -3,7 +3,9 @@ export const types = {
 
    SET_LOADING: '[COUNTRIES] set loading state',
 
-   SET_COUNTRIES: '[COUNTRIES] set table data'
+   SET_COUNTRIES: '[COUNTRIES] set table data',
+
+   SET_COUNTRY_DATA: '[COOUNTRIES] set country data'
 }
 
 
@@ -22,6 +24,13 @@ const initialState = {
    pages: null,
 
    loadingTable: true,
+
+   // Detail
+   country: null,
+
+   detailError: null,
+
+   loadingDetail: true,
 
    // Delete
    loadingDelete: false,
@@ -54,6 +63,12 @@ export const countriesReducer = (state = initialState, action) => {
             rows: action.payload.rows,
             count: action.payload.count,
             pages: action.payload.pages,
+         }
+
+      case types.SET_COUNTRY_DATA:
+         return {
+            ...state,
+            country: action.payload
          }
 
       default:
