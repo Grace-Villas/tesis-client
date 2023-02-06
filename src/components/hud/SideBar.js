@@ -130,6 +130,12 @@ const SideBar = () => {
                   <SideBarLink text='Crear' icon='Circle' url='/roles/create' />
                </NestedSidebarLink>
 
+               <NestedSidebarLink text='Países' icon='MapPin' basePath='/countries'>
+                  <SideBarLink text='Lista' icon='Circle' url='/countries' />
+
+                  <SideBarLink text='Crear' icon='Circle' url='/countries/create' />
+               </NestedSidebarLink>
+
                <NestedSidebarLink text='Estados' icon='MapPin' basePath='/states'>
                   <SideBarLink text='Lista' icon='Circle' url='/states' />
 
