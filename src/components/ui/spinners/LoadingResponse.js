@@ -10,7 +10,7 @@ const LoadingResponse = ({state}) => {
    }
 
    return (
-      <div className='response-container'>
+      <div className='loading-response-container'>
          <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>
          </div>
