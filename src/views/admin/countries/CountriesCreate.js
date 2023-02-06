@@ -13,7 +13,6 @@ import { setBreadcrumb } from '../../../actions/ui';
 // Components
 import Input from '../../../components/form/Input';
 import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
-import Section from '../../../components/ui/Section';
 import Select from '../../../components/form/Select';
 
 
@@ -142,55 +141,70 @@ const CountriesCreate = () => {
    return (
       <>
          <div className='row invoice-preview mt-2'>
-            <div className='col-xl-9 col-md-8 col-12 position-relative'>
-               <Section className='mb-2'>
-                  <form className='row' onSubmit={handleSubmit}>
-                     <div className='col-12 pb-1 mb-1 border-bottom'>
+            <div className='col-xl-9 col-md-8 col-12'>
+               <form
+                  className='card invoice-preview-card mb-2'
+                  onSubmit={handleSubmit}
+               >
+                  <div className='card-body invoice-padding pb-0'>
+                     <div className='d-flex justify-content-between flex-md-row flex-column invoice-spacing my-0'>
                         <h4 className='mb-0 fw-bolder'>Nuevo país</h4>
                      </div>
+                  </div>
 
-                     <Input
-                        value={name}
-                        setValue={handleName}
-                        title={'Nombre'}
-                        placeholder='Ingrese el nombre del país'
-                        containerClass='col-md-4 col-12 mb-1'
-                        error={nameError}
-                     />
+                  <hr className='invoice-spacing' />
 
-                     <Select
-                        value={locale}
-                        setValue={handleLocale}
-                        title='Código local'
-                        placeholder='Seleccione un código'
-                        options={locales.map(loc => ({ value: loc, text: loc}))}
-                        containerClass='col-md-4 col-12 mb-1'
-                        error={localeError}
-                     />
+                  <div className='card-body invoice-padding py-0'>
+                     <div className='row'>
+                        <Input
+                           value={name}
+                           setValue={handleName}
+                           title={'Nombre'}
+                           placeholder='Ingrese el nombre del país'
+                           containerClass='col-md-4 col-12 mb-1'
+                           error={nameError}
+                        />
 
-                     <Input
-                        value={phoneExtension}
-                        setValue={handlePhoneExtension}
-                        title={'Extensión telefónica'}
-                        placeholder='Ingrese la extensión telefónica. Ejemplo: +58'
-                        containerClass='col-md-4 col-12 mb-1'
-                        error={phoneExtensionError}
-                     />
+                        <Select
+                           value={locale}
+                           setValue={handleLocale}
+                           title='Código local'
+                           placeholder='Seleccione un código'
+                           options={locales.map(loc => ({ value: loc, text: loc}))}
+                           containerClass='col-md-4 col-12 mb-1'
+                           error={localeError}
+                        />
 
-                     <div className='col-12 d-flex justify-content-between'>
-                        <button
-                           type='reset'
-                           className='btn btn-outline-secondary waves-effect'
-                           onClick={handleDiscard}
-                        >Descartar</button>
-
-                        <button
-                           type='submit'
-                           className='btn btn-primary waves-effect waves-float waves-light'
-                        >Guardar</button>
+                        <Input
+                           value={phoneExtension}
+                           setValue={handlePhoneExtension}
+                           title={'Extensión telefónica'}
+                           placeholder='Ingrese la extensión telefónica. Ejemplo: +58'
+                           containerClass='col-md-4 col-12 mb-1'
+                           error={phoneExtensionError}
+                        />
                      </div>
-                  </form>
-               </Section>
+                  </div>
+
+                  <hr className='invoice-spacing' />
+
+                  <div className='card-body invoice-padding pt-0'>
+                     <div className='row'>
+                        <div className='col-12 d-flex justify-content-between'>
+                           <button
+                              type='reset'
+                              className='btn btn-outline-secondary waves-effect'
+                              onClick={handleDiscard}
+                           >Descartar</button>
+
+                           <button
+                              type='submit'
+                              className='btn btn-primary waves-effect waves-float waves-light'
+                           >Guardar</button>
+                        </div>
+                     </div>
+                  </div>
+               </form>
             </div>
             
             <div className='col-xl-3 col-md-4 col-12 invoice-actions mt-md-0 mt-2'>
@@ -204,7 +218,6 @@ const CountriesCreate = () => {
                </div>
             </div>
          </div>
-         
 
          <LoadingResponse state={loadingCreate} />
       </>
