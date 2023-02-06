@@ -61,7 +61,7 @@ const CountriesCreate = () => {
          dispatch(setCountriesError('locale', null));
          dispatch(setCountriesError('phoneExtension', null));
       }
-   }, []);
+   }, [dispatch]);
 
    // Errors and valids
    const handleInvalidName = (name) => {
