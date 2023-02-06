@@ -1,4 +1,5 @@
-import { simpleSuccessToast } from '../helpers/alerts';
+import { arrayErrorToast, simpleConfirmDialog, simpleSuccessToast } from '../helpers/alerts';
+import { getPaginationQuery } from '../helpers/pagination';
 import { request } from '../helpers/request';
 import { types } from '../reducers/countriesReducer';
 
@@ -18,6 +19,8 @@ export const setCountriesError = (key, error) => ({
 
 export const startCreateCountry = ({name, locale, phoneExtension}, navigate) => {
    return async dispatch => {
+      dispatch(setLoading('create', true));
+
       try {
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
@@ -49,5 +52,97 @@ export const startCreateCountry = ({name, locale, phoneExtension}, navigate) => 
          dispatch(setCountriesError('locale', errors.find(err => err.param === 'locale')?.msg || null));
          dispatch(setCountriesError('phoneExtension', errors.find(err => err.param === 'phoneExtension')?.msg || null));
       }
+
+      dispatch(setLoading('create', false));
+   }
+}
+
+export const setCountries = (rows, count, pages) => ({
+   type: types.SET_COUNTRIES,
+   payload: { rows, count, pages }
+});
+
+export const startGetCountries = (page, perPage) => {
+   return async dispatch => {
+      dispatch(setLoading('table', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: `/countries?${getPaginationQuery(page, perPage)}`,
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            }
+         });
+
+         const { rows, count, pages } = response.data;
+
+         const mappedRows = rows.map(row => {
+            const splitted = row.name.split(' ');
+
+            const formated = splitted.map(word => {
+               const first = word.charAt(0).toLocaleUpperCase();
+               const rest = word.substring(1, word.length);
+
+               return first + rest;
+            });
+
+            const join = formated.join(' ');
+
+            return {
+               ...row,
+               name: join
+            }
+         });
+
+         dispatch(setCountries(mappedRows, count, pages));
+      } catch (error) {
+         console.log(error);
+
+         // TODO: manejar error de permiso
+      }
+      
+      dispatch(setLoading('table', false));
+   }
+}
+
+export const startDeleteCountry = (id, page, perPage) => {
+   return async dispatch => {
+      try {
+         const { isConfirmed } = await simpleConfirmDialog('warning', '¿Está seguro?', '¿Desea eliminar el país seleccionado?');
+
+         if (isConfirmed) {
+            dispatch(setLoading('delete', true));
+
+            const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+            const response = await request({
+               path: `/countries/${id}`,
+               method: 'DELETE',
+               headers: {
+                  'Content-Type': 'application/json',
+                  'x-token': token
+               }
+            });
+
+            const { name } = response.data;
+
+            const countryName = name.charAt(0).toLocaleUpperCase() + name.substring(1, name.length);
+
+            simpleSuccessToast(`El país: ${countryName}, fue eliminado satisfactoriamente`);
+         }
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
+      }
+
+      dispatch(startGetCountries(page, perPage));
+
+      dispatch(setLoading('delete', false));
    }
 }
