@@ -22,7 +22,7 @@ export const simpleSuccessToast = (message) => {
       toast: true,
       timer: 3000,
       position: 'bottom-end',
-      width: 250,
+      width: 300,
       showConfirmButton: false,
    });
 }
