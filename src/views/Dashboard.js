@@ -26,7 +26,7 @@ const Dashboard = () => {
    }, [dispatch]);
 
    return (
-      <Section>Dashboard</Section>
+      <Section className='my-2'>Dashboard</Section>
    );
 }
 
