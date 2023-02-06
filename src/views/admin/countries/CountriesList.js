@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 // Actions
-import { startDeleteCountry, startGetCountries } from '../../../actions/countries';
+import { setCountries, startDeleteCountry, startGetCountries } from '../../../actions/countries';
 import { setBreadcrumb } from '../../../actions/ui';
 
 
@@ -54,8 +54,14 @@ const CountriesList = () => {
       dispatch(startGetCountries(currentPage, perPage));
    }, [dispatch, currentPage, perPage]);
 
+   useEffect(() => {
+      return () => {
+         dispatch(setCountries([], null, null));
+      }
+   }, [dispatch]);
+
    // handle delete
-   const handleDelete = (id) => dispatch(startDeleteCountry(id, currentPage, perPage));
+   const handleDelete = (id) => dispatch(startDeleteCountry(id, { currentPage, perPage }));
 
    return (
       <div className='card mt-2 position-relative'>
