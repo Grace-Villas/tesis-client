@@ -150,6 +150,10 @@ const CountriesEdit = () => {
       setName(country?.name);
       setPhoneExtension(country?.phoneExtension);
       setLocale(country?.locale);
+      
+      dispatch(setCountriesError('name', null));
+      dispatch(setCountriesError('locale', null));
+      dispatch(setCountriesError('phoneExtension', null));
    }
 
    return (

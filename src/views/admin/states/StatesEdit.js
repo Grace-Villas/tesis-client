@@ -133,6 +133,9 @@ const StatesEdit = () => {
    const handleDiscard = () => {
       setName(state?.name);
       setCountryId(state?.countryId);
+      
+      dispatch(setStatesError('name', null));
+      dispatch(setStatesError('countryId', null));
    }
 
    return (

@@ -118,6 +118,9 @@ const StatesCreate = () => {
    const handleDiscard = () => {
       setName('');
       setCountryId('');
+      
+      dispatch(setStatesError('name', null));
+      dispatch(setStatesError('countryId', null));
    }
 
    return (
