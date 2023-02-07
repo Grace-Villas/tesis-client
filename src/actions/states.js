@@ -37,7 +37,7 @@ export const startCreateState = ({ name, countryId }, navigate) => {
 
          const { id, name: createdName } = response.data;
 
-         const stateName = createdName.charAt(0).toLocaleUpperCase() + createdName.slice(1);
+         const stateName = capitalizeAllWords(createdName);
 
          simpleSuccessToast(`El estado: ${stateName}, fue creado satisfactoriamente`);
 
@@ -127,7 +127,7 @@ export const startDeleteState = (id, { page, perPage, navigate }) => {
 
             const { name } = response.data;
 
-            const stateName = name.charAt(0).toLocaleUpperCase() + name.slice(1);
+            const stateName = capitalizeAllWords(name);
 
             simpleSuccessToast(`El estado: ${stateName}, fue eliminado satisfactoriamente`);
 
@@ -206,7 +206,7 @@ export const startUpdateState = (id, { name, countryId }) => {
 
          const state = response.data;
 
-         const stateName = state.name.charAt(0).toLocaleUpperCase() + state.name.slice(1);
+         const stateName = capitalizeAllWords(state.name);
 
          simpleSuccessToast(`El estado: ${stateName}, fue actualizado satisfactoriamente`);
 

@@ -2,6 +2,18 @@
 
 
 /**
+ * Función para capitalizar un texto
+ * @param {string} string texto a capitalizar
+ * @returns {string}
+ */
+export const capitalize = (string) => {
+   const first = string.charAt(0).toLocaleUpperCase();
+   const rest = string.slice(1);
+   
+   return first + rest;
+}
+
+/**
  * Función para capitalizar todas las palabras de un texto
  * @param {string} string texto a capitalizar
  * @returns {string}

@@ -1,3 +1,5 @@
+import { capitalize } from "../helpers/format";
+
 export const types = {
    SET_ERROR: '[AUTH] set settings error',
 
@@ -32,9 +34,7 @@ export const settingsReducer = (state = initialState, action) => {
          }
 
       case types.SET_LOADING: {
-         const first = action.payload.key.charAt(0).toLocaleUpperCase();
-         const rest = action.payload.key.substring(1, action.payload.key.length);
-         const key = first + rest;
+         const key = capitalize(action.payload.key);
 
          return {
             ...state,

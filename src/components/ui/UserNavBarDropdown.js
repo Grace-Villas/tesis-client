@@ -14,6 +14,11 @@ import Icon from './Icon';
 
 
 
+// Helpers
+import { capitalizeAllWords } from '../../helpers/format';
+
+
+
 const UserNavBarDropdown = () => {
 
    const dispatch = useDispatch();
@@ -25,15 +30,7 @@ const UserNavBarDropdown = () => {
    const [isOpen, setIsOpen] = useState(false);
 
    useEffect(() => {
-      const splitted = name?.split(' ') || [];
-
-      const capitalized = splitted.map(word => {
-         const first = word.charAt(0).toLocaleUpperCase();
-         const rest = word.substring(1, word.length);
-         return first + rest;
-      });
-
-      const toDisplay = capitalized.join(' ');
+      const toDisplay = capitalizeAllWords(name);
 
       setDisplayName(toDisplay);
    }, [name]);
