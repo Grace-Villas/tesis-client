@@ -161,7 +161,7 @@ const StatesEdit = () => {
                            setValue={handleName}
                            title={'Nombre'}
                            placeholder='Ingrese el nombre del estado'
-                           containerClass='col-md-4 col-12 mb-1'
+                           containerClass='col-md-6 col-12 mb-1'
                            error={nameError}
                         />
 
@@ -171,7 +171,7 @@ const StatesEdit = () => {
                            title='País'
                            placeholder='Seleccione un país'
                            options={countriesList}
-                           containerClass='col-md-4 col-12 mb-1'
+                           containerClass='col-md-6 col-12 mb-1'
                            error={countryIdError}
                            disabled={loadingCountriesList}
                         />
