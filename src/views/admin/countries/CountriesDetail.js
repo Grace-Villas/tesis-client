@@ -40,7 +40,7 @@ const CountriesDetail = () => {
             text: 'Países'
          },
          {
-            text: country?.formatedName
+            text: country?.name
          }
       ]));
    }, [dispatch, country]);
@@ -93,7 +93,7 @@ const CountriesDetail = () => {
                                  <tr>
                                     <td className='pe-1'>Nombre:</td>
 
-                                    <td className='text-end fw-bolder'>{country?.formatedName}</td>
+                                    <td className='text-end fw-bolder'>{country?.name}</td>
                                  </tr>
 
                                  <tr>
