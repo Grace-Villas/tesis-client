@@ -148,7 +148,7 @@ export const startDeleteCountry = (id, { page, perPage, navigate }) => {
       if (!navigate) {
          dispatch(startGetCountries(page, perPage));
       } else {
-         navigate('/countries')
+         navigate('/countries');
       }
 
       dispatch(setLoading('delete', false));
