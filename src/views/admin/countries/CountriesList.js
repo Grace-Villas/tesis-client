@@ -62,7 +62,7 @@ const CountriesList = () => {
    }, [dispatch]);
 
    // handle delete
-   const handleDelete = (id) => dispatch(startDeleteCountry(id, { currentPage, perPage }));
+   const handleDelete = (id) => dispatch(startDeleteCountry(id, { page: currentPage, perPage }));
 
    return (
       <div className='card mt-2 position-relative'>
