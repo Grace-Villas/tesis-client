@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Select = ({
    value, setValue, title, options, placeholder,
    containerClass,
-   error
+   error, disabled
 }) => {
 
    const handleValue = (e) => setValue(e.target.value);
@@ -29,6 +29,7 @@ const Select = ({
             value={value}
             onChange={handleValue}
             id={title}
+            disabled={disabled}
          >
             <option value=''>{placeholder}</option>
 
@@ -73,6 +74,7 @@ Select.propTypes = {
    containerClass: PropTypes.string,
 
    error: PropTypes.string,
+   disabled: PropTypes.bool
 }
 
 Select.defaultProps = {
@@ -81,6 +83,7 @@ Select.defaultProps = {
    containerClass: '',
    
    error: null,
+   disabled: false
 }
 
 
