@@ -31,7 +31,7 @@ const Select = ({
             id={title}
             disabled={disabled}
          >
-            <option value=''>{placeholder}</option>
+            <option value='' disabled>{placeholder}</option>
 
             {
                options.map(op => (
