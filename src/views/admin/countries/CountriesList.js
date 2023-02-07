@@ -57,6 +57,7 @@ const CountriesList = () => {
    useEffect(() => {
       return () => {
          dispatch(setCountries([], null, null));
+         dispatch(setBreadcrumb([]));
       }
    }, [dispatch]);
 

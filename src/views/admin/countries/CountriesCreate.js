@@ -59,6 +59,8 @@ const CountriesCreate = () => {
          dispatch(setCountriesError('name', null));
          dispatch(setCountriesError('locale', null));
          dispatch(setCountriesError('phoneExtension', null));
+         
+         dispatch(setBreadcrumb([]));
       }
    }, [dispatch]);
 
