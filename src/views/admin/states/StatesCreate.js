@@ -69,7 +69,7 @@ const StatesCreate = () => {
    const handleInvalidName = (name) => {
       if (name.trim().length === 0) {
          return 'El nombre es obligatorio';
-      } else if (!/^[a-zA-Z]+$/.test(name)) {
+      } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/.test(name)) {
          return 'El nombre debe contener solo letras'
       } else {
          return null;
