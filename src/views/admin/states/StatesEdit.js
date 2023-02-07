@@ -19,7 +19,6 @@ import Select from '../../../components/form/Select';
 
 
 // Data
-import locales from '../../../data/locales.json';
 import LoadingComponent from '../../../components/ui/spinners/LoadingComponent';
 
 
