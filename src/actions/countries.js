@@ -1,4 +1,5 @@
 import { arrayErrorToast, simpleConfirmDialog, simpleSuccessToast } from '../helpers/alerts';
+import { capitalizeAllWords } from '../helpers/format';
 import { getPaginationQuery } from '../helpers/pagination';
 import { request } from '../helpers/request';
 import { types } from '../reducers/countriesReducer';
@@ -81,23 +82,10 @@ export const startGetCountries = (page, perPage) => {
 
          const { rows, count, pages } = response.data;
 
-         const mappedRows = rows.map(row => {
-            const splitted = row.name.split(' ');
-
-            const formated = splitted.map(word => {
-               const first = word.charAt(0).toLocaleUpperCase();
-               const rest = word.slice(1);
-
-               return first + rest;
-            });
-
-            const join = formated.join(' ');
-
-            return {
-               ...row,
-               name: join
-            }
-         });
+         const mappedRows = rows.map(row => ({
+            ...row,
+            name: capitalizeAllWords(row.name)
+         }));
 
          dispatch(setCountries(mappedRows, count, pages));
       } catch (error) {
@@ -233,5 +221,45 @@ export const startUpdateCountry = (id, { name, locale, phoneExtension }) => {
       }
 
       dispatch(setLoading('update', false));
+   }
+}
+
+export const setCountriesList = (rows) => ({
+   type: types.SET_COUNTRIES_LIST,
+   payload: rows
+});
+
+export const startGetCountriesList = () => {
+   return async dispatch => {
+      dispatch(setLoading('list', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: '/countries',
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            }
+         });
+
+         const rows = response.data;
+
+         const mappedRows = rows.map(row => ({
+            text: capitalizeAllWords(row.name),
+            value: row.id
+         }));
+
+         dispatch(setCountriesList(mappedRows));
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
+      }
+      
+      dispatch(setLoading('list', false));
    }
 }
