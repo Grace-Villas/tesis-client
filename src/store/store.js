@@ -7,6 +7,7 @@ import {
    authReducer,
    countriesReducer,
    settingsReducer,
+   statesReducer,
    tablesReducer,
    uiReducer,
 } from "../reducers";
@@ -28,6 +29,7 @@ const reducers = combineReducers({
    auth: authReducer,
    countries: countriesReducer,
    settings: settingsReducer,
+   states: statesReducer,
    tables: tablesReducer,
    ui: uiReducer,
 });
