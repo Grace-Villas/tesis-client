@@ -22,7 +22,7 @@ const Select = ({
 
    return (
       <div className={containerClass}>
-         <label className="form-label" htmlFor={title}>{title}</label>
+         <label className='form-label' htmlFor={title}>{title}</label>
 
          <select
             className={handleSelectClass()}
