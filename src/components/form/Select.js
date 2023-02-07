@@ -55,7 +55,10 @@ const Select = ({
 
 
 Select.propTypes = {
-   value: PropTypes.string.isRequired,
+   value: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string
+   ]).isRequired,
    setValue: PropTypes.func.isRequired,
    title: PropTypes.string.isRequired,
    options: PropTypes.arrayOf(
