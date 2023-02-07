@@ -92,7 +92,7 @@ const StatesEdit = () => {
 
    const handleInvalidCountryId = (countryId) => {
       if (countryId === '') {
-         return 'El código local es obligatorio';
+         return 'El país es obligatorio';
       } else {
          return null;
       }
