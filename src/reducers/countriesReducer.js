@@ -28,8 +28,6 @@ const initialState = {
    // Detail
    country: null,
 
-   detailError: null,
-
    loadingDetail: true,
 
    // Update
