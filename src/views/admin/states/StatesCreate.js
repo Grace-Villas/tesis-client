@@ -142,7 +142,7 @@ const StatesCreate = () => {
                            value={name}
                            setValue={handleName}
                            title={'Nombre'}
-                           placeholder='Ingrese el nombre del país'
+                           placeholder='Ingrese el nombre del estado'
                            containerClass='col-md-4 col-12 mb-1'
                            error={nameError}
                         />
