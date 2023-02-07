@@ -219,7 +219,7 @@ export const startUpdateState = (id, { name, countryId }) => {
          dispatch(setStatesError('name', errors.find(err => err.param === 'name')?.msg || null));
          dispatch(setStatesError('countryId', errors.find(err => err.param === 'countryId')?.msg || null));
 
-         arrayErrorToast(errors.filter(error => !['name', 'countryId', 'phoneExtension'].includes(error.param)).map(error => error.msg));
+         arrayErrorToast(errors.filter(error => !['name', 'countryId'].includes(error.param)).map(error => error.msg));
       }
 
       dispatch(setLoading('update', false));
