@@ -76,8 +76,8 @@ const StatesCreate = () => {
       }
    }
 
-   const handleInvalidCountryId = (locale) => {
-      if (locale === '') {
+   const handleInvalidCountryId = (countryId) => {
+      if (countryId === '') {
          return 'El país es obligatorio';
       } else {
          return null;
@@ -93,8 +93,8 @@ const StatesCreate = () => {
    }
 
    const handleCountryId = (value) => {
-      const localeE = handleInvalidCountryId(value);
-      dispatch(setStatesError('countryId', localeE));
+      const countryIdE = handleInvalidCountryId(value);
+      dispatch(setStatesError('countryId', countryIdE));
 
       setCountryId(value);
    }
