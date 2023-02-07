@@ -5,7 +5,7 @@ export const types = {
 
    SET_COUNTRIES: '[COUNTRIES] set table data',
 
-   SET_COUNTRY_DATA: '[COOUNTRIES] set country data'
+   SET_COUNTRY_DATA: '[COUNTRIES] set country data'
 }
 
 
