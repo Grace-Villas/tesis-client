@@ -124,6 +124,12 @@ export const startDeleteCountry = (id, { page, perPage, navigate }) => {
             const countryName = name.charAt(0).toLocaleUpperCase() + name.slice(1);
 
             simpleSuccessToast(`El país: ${countryName}, fue eliminado satisfactoriamente`);
+
+            if (!navigate) {
+               dispatch(startGetCountries(page, perPage));
+            } else {
+               navigate('/countries');
+            }
          }
       } catch (error) {
          console.log(error);
@@ -131,12 +137,6 @@ export const startDeleteCountry = (id, { page, perPage, navigate }) => {
          const { errors } = error.response.data;
 
          arrayErrorToast(errors.map(error => error.msg));
-      }
-
-      if (!navigate) {
-         dispatch(startGetCountries(page, perPage));
-      } else {
-         navigate('/countries');
       }
 
       dispatch(setLoading('delete', false));
@@ -165,11 +165,7 @@ export const startGetCountry = (id) => {
 
          const country = response.data;
 
-         const splitName = country.name.split(' ');
-
-         const mappedName = splitName.map(word => word.charAt(0).toLocaleUpperCase() + word.slice(1));
-
-         country.formatedName = mappedName.join(' ');
+         country.name = capitalizeAllWords(country.name);
 
          dispatch(setCountry(country));
       } catch (error) {
