@@ -225,3 +225,44 @@ export const startUpdateState = (id, { name, countryId }) => {
       dispatch(setLoading('update', false));
    }
 }
+
+export const setStatesList = (rows) => ({
+   type: types.SET_STATES_LIST,
+   payload: rows
+});
+
+export const startGetStatesList = () => {
+   return async dispatch => {
+      dispatch(setLoading('list', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: '/states',
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            }
+         });
+
+         const rows = response.data;
+
+         const mappedRows = rows.map(row => ({
+            text: capitalizeAllWords(row.name),
+            value: row.id,
+            countryId: row.countryId
+         }));
+
+         dispatch(setStatesList(mappedRows));
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
+      }
+      
+      dispatch(setLoading('list', false));
+   }
+}

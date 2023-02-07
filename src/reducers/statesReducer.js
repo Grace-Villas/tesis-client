@@ -7,7 +7,9 @@ export const types = {
 
    SET_STATES: '[STATES] set table data',
 
-   SET_STATE_DATA: '[STATES] set state data'
+   SET_STATE_DATA: '[STATES] set state data',
+
+   SET_STATES_LIST: '[STATES] set countries list'
 }
 
 
@@ -36,6 +38,11 @@ const initialState = {
 
    // Delete
    loadingDelete: false,
+
+   // List
+   statesList: [],
+
+   loadingList: true,
 }
 
 
@@ -69,6 +76,12 @@ export const statesReducer = (state = initialState, action) => {
          return {
             ...state,
             state: action.payload
+         }
+
+      case types.SET_STATES_LIST:
+         return {
+            ...state,
+            statesList: action.payload
          }
 
       default:
