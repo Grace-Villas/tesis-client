@@ -32,6 +32,9 @@ const initialState = {
 
    loadingDetail: true,
 
+   // Update
+   loadingUpdate: false,
+
    // Delete
    loadingDelete: false,
 }

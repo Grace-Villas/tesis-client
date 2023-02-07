@@ -17,7 +17,7 @@ export const setCountriesError = (key, error) => ({
    payload: { key, error }
 });
 
-export const startCreateCountry = ({name, locale, phoneExtension}, navigate) => {
+export const startCreateCountry = ({ name, locale, phoneExtension }, navigate) => {
    return async dispatch => {
       dispatch(setLoading('create', true));
 
@@ -38,7 +38,7 @@ export const startCreateCountry = ({name, locale, phoneExtension}, navigate) => 
 
          const { id, name: createdName } = response.data;
 
-         const countryName = createdName.charAt(0).toLocaleUpperCase() + createdName.substring(1, createdName.length);
+         const countryName = createdName.charAt(0).toLocaleUpperCase() + createdName.slice(1);
 
          simpleSuccessToast(`El país: ${countryName}, fue creado satisfactoriamente`);
 
@@ -51,6 +51,8 @@ export const startCreateCountry = ({name, locale, phoneExtension}, navigate) => 
          dispatch(setCountriesError('name', errors.find(err => err.param === 'name')?.msg || null));
          dispatch(setCountriesError('locale', errors.find(err => err.param === 'locale')?.msg || null));
          dispatch(setCountriesError('phoneExtension', errors.find(err => err.param === 'phoneExtension')?.msg || null));
+
+         arrayErrorToast(errors.filter(error => !['name', 'locale', 'phoneExtension'].includes(error.param)).map(error => error.msg));
       }
 
       dispatch(setLoading('create', false));
@@ -84,7 +86,7 @@ export const startGetCountries = (page, perPage) => {
 
             const formated = splitted.map(word => {
                const first = word.charAt(0).toLocaleUpperCase();
-               const rest = word.substring(1, word.length);
+               const rest = word.slice(1);
 
                return first + rest;
             });
@@ -131,7 +133,7 @@ export const startDeleteCountry = (id, { page, perPage, navigate }) => {
 
             const { name } = response.data;
 
-            const countryName = name.charAt(0).toLocaleUpperCase() + name.substring(1, name.length);
+            const countryName = name.charAt(0).toLocaleUpperCase() + name.slice(1);
 
             simpleSuccessToast(`El país: ${countryName}, fue eliminado satisfactoriamente`);
          }
@@ -185,9 +187,51 @@ export const startGetCountry = (id) => {
       } catch (error) {
          console.log(error);
 
-         // TODO: manejar error de permiso
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
       }
       
       dispatch(setLoading('detail', false));
+   }
+}
+
+export const startUpdateCountry = (id, { name, locale, phoneExtension }) => {
+   return async dispatch => {
+      dispatch(setLoading('update', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: `/countries/${id}`,
+            method: 'PUT',
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            },
+            body: { name, locale, phoneExtension }
+         });
+
+         const country = response.data;
+
+         const countryName = country.name.charAt(0).toLocaleUpperCase() + country.name.slice(1);
+
+         simpleSuccessToast(`El país: ${countryName}, fue actualizado satisfactoriamente`);
+
+         dispatch(setCountry(country));
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         dispatch(setCountriesError('name', errors.find(err => err.param === 'name')?.msg || null));
+         dispatch(setCountriesError('locale', errors.find(err => err.param === 'locale')?.msg || null));
+         dispatch(setCountriesError('phoneExtension', errors.find(err => err.param === 'phoneExtension')?.msg || null));
+
+         arrayErrorToast(errors.filter(error => !['name', 'locale', 'phoneExtension'].includes(error.param)).map(error => error.msg));
+      }
+
+      dispatch(setLoading('update', false));
    }
 }
