@@ -5,6 +5,7 @@ import { composeWithDevTools } from "@redux-devtools/extension";
 // Importaciones de los reducers
 import {
    authReducer,
+   citiesReducer,
    countriesReducer,
    settingsReducer,
    statesReducer,
@@ -27,6 +28,7 @@ const composedEnhancers = composeWithDevTools(...enhancers);
 const reducers = combineReducers({
    // Lista de reducers
    auth: authReducer,
+   cities: citiesReducer,
    countries: countriesReducer,
    settings: settingsReducer,
    states: statesReducer,
