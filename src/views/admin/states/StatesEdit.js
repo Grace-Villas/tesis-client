@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Actions
 import { setLoading, setState, setStatesError, startGetState, startUpdateState } from '../../../actions/states';
-import { startGetCountriesList } from '../../../actions/countries';
+import { setCountriesList, startGetCountriesList } from '../../../actions/countries';
 import { setBreadcrumb } from '../../../actions/ui';
 
 
@@ -75,6 +75,8 @@ const StatesEdit = () => {
          dispatch(setStatesError('countryId', null));
 
          dispatch(setState(null));
+
+         dispatch(setCountriesList([]));
       }
    }, [dispatch]);
 
