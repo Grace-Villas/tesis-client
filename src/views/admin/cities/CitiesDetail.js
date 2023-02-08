@@ -87,7 +87,7 @@ const CitiesDetail = () => {
 
                   <div className='card-body invoice-padding pt-0'>
                      <div className='row'>
-                        <div className='col-xl-6 p-0 mt-xl-0 mt-2 mx-xl-auto'>
+                        <div className='col-xl-6 p-0 mx-xl-auto'>
                            <table className='w-100'>
                               <tbody>
                                  <tr>
