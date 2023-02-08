@@ -17,7 +17,8 @@ const initialState = {
    loadingSecurity: false,
 
    // Cuenta
-   nameError: null,
+   firstNameError: null,
+   lastNameError: null,
    emailError: null,
 
    loadingAccount: false

@@ -16,7 +16,7 @@ export const setSettingsError = (key, error) => ({
    payload: { key, error }
 });
 
-export const startUpdateAccount = (name, email) => {
+export const startUpdateAccount = (firstName, lastName, email) => {
    return async (dispatch, getState) => {
       dispatch(setLoading('account', true));
 
@@ -32,12 +32,14 @@ export const startUpdateAccount = (name, email) => {
                'Content-Type': 'application/json',
                'x-token': token
             },
-            body: { name, email }
+            body: { firstName, lastName, email }
          });
 
          const user = response.data;
 
-         dispatch(setAuthAttribute('name', user.name));
+         dispatch(setAuthAttribute('firstName', user.firstName));
+         dispatch(setAuthAttribute('lastName', user.lastName));
+         dispatch(setAuthAttribute('fullName', user.fullName));
          dispatch(setAuthAttribute('email', user.email));
 
          simpleSuccessToast('Cuenta actualizada satisfactoriamente');

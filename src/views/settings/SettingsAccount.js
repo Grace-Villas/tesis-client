@@ -22,22 +22,25 @@ const SettingsAccount = () => {
 
    const auth = useSelector(state => state.auth);
 
-   const { nameError, emailError, loadingAccount } = useSelector(state => state.settings);
+   const { firstNameError, lastNameError, emailError, loadingAccount } = useSelector(state => state.settings);
 
-   const [name, setName] = useState('');
+   const [firstName, setFirstName] = useState('');
+   const [lastName, setLastName] = useState('');
    const [email, setEmail] = useState('');
 
    useEffect(() => {
-      setName(auth.name);
+      setFirstName(auth.firstName);
+      setLastName(auth.lastName);
       setEmail(auth.email);
-   }, [auth.name, auth.email]);
+   }, [auth.firstName, auth.lastName, auth.email]);
 
    useEffect(() => {
       return () => {
-         setName(auth.name);
+         setFirstName(auth.firstName);
+         setLastName(auth.lastName);
          setEmail(auth.email);
       }
-   }, [auth.name, auth.email]);
+   }, [auth.firstName, auth.lastName, auth.email]);
 
    useEffect(() => {
       dispatch(setBreadcrumb([
@@ -56,16 +59,24 @@ const SettingsAccount = () => {
    }, [dispatch]);
 
    // Errors and valids
-   const handleInvalidName = (name) => {
-      if (name.trim().length === 0) {
+   const handleInvalidFirstName = (firstName) => {
+      if (firstName.trim().length === 0) {
          return 'El nombre es obligatorio';
       } else {
          return null;
       }
    }
 
-   const handleValidName = () => {
-      if (name !== auth.name && name.trim().length > 0) {
+   const handleInvalidLastName = (lastName) => {
+      if (lastName.trim().length === 0) {
+         return 'El apellido es obligatorio';
+      } else {
+         return null;
+      }
+   }
+
+   const handleValidName = (value, current) => {
+      if (value !== current && value.trim().length > 0) {
          return true;
       } else {
          return null;
@@ -91,11 +102,18 @@ const SettingsAccount = () => {
    }
 
    // Handlers
-   const handleName = (value) => {
-      const nameE = handleInvalidName(value);
-      dispatch(setSettingsError('name', nameE));
+   const handleFirstName = (value) => {
+      const firstNameE = handleInvalidFirstName(value);
+      dispatch(setSettingsError('firstName', firstNameE));
 
-      setName(value);
+      setFirstName(value);
+   }
+
+   const handleLastName = (value) => {
+      const lastNameE = handleInvalidLastName(value);
+      dispatch(setSettingsError('lastName', lastNameE));
+
+      setLastName(value);
    }
 
    const handleEmail = (value) => {
@@ -110,20 +128,24 @@ const SettingsAccount = () => {
       e.preventDefault();
 
       // Manejadores de error
-      const nameE = handleInvalidName(name);
-      dispatch(setSettingsError('name', nameE));
+      const firstNameE = handleInvalidFirstName(firstName);
+      dispatch(setSettingsError('firstName', firstNameE));
+
+      const lastNameE = handleInvalidLastName(lastName);
+      dispatch(setSettingsError('lastName', lastNameE));
 
       const emailE = handleInvalidEmail(email);
       dispatch(setSettingsError('email', emailE));
 
-      if (!nameE && !emailE) {
-         dispatch(startUpdateAccount(name, email));
+      if (!firstNameE && !lastNameE && !emailE) {
+         dispatch(startUpdateAccount(firstName, lastName, email));
       }
    }
 
    // Reset form
    const handleDiscard = () => {
-      setName(auth.name);
+      setFirstName(auth.firstName);
+      setLastName(auth.lastName);
       setEmail(auth.email);
    }
    
@@ -138,13 +160,23 @@ const SettingsAccount = () => {
                <form className='validate-form pt-50' onSubmit={handleSubmit}>
                   <div className='row'>
                      <Input
-                        value={name}
-                        setValue={handleName}
+                        value={firstName}
+                        setValue={handleFirstName}
                         title='Nombre'
                         placeholder='Ingrese su nombre...'
-                        containerClass='col-12 col-sm-6 mb-1'
-                        error={nameError}
-                        isValid={handleValidName()}
+                        containerClass='col-12 col-sm-4 mb-1'
+                        error={firstNameError}
+                        isValid={handleValidName(firstName, auth.firstName)}
+                     />
+
+                     <Input
+                        value={lastName}
+                        setValue={handleLastName}
+                        title='Apellido'
+                        placeholder='Ingrese su apellido..'
+                        containerClass='col-12 col-sm-4 mb-1'
+                        error={lastNameError}
+                        isValid={handleValidName(lastName, auth.lastName)}
                      />
 
                      <Input
@@ -152,7 +184,7 @@ const SettingsAccount = () => {
                         setValue={handleEmail}
                         title='Correo'
                         placeholder='Ingrese su correo...'
-                        containerClass='col-12 col-sm-6 mb-1'
+                        containerClass='col-12 col-sm-4 mb-1'
                         error={emailError}
                         isValid={handleValidEmail()}
                      />
@@ -160,7 +192,7 @@ const SettingsAccount = () => {
                      <div className='col-12'>
                         <button
                            type='submit'
-                           disabled={name === auth.name && email === auth.email}
+                           disabled={firstName === auth.firstName && lastName === auth.lastName && email === auth.email}
                            className='btn btn-primary mt-1 me-1 waves-effect waves-float waves-light'
                         >Guardar cambios</button>
 

@@ -23,17 +23,17 @@ const UserNavBarDropdown = () => {
 
    const dispatch = useDispatch();
 
-   const { name } = useSelector(state => state.auth);
+   const { fullName } = useSelector(state => state.auth);
 
    const [displayName, setDisplayName] = useState('');
 
    const [isOpen, setIsOpen] = useState(false);
 
    useEffect(() => {
-      const toDisplay = capitalizeAllWords(name);
+      const toDisplay = capitalizeAllWords(fullName);
 
       setDisplayName(toDisplay);
-   }, [name]);
+   }, [fullName]);
 
    const handleDropdown = (e) => {
       e.preventDefault();
