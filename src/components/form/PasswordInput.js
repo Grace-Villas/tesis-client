@@ -60,7 +60,7 @@ const PasswordInput = ({
                className='input-group-text cursor-pointer'
                onClick={handleToggle}
             >
-               <Icon icon='Eye' size={14} />
+               <Icon icon={!show ? 'Eye' : 'EyeOff'} size={14} />
             </div>
          </div>
 
