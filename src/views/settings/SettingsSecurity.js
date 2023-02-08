@@ -11,7 +11,7 @@ import { setBreadcrumb } from '../../actions/ui';
 
 // Components
 import LoadingResponse from '../../components/ui/spinners/LoadingResponse';
-import SettingsPasswordInput from '../../components/settings/SettingsPasswordInput';
+import PasswordInput from '../../components/form/PasswordInput';
 
 
 
@@ -113,7 +113,7 @@ const SettingsSecurity = () => {
             <div className="card-body pt-1">
                <form className="validate-form" onSubmit={handleSubmit}>
                   <div className="row">
-                     <SettingsPasswordInput
+                     <PasswordInput
                         value={oldPassword}
                         setValue={handleOldPassword}
                         title='Contraseña actual'
@@ -124,7 +124,7 @@ const SettingsSecurity = () => {
                   </div>
 
                   <div className="row">
-                     <SettingsPasswordInput
+                     <PasswordInput
                         value={newPassword}
                         setValue={handleNewPassword}
                         title='Nueva contraseña'
@@ -133,7 +133,7 @@ const SettingsSecurity = () => {
                         error={newPasswordError}
                      />
 
-                     <SettingsPasswordInput
+                     <PasswordInput
                         value={repeatNewPassword}
                         setValue={handleRepeatNewPassword}
                         title='Repita su nueva contraseña'
