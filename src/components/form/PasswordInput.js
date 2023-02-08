@@ -1,16 +1,20 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
+
 
 
 // Components
-import Icon from "../ui/Icon";
+import Icon from '../ui/Icon';
 
 
 
-const SettingsPasswordInput = ({
+const PasswordInput = ({
    value, setValue, title, placeholder,
    containerClass,
    error
 }) => {
+
+   const [show, setShow] = useState(false);
 
    const handleValue = (e) => {
       setValue(e.target.value);
@@ -36,13 +40,15 @@ const SettingsPasswordInput = ({
       return className;
    }
 
+   const handleToggle = () => setShow(!show);
+
    return (
       <div className={containerClass}>
-         <label className="form-label" htmlFor={title}>{title}</label>
+         <label className='form-label' htmlFor={title}>{title}</label>
          
          <div className={handleWrapperClass()}>
             <input
-               type="password"
+               type={show ? 'text' : 'password'}
                className={handleInputClass()}
                id={title}
                placeholder={placeholder}
@@ -50,7 +56,10 @@ const SettingsPasswordInput = ({
                onChange={handleValue}
             />
 
-            <div className="input-group-text cursor-pointer">
+            <div
+               className='input-group-text cursor-pointer'
+               onClick={handleToggle}
+            >
                <Icon icon='Eye' size={14} />
             </div>
          </div>
@@ -66,7 +75,7 @@ const SettingsPasswordInput = ({
 
 
 
-SettingsPasswordInput.propTypes = {
+PasswordInput.propTypes = {
    value: PropTypes.string.isRequired,
    setValue: PropTypes.func.isRequired,
    title: PropTypes.string.isRequired,
@@ -77,9 +86,7 @@ SettingsPasswordInput.propTypes = {
    error: PropTypes.string,
 }
 
-SettingsPasswordInput.defaultProps = {
-   type: 'text',
-
+PasswordInput.defaultProps = {
    containerClass: '',
 
    error: null
@@ -87,4 +94,4 @@ SettingsPasswordInput.defaultProps = {
 
 
 
-export default SettingsPasswordInput;
+export default PasswordInput;
