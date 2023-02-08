@@ -75,6 +75,8 @@ const StatesEdit = () => {
          dispatch(setStatesError('countryId', null));
 
          dispatch(setState(null));
+         
+         dispatch(setBreadcrumb([]));
 
          dispatch(setCountriesList([]));
       }

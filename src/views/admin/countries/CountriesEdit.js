@@ -73,6 +73,8 @@ const CountriesEdit = () => {
          dispatch(setCountriesError('phoneExtension', null));
 
          dispatch(setCountry(null));
+         
+         dispatch(setBreadcrumb([]));
       }
    }, [dispatch]);
 

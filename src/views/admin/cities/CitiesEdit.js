@@ -87,6 +87,8 @@ const CitiesEdit = () => {
 
          dispatch(setStatesList([]));
          dispatch(setCountriesList([]));
+         
+         dispatch(setBreadcrumb([]));
       }
    }, [dispatch]);
 
