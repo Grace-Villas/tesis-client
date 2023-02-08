@@ -1,6 +1,6 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { composeWithDevTools } from "@redux-devtools/extension";
+import { composeWithDevTools } from '@redux-devtools/extension';
 
 // Importaciones de los reducers
 import {
@@ -11,7 +11,8 @@ import {
    statesReducer,
    tablesReducer,
    uiReducer,
-} from "../reducers";
+   usersReducer,
+} from '../reducers';
 
 
 
@@ -34,6 +35,7 @@ const reducers = combineReducers({
    states: statesReducer,
    tables: tablesReducer,
    ui: uiReducer,
+   users: usersReducer
 });
 
 export const store = createStore( 

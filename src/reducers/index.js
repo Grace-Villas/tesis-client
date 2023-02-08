@@ -5,6 +5,7 @@ import { settingsReducer } from './settingsReducer';
 import { statesReducer } from './statesReducer';
 import { tablesReducer } from './tablesReducer';
 import { uiReducer } from './uiReducer';
+import { usersReducer } from './usersReducer';
 
 
 
@@ -16,4 +17,5 @@ export {
    statesReducer,
    tablesReducer,
    uiReducer,
+   usersReducer
 }
