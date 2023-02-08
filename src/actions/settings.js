@@ -1,6 +1,6 @@
 import { types } from '../reducers/settingsReducer';
 import { request } from '../helpers/request';
-import { simpleSuccessToast } from '../helpers/alerts';
+import { arrayErrorToast, simpleSuccessToast } from '../helpers/alerts';
 
 
 
@@ -50,6 +50,12 @@ export const startUpdateAccount = (firstName, lastName, email) => {
 
          dispatch(setSettingsError('name', errors.find(err => err.param === 'name')?.msg || null));
          dispatch(setSettingsError('email', errors.find(err => err.param === 'email')?.msg || null));
+
+         const unhandledErrors = errors.filter(error => !['name', 'email'].includes(error.param));
+
+         if (unhandledErrors.length > 0) {
+            arrayErrorToast(unhandledErrors.map(error => error.msg));
+         }
       }
       
       dispatch(setLoading('account', false));
@@ -80,6 +86,12 @@ export const startUpdatePassword = (oldPassword, newPassword) => {
 
          dispatch(setSettingsError('oldPassword', errors.find(err => err.param === 'oldPassword')?.msg || null));
          dispatch(setSettingsError('newPassword', errors.find(err => err.param === 'newPassword')?.msg || null));
+
+         const unhandledErrors = errors.filter(error => !['oldPassword', 'newPassword'].includes(error.param));
+
+         if (unhandledErrors.length > 0) {
+            arrayErrorToast(unhandledErrors.map(error => error.msg));
+         }
       }
       
       dispatch(setLoading('security', false));

@@ -50,7 +50,11 @@ export const startCreateCity = ({ name, stateId }, navigate) => {
          dispatch(setCitiesError('name', errors.find(err => err.param === 'name')?.msg || null));
          dispatch(setCitiesError('stateId', errors.find(err => err.param === 'stateId')?.msg || null));
 
-         arrayErrorToast(errors.filter(error => !['name', 'stateId'].includes(error.param)).map(error => error.msg));
+         const unhandledErrors = errors.filter(error => !['name', 'stateId'].includes(error.param));
+
+         if (unhandledErrors.length > 0) {
+            arrayErrorToast(unhandledErrors.map(error => error.msg));
+         }
       }
 
       dispatch(setLoading('create', false));
@@ -225,7 +229,11 @@ export const startUpdateCity = (id, { name, stateId }) => {
          dispatch(setCitiesError('name', errors.find(err => err.param === 'name')?.msg || null));
          dispatch(setCitiesError('stateId', errors.find(err => err.param === 'stateId')?.msg || null));
 
-         arrayErrorToast(errors.filter(error => !['name', 'stateId'].includes(error.param)).map(error => error.msg));
+         const unhandledErrors = errors.filter(error => !['name', 'stateId'].includes(error.param));
+
+         if (unhandledErrors.length > 0) {
+            arrayErrorToast(unhandledErrors.map(error => error.msg));
+         }
       }
 
       dispatch(setLoading('update', false));

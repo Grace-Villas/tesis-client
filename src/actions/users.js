@@ -52,10 +52,11 @@ export const startCreateUser = ({ firstName, lastName, password, email }, naviga
          dispatch(setUsersError('email', errors.find(err => err.param === 'email')?.msg || null));
          dispatch(setUsersError('password', errors.find(err => err.param === 'password')?.msg || null));
 
-         const errorsArray = errors.filter(error => !['firstName', 'lastName', 'email', 'password'].includes(error.param))
-            .map(error => error.msg);
+         const unhandledErrors = errors.filter(error => !['firstName', 'lastName', 'email', 'password'].includes(error.param));
 
-         arrayErrorToast(errorsArray);
+         if (unhandledErrors.length > 0) {
+            arrayErrorToast(unhandledErrors.map(error => error.msg));
+         }
       }
 
       dispatch(setLoading('create', false));
@@ -220,10 +221,11 @@ export const startUpdateUser = (id, { firstName, lastName, email, password }) =>
          dispatch(setUsersError('email', errors.find(err => err.param === 'email')?.msg || null));
          dispatch(setUsersError('password', errors.find(err => err.param === 'password')?.msg || null));
 
-         const errorsArray = errors.filter(error => !['firstName', 'lastName', 'email', 'password'].includes(error.param))
-            .map(error => error.msg);
+         const unhandledErrors = errors.filter(error => !['firstName', 'lastName', 'email', 'password'].includes(error.param));
 
-         arrayErrorToast(errorsArray);
+         if (unhandledErrors.length > 0) {
+            arrayErrorToast(unhandledErrors.map(error => error.msg));
+         }
       }
 
       dispatch(setLoading('update', false));

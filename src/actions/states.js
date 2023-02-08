@@ -50,7 +50,11 @@ export const startCreateState = ({ name, countryId }, navigate) => {
          dispatch(setStatesError('name', errors.find(err => err.param === 'name')?.msg || null));
          dispatch(setStatesError('countryId', errors.find(err => err.param === 'countryId')?.msg || null));
 
-         arrayErrorToast(errors.filter(error => !['name', 'countryId'].includes(error.param)).map(error => error.msg));
+         const unhandledErrors = errors.filter(error => !['name', 'countryId'].includes(error.param));
+
+         if (unhandledErrors.length > 0) {
+            arrayErrorToast(unhandledErrors.map(error => error.msg));
+         }
       }
 
       dispatch(setLoading('create', false));
@@ -219,7 +223,11 @@ export const startUpdateState = (id, { name, countryId }) => {
          dispatch(setStatesError('name', errors.find(err => err.param === 'name')?.msg || null));
          dispatch(setStatesError('countryId', errors.find(err => err.param === 'countryId')?.msg || null));
 
-         arrayErrorToast(errors.filter(error => !['name', 'countryId'].includes(error.param)).map(error => error.msg));
+         const unhandledErrors = errors.filter(error => !['name', 'countryId'].includes(error.param));
+
+         if (unhandledErrors.length > 0) {
+            arrayErrorToast(unhandledErrors.map(error => error.msg));
+         }
       }
 
       dispatch(setLoading('update', false));

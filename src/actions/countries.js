@@ -53,7 +53,11 @@ export const startCreateCountry = ({ name, locale, phoneExtension }, navigate) =
          dispatch(setCountriesError('locale', errors.find(err => err.param === 'locale')?.msg || null));
          dispatch(setCountriesError('phoneExtension', errors.find(err => err.param === 'phoneExtension')?.msg || null));
 
-         arrayErrorToast(errors.filter(error => !['name', 'locale', 'phoneExtension'].includes(error.param)).map(error => error.msg));
+         const unhandledErrors = errors.filter(error => !['name', 'locale', 'phoneExtension'].includes(error.param));
+
+         if (unhandledErrors.length > 0) {
+            arrayErrorToast(unhandledErrors.map(error => error.msg));
+         }
       }
 
       dispatch(setLoading('create', false));
@@ -213,7 +217,11 @@ export const startUpdateCountry = (id, { name, locale, phoneExtension }) => {
          dispatch(setCountriesError('locale', errors.find(err => err.param === 'locale')?.msg || null));
          dispatch(setCountriesError('phoneExtension', errors.find(err => err.param === 'phoneExtension')?.msg || null));
 
-         arrayErrorToast(errors.filter(error => !['name', 'locale', 'phoneExtension'].includes(error.param)).map(error => error.msg));
+         const unhandledErrors = errors.filter(error => !['name', 'locale', 'phoneExtension'].includes(error.param));
+
+         if (unhandledErrors.length > 0) {
+            arrayErrorToast(unhandledErrors.map(error => error.msg));
+         }
       }
 
       dispatch(setLoading('update', false));
