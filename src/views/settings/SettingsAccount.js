@@ -197,7 +197,7 @@ const SettingsAccount = () => {
                         >Guardar cambios</button>
 
                         <button
-                           type='reset'
+                           type='button'
                            className='btn btn-outline-secondary mt-1 waves-effect'
                            onClick={handleDiscard}
                         >Descartar</button>

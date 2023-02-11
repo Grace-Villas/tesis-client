@@ -210,7 +210,7 @@ const CitiesCreate = () => {
                      <div className='row'>
                         <div className='col-12 d-flex justify-content-between'>
                            <button
-                              type='reset'
+                              type='button'
                               className='btn btn-outline-secondary waves-effect'
                               onClick={handleDiscard}
                            >Descartar</button>
