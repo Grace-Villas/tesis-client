@@ -252,7 +252,9 @@ export const startGetCountriesList = () => {
 
          const mappedRows = rows.map(row => ({
             text: capitalizeAllWords(row.name),
-            value: row.id
+            value: row.id,
+            locale: row.locale,
+            phoneExtension: row.phoneExtension
          }));
 
          dispatch(setCountriesList(mappedRows));
