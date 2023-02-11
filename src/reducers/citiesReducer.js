@@ -7,7 +7,9 @@ export const types = {
 
    SET_CITIES: '[CITIES] set table data',
 
-   SET_CITY_DATA: '[CITIES] set city data'
+   SET_CITY_DATA: '[CITIES] set city data',
+
+   SET_CITIES_LIST: '[CITIES] set cities list'
 }
 
 
@@ -37,6 +39,11 @@ const initialState = {
 
    // Delete
    loadingDelete: false,
+
+   // List
+   citiesList: [],
+
+   loadingList: true,
 }
 
 
@@ -70,6 +77,12 @@ export const citiesReducer = (state = initialState, action) => {
          return {
             ...state,
             city: action.payload
+         }
+
+      case types.SET_CITIES_LIST:
+         return {
+            ...state,
+            citiesList: action.payload
          }
 
       default:
