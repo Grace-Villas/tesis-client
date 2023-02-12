@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 const Form = ({children, title, id, handleSubmit, handleDiscard}) => {
 
-   console.log(children);
-
    return (
       <form
          className='card invoice-preview-card mb-2'
