@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 
 const Form = ({children, title, id, handleSubmit, handleDiscard}) => {
 
+   console.log(children);
+
    return (
       <form
          className='card invoice-preview-card mb-2'
@@ -24,10 +26,8 @@ const Form = ({children, title, id, handleSubmit, handleDiscard}) => {
          </div>
 
          <hr className='invoice-spacing' />
-
-         <div className='card-body invoice-padding py-0'>
-            {children}
-         </div>
+         
+         {children}
 
          <hr className='invoice-spacing' />
 

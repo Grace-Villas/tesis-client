@@ -308,84 +308,86 @@ const ClientsCreate = () => {
                   handleSubmit={handleSubmit}
                   handleDiscard={handleDiscard}
                >
-                  <div className='row'>
-                     <Input
-                        value={name}
-                        setValue={handleName}
-                        title={'Nombre'}
-                        placeholder='Ingrese el nombre de la ciudad'
-                        containerClass='col-md-6 col-12 mb-1'
-                        error={nameError}
-                     />
+                  <div className='card-body invoice-padding py-0'>
+                     <div className='row'>
+                        <Input
+                           value={name}
+                           setValue={handleName}
+                           title={'Nombre'}
+                           placeholder='Ingrese el nombre de la ciudad'
+                           containerClass='col-md-6 col-12 mb-1'
+                           error={nameError}
+                        />
 
-                     <Input
-                        value={email}
-                        setValue={handleEmail}
-                        title={'Correo'}
-                        placeholder='Ingrese el correo del cliente'
-                        containerClass='col-md-6 col-12 mb-1'
-                        error={emailError}
-                     />
+                        <Input
+                           value={email}
+                           setValue={handleEmail}
+                           title={'Correo'}
+                           placeholder='Ingrese el correo del cliente'
+                           containerClass='col-md-6 col-12 mb-1'
+                           error={emailError}
+                        />
 
-                     <Input
-                        value={phone}
-                        setValue={handlePhone}
-                        title={'Teléfono'}
-                        placeholder='Ingrese el teléfono del cliente'
-                        containerClass='col-md-6 col-12 mb-1'
-                        error={phoneError}
-                     />
+                        <Input
+                           value={phone}
+                           setValue={handlePhone}
+                           title={'Teléfono'}
+                           placeholder='Ingrese el teléfono del cliente'
+                           containerClass='col-md-6 col-12 mb-1'
+                           error={phoneError}
+                        />
 
-                     <Input
-                        value={rut}
-                        setValue={handleRut}
-                        title={'Número de identificación'}
-                        placeholder='Ingrese el número de identificación del cliente'
-                        containerClass='col-md-6 col-12 mb-1'
-                        error={rutError}
-                     />
+                        <Input
+                           value={rut}
+                           setValue={handleRut}
+                           title={'Número de identificación'}
+                           placeholder='Ingrese el número de identificación del cliente'
+                           containerClass='col-md-6 col-12 mb-1'
+                           error={rutError}
+                        />
 
-                     <Select
-                        value={countryId}
-                        setValue={handleCountryId}
-                        title='País'
-                        placeholder='Seleccione un país'
-                        options={countriesList}
-                        containerClass='col-md-4 col-12 mb-1'
-                        error={countryIdError}
-                        disabled={loadingCountriesList || loadingStatesList || loadingCitiesList}
-                     />
+                        <Select
+                           value={countryId}
+                           setValue={handleCountryId}
+                           title='País'
+                           placeholder='Seleccione un país'
+                           options={countriesList}
+                           containerClass='col-md-4 col-12 mb-1'
+                           error={countryIdError}
+                           disabled={loadingCountriesList || loadingStatesList || loadingCitiesList}
+                        />
 
-                     <Select
-                        value={stateId}
-                        setValue={handleStateId}
-                        title='Estado'
-                        placeholder='Seleccione un estado'
-                        options={filteredStates}
-                        containerClass='col-md-4 col-12 mb-1'
-                        error={stateIdError}
-                        disabled={filteredStates.length === 0 || countryId === ''}
-                     />
+                        <Select
+                           value={stateId}
+                           setValue={handleStateId}
+                           title='Estado'
+                           placeholder='Seleccione un estado'
+                           options={filteredStates}
+                           containerClass='col-md-4 col-12 mb-1'
+                           error={stateIdError}
+                           disabled={filteredStates.length === 0 || countryId === ''}
+                        />
 
-                     <Select
-                        value={cityId}
-                        setValue={handleCityId}
-                        title='Ciudad'
-                        placeholder='Seleccione una ciudad'
-                        options={filteredCities}
-                        containerClass='col-md-4 col-12 mb-1'
-                        error={cityIdError}
-                        disabled={filteredCities.length === 0 || stateId === ''}
-                     />
+                        <Select
+                           value={cityId}
+                           setValue={handleCityId}
+                           title='Ciudad'
+                           placeholder='Seleccione una ciudad'
+                           options={filteredCities}
+                           containerClass='col-md-4 col-12 mb-1'
+                           error={cityIdError}
+                           disabled={filteredCities.length === 0 || stateId === ''}
+                        />
 
-                     <TextArea
-                        value={address}
-                        setValue={handleAddress}
-                        title={'Dirección'}
-                        placeholder='Ingrese la dirección del cliente'
-                        containerClass='col-12 mb-1'
-                        error={addressError}
-                     />
+                        <TextArea
+                           value={address}
+                           setValue={handleAddress}
+                           title={'Dirección'}
+                           placeholder='Ingrese la dirección del cliente'
+                           containerClass='col-12 mb-1'
+                           error={addressError}
+                        />
+                     </div>
                   </div>
                </Form>
             </div>
