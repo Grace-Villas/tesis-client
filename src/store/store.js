@@ -6,6 +6,7 @@ import { composeWithDevTools } from '@redux-devtools/extension';
 import {
    authReducer,
    citiesReducer,
+   clientsReducer,
    countriesReducer,
    settingsReducer,
    statesReducer,
@@ -30,6 +31,7 @@ const reducers = combineReducers({
    // Lista de reducers
    auth: authReducer,
    cities: citiesReducer,
+   clients: clientsReducer,
    countries: countriesReducer,
    settings: settingsReducer,
    states: statesReducer,
