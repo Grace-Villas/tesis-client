@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 
 
-const Form = ({children, title, handleSubmit, handleDiscard}) => {
+const Form = ({children, title, id, handleSubmit, handleDiscard}) => {
 
    return (
       <form
@@ -12,6 +12,14 @@ const Form = ({children, title, handleSubmit, handleDiscard}) => {
          <div className='card-body invoice-padding pb-0'>
             <div className='d-flex justify-content-between flex-md-row flex-column invoice-spacing my-0'>
                <h4 className='mb-0 fw-bolder'>{title}</h4>
+
+               {
+                  id && (
+                     <div className='mt-md-0 mt-2'>
+                        <h4 className='invoice-title mb-0'><span className='invoice-number'>#{id}</span></h4>
+                     </div>
+                  )
+               }
             </div>
          </div>
 
@@ -48,11 +56,16 @@ const Form = ({children, title, handleSubmit, handleDiscard}) => {
 Form.propTypes = {
    children: PropTypes.node.isRequired,
    title: PropTypes.string.isRequired,
+   id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+   ]),
    handleSubmit: PropTypes.func.isRequired,
    handleDiscard: PropTypes.func,
 }
 
 Form.defaultProps = {
+   id: null,
    handleDiscard: () => null,
 }
 
