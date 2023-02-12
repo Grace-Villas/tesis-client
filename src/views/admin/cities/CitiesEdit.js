@@ -14,13 +14,9 @@ import { setBreadcrumb } from '../../../actions/ui';
 
 // Components
 import Input from '../../../components/form/Input';
+import LoadingComponent from '../../../components/ui/spinners/LoadingComponent';
 import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
 import Select from '../../../components/form/Select';
-
-
-
-// Data
-import LoadingComponent from '../../../components/ui/spinners/LoadingComponent';
 
 
 
