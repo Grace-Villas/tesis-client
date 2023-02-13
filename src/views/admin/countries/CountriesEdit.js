@@ -193,6 +193,7 @@ const CountriesEdit = () => {
                            value={locale}
                            setValue={handleLocale}
                            title='Código local'
+                           name='locale'
                            placeholder='Seleccione un código'
                            options={locales.map(loc => ({ value: loc, text: loc}))}
                            containerClass='col-md-4 col-12 mb-1'

@@ -184,6 +184,7 @@ const CitiesCreate = () => {
                            value={countryId}
                            setValue={handleCountryId}
                            title='País'
+                           name='country'
                            placeholder='Seleccione un país'
                            options={countriesList}
                            containerClass='col-md-4 col-12 mb-1'
@@ -195,6 +196,7 @@ const CitiesCreate = () => {
                            value={stateId}
                            setValue={handleStateId}
                            title='Estado'
+                           name='state'
                            placeholder='Seleccione un estado'
                            options={filteredStates}
                            containerClass='col-md-4 col-12 mb-1'

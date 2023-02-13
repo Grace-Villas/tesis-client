@@ -154,6 +154,7 @@ const StatesCreate = () => {
                            value={countryId}
                            setValue={handleCountryId}
                            title='País'
+                           name='country'
                            placeholder='Seleccione un país'
                            options={countriesList}
                            containerClass='col-md-6 col-12 mb-1'

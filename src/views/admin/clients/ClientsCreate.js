@@ -350,6 +350,7 @@ const ClientsCreate = () => {
                            value={countryId}
                            setValue={handleCountryId}
                            title='País'
+                           name='country'
                            placeholder='Seleccione un país'
                            options={countriesList}
                            containerClass='col-md-4 col-12 mb-1'
@@ -361,6 +362,7 @@ const ClientsCreate = () => {
                            value={stateId}
                            setValue={handleStateId}
                            title='Estado'
+                           name='state'
                            placeholder='Seleccione un estado'
                            options={filteredStates}
                            containerClass='col-md-4 col-12 mb-1'
@@ -372,6 +374,7 @@ const ClientsCreate = () => {
                            value={cityId}
                            setValue={handleCityId}
                            title='Ciudad'
+                           name='city'
                            placeholder='Seleccione una ciudad'
                            options={filteredCities}
                            containerClass='col-md-4 col-12 mb-1'
