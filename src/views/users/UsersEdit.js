@@ -6,7 +6,7 @@ import { isEmail } from 'validator';
 
 
 // Actions
-import { setCountriesError, setCountry, setLoading, startGetCountry, startUpdateCountry } from '../../actions/countries';
+import { setCountry, setLoading, } from '../../actions/countries';
 import { setUsersError, startGetUser, startUpdateUser } from '../../actions/users';
 import { setBreadcrumb } from '../../actions/ui';
 
@@ -14,14 +14,8 @@ import { setBreadcrumb } from '../../actions/ui';
 
 // Components
 import Input from '../../components/form/Input';
-import LoadingResponse from '../../components/ui/spinners/LoadingResponse';
-import Select from '../../components/form/Select';
-
-
-
-// Data
-import locales from '../../data/locales.json';
 import LoadingComponent from '../../components/ui/spinners/LoadingComponent';
+import LoadingResponse from '../../components/ui/spinners/LoadingResponse';
 
 
 
