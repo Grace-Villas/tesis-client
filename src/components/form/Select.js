@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 
 const Select = ({
-   value, setValue, title, options, placeholder,
+   value, setValue, title, name, options, placeholder,
    containerClass,
    error, disabled
 }) => {
@@ -22,13 +22,17 @@ const Select = ({
 
    return (
       <div className={containerClass}>
-         <label className='form-label' htmlFor={title}>{title}</label>
+         {
+            title && (
+               <label className='form-label' htmlFor={name}>{title}</label>
+            )
+         }
 
          <select
             className={handleSelectClass()}
             value={value}
             onChange={handleValue}
-            id={title}
+            id={name}
             disabled={disabled}
          >
             <option value='' disabled>{placeholder}</option>
@@ -36,7 +40,7 @@ const Select = ({
             {
                options.map(op => (
                   <option
-                     key={`select-${title}-${op.value}`}
+                     key={`select-${name}-${op.value}`}
                      value={op.value}
                   >{op.text}</option>
                ))
@@ -60,7 +64,8 @@ Select.propTypes = {
       PropTypes.string
    ]).isRequired,
    setValue: PropTypes.func.isRequired,
-   title: PropTypes.string.isRequired,
+   title: PropTypes.string,
+   name: PropTypes.string.isRequired,
    options: PropTypes.arrayOf(
       PropTypes.shape(
          {
@@ -81,6 +86,8 @@ Select.propTypes = {
 }
 
 Select.defaultProps = {
+   title: null,
+   name: null,
    placeholder: 'Seleccione una opción...',
 
    containerClass: '',
