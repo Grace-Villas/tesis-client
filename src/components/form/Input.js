@@ -13,6 +13,10 @@ const Input = ({
    const handleInputClass = () => {
       let className = 'form-control';
 
+      if (type === 'color') {
+         className += ' form-control-color w-100';
+      }
+
       if (inputClass) {
          className += ` ${inputClass}`;
       }
@@ -28,7 +32,7 @@ const Input = ({
 
    return (
       <div className={containerClass}>
-         <label className="form-label" htmlFor={title}>{title}</label>
+         <label className='form-label' htmlFor={title}>{title}</label>
          
          <input
             type={type}
@@ -54,7 +58,7 @@ Input.propTypes = {
    value: PropTypes.string.isRequired,
    setValue: PropTypes.func.isRequired,
    title: PropTypes.string.isRequired,
-   type: PropTypes.oneOf(['text', 'number']),
+   type: PropTypes.oneOf(['text', 'number', 'color']),
    placeholder: PropTypes.string,
 
    containerClass: PropTypes.string,
