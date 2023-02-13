@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Input = ({
    value, setValue, title, type, placeholder,
-   containerClass,
+   containerClass, inputClass,
    error, isValid
 }) => {
 
@@ -12,6 +12,10 @@ const Input = ({
 
    const handleInputClass = () => {
       let className = 'form-control';
+
+      if (inputClass) {
+         className += ` ${inputClass}`;
+      }
 
       if (error) {
          className += ' is-invalid';
@@ -54,6 +58,7 @@ Input.propTypes = {
    placeholder: PropTypes.string,
 
    containerClass: PropTypes.string,
+   inputClass: PropTypes.string,
 
    error: PropTypes.string,
    isValid: PropTypes.bool
@@ -63,6 +68,7 @@ Input.defaultProps = {
    type: 'text',
 
    containerClass: '',
+   inputClass: null,
 
    error: null,
    isValid: null
