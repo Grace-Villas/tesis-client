@@ -2,6 +2,8 @@ import { authReducer } from './authReducer';
 import { citiesReducer } from './citiesReducer';
 import { clientsReducer } from './clientsReducer';
 import { countriesReducer } from './countriesReducer';
+import { permissionsReducer } from './permissionsReducer';
+import { rolesReducer } from './rolesReducer';
 import { settingsReducer } from './settingsReducer';
 import { statesReducer } from './statesReducer';
 import { tablesReducer } from './tablesReducer';
@@ -15,6 +17,8 @@ export {
    citiesReducer,
    clientsReducer,
    countriesReducer,
+   permissionsReducer,
+   rolesReducer,
    settingsReducer,
    statesReducer,
    tablesReducer,
