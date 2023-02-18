@@ -30,7 +30,7 @@ const UserNavBarDropdown = () => {
    const [isOpen, setIsOpen] = useState(false);
 
    useEffect(() => {
-      const toDisplay = capitalizeAllWords(fullName);
+      const toDisplay = capitalizeAllWords(fullName || '');
 
       setDisplayName(toDisplay);
    }, [fullName]);
