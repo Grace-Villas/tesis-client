@@ -16,6 +16,7 @@ import { setBreadcrumb } from '../../actions/ui';
 import Input from '../../components/form/Input';
 import LoadingComponent from '../../components/ui/spinners/LoadingComponent';
 import LoadingResponse from '../../components/ui/spinners/LoadingResponse';
+import Form from '../../components/form/Form';
 
 
 
@@ -160,22 +161,12 @@ const UsersEdit = () => {
       <>
          <div className='row invoice-preview mt-2'>
             <div className='col-xl-9 col-md-8 col-12 position-relative'>
-               <form
-                  className='card invoice-preview-card mb-2'
-                  onSubmit={handleSubmit}
+               <Form
+                  title='Editar usuario'
+                  id={user?.id}
+                  handleSubmit={handleSubmit}
+                  handleDiscard={handleDiscard}
                >
-                  <div className='card-body invoice-padding pb-0'>
-                     <div className='d-flex justify-content-between flex-md-row flex-column invoice-spacing my-0'>
-                        <h4 className='mb-0 fw-bolder'>Editar país</h4>
-
-                        <div className='mt-md-0 mt-2'>
-                           <h4 className='invoice-title mb-0'><span className='invoice-number'>#{user?.id}</span></h4>
-                        </div>
-                     </div>
-                  </div>
-
-                  <hr className='invoice-spacing' />
-
                   <div className='card-body invoice-padding py-0'>
                      <div className='row'>
                         <Input
@@ -206,26 +197,7 @@ const UsersEdit = () => {
                         />
                      </div>
                   </div>
-
-                  <hr className='invoice-spacing' />
-
-                  <div className='card-body invoice-padding pt-0'>
-                     <div className='row'>
-                        <div className='col-12 d-flex justify-content-between'>
-                           <button
-                              type='button'
-                              className='btn btn-outline-secondary waves-effect'
-                              onClick={handleDiscard}
-                           >Descartar</button>
-
-                           <button
-                              type='submit'
-                              className='btn btn-primary waves-effect waves-float waves-light'
-                           >Guardar</button>
-                        </div>
-                     </div>
-                  </div>
-               </form>
+               </Form>
 
                <LoadingComponent state={loadingDetail} isBlocking />
             </div>
