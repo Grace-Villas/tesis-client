@@ -55,11 +55,11 @@ export const permissionsReducer = (state = initialState, action) => {
          }
 
       case types.ADD_ROW: {
-         const { permissionId, list, create, update, del } = action.payload;
+         const { permissionId, list, create, edit, del } = action.payload;
 
          const newState = [
             ...state.rowFields,
-            { permissionId, permissionIdError: null, list, create, update, delete: del }
+            { permissionId, permissionIdError: null, list, create, edit, delete: del }
          ];
 
          return {

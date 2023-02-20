@@ -186,6 +186,14 @@ export const startGetRole = (id) => {
 
          role.name = capitalizeAllWords(role.name);
 
+         role.rolePermissions = role.rolePermissions.map(rolePermission => ({
+            ...rolePermission,
+            permission: {
+               ...rolePermission.permission,
+               showName: capitalizeAllWords(rolePermission.permission.showName)
+            }
+         }))
+
          dispatch(setRole(role));
       } catch (error) {
          console.log(error);
@@ -222,7 +230,7 @@ export const startUpdateRole = (id, { name, hexColor }) => {
 
          simpleSuccessToast(`El rol: ${roleName}, fue actualizado satisfactoriamente`);
 
-         dispatch(setRole(role));
+         dispatch(startGetRole(role.id));
       } catch (error) {
          console.log(error);
 
@@ -285,7 +293,7 @@ export const startGetRolesList = () => {
 
 // RolePermissions
 
-export const startCreateRolePermission = (roleId, permissionId, list, create, update, del) => {
+export const startCreateRolePermission = (roleId, permissionId, list, create, edit, del) => {
    return async dispatch => {
       dispatch(setLoading('update', true));
 
@@ -293,18 +301,18 @@ export const startCreateRolePermission = (roleId, permissionId, list, create, up
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
          const response = await request({
-            path: '/roles',
+            path: '/role-permissions',
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',
                'x-token': token
             },
-            body: { roleId, permissionId, list, create, update, delete: del }
+            body: { roleId, permissionId, list, create, edit, delete: del }
          });
 
          const rolePermission = response.data;
 
-         simpleSuccessToast(`El permiso fue creado satisfactoriamente`);
+         simpleSuccessToast(`El permiso fue agregado satisfactoriamente`);
 
          dispatch(startGetRole(rolePermission.roleId));
       } catch (error) {
@@ -319,21 +327,23 @@ export const startCreateRolePermission = (roleId, permissionId, list, create, up
    }
 }
 
-export const startUpdateRolePermission = (rolePermissionId, { list, create, update, del }) => {
+export const startUpdateRolePermission = (rolePermissionId, options = {}) => {
    return async dispatch => {
       dispatch(setLoading('update', true));
+
+      console.log(rolePermissionId, options);
 
       try {
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
          const response = await request({
-            path: `/roles/${rolePermissionId}`,
+            path: `/role-permissions/${rolePermissionId}`,
             method: 'PUT',
             headers: {
                'Content-Type': 'application/json',
                'x-token': token
             },
-            body: { list, create, update, delete: del }
+            body: options
          });
 
          const rolePermission = response.data;
@@ -361,7 +371,7 @@ export const startDeleteRolePermission = (rolePermissionId) => {
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
          const response = await request({
-            path: `/roles/${rolePermissionId}`,
+            path: `/role-permissions/${rolePermissionId}`,
             method: 'DELETE',
             headers: {
                'Content-Type': 'application/json',
