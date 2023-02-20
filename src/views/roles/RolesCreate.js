@@ -95,7 +95,7 @@ const RolesCreate = () => {
       let permissionE = false;
       rawPermissions.forEach((permission, index) => {
 
-         if (!permission.list && !permission.create && !permission.update && !permission.delete) {
+         if (!permission.list && !permission.create && !permission.edit && !permission.delete) {
             permissionE = true;
 
             dispatch(handleRowChange('Debe asignarle al menos un acceso al permiso', index, 'permissionIdError'));
@@ -107,7 +107,7 @@ const RolesCreate = () => {
             id: per.permissionId,
             list: per.list,
             create: per.create,
-            update: per.update,
+            edit: per.edit,
             delete: per.delete
          }));
 

@@ -27,7 +27,7 @@ const PermissionsPicker = () => {
    const [permissionId, setPermissionId] = useState('');
    const [list, setList] = useState(true);
    const [create, setCreate] = useState(true);
-   const [update, setUpdate] = useState(true);
+   const [edit, setEdit] = useState(true);
    const [del, setDel] = useState(true);
 
    const [filteredPermissions, setFilteredPermissions] = useState([]);
@@ -47,7 +47,7 @@ const PermissionsPicker = () => {
          setPermissionId('');
          setList(true);
          setCreate(true);
-         setUpdate(true);
+         setEdit(true);
          setDel(true);
 
          dispatch(setPermissionsList([]));
@@ -67,12 +67,12 @@ const PermissionsPicker = () => {
          return;
       }
 
-      dispatch(handleAddRow(permissionId, list, create, update, del));
+      dispatch(handleAddRow(permissionId, list, create, edit, del));
       dispatch(setPermissionsError('permissions', null));
       setPermissionId('');
       setList(true);
       setCreate(true);
-      setUpdate(true);
+      setEdit(true);
       setDel(true);
    }
 
@@ -115,9 +115,9 @@ const PermissionsPicker = () => {
                />
 
                <Switch
-                  name='update'
-                  value={update}
-                  setValue={() => setUpdate(!update)}
+                  name='edit'
+                  value={edit}
+                  setValue={() => setEdit(!edit)}
                   title='¿Editar?'
                   containerClass='col-md col-6 mb-1 align-items-center'
                   wrapperClass='my-auto'
@@ -189,7 +189,7 @@ const PermissionsPicker = () => {
                               <tr key={'permission-' + i}>
                                  <td className='py-1'>
                                     <div className='d-flex flex-column'>
-                                       <p className='mb-0'>{ currentRow?.text }</p>
+                                       <p className='mb-0'>{currentRow?.text}</p>
 
                                        {
                                           currentRow?.permissionIdError && (
@@ -223,9 +223,9 @@ const PermissionsPicker = () => {
                                  <td className='p-1'>
                                     <Switch
                                        containerClass='align-items-center'
-                                       name={'update-' + i}
-                                       value={row.update}
-                                       setValue={(value) => handlePermissionChange(value, i, 'update')}
+                                       name={'edit-' + i}
+                                       value={row.edit}
+                                       setValue={(value) => handlePermissionChange(value, i, 'edit')}
                                     />
                                  </td>
       

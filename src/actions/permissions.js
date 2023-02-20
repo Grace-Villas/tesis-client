@@ -66,9 +66,9 @@ export const handleRowChange = (value, index, key) => ({
    payload: { value, index, key }
 });
 
-export const handleAddRow = (permissionId, list, create, update, del) => ({
+export const handleAddRow = (permissionId, list, create, edit, del) => ({
    type: types.ADD_ROW,
-   payload: { permissionId, list, create, update, del }
+   payload: { permissionId, list, create, edit, del }
 });
 
 export const handleDeleteRow = (index) => ({
