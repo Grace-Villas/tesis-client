@@ -26,6 +26,11 @@ import Form from '../../components/form/Form';
 
 
 
+// Helpers
+import { handleInvalidName } from '../../helpers/validations';
+
+
+
 const RolesEdit = () => {
    
    const dispatch = useDispatch();
@@ -95,17 +100,6 @@ const RolesEdit = () => {
    useEffect(() => {
       dispatch(startGetPermissionsList());
    }, [dispatch]);
-
-   // Errors and valids
-   const handleInvalidName = (name) => {
-      if (name.trim().length === 0) {
-         return 'El nombre es obligatorio';
-      } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/.test(name)) {
-         return 'El nombre debe contener solo letras'
-      } else {
-         return null;
-      }
-   }
 
    // Handlers
    const handleName = (value) => {

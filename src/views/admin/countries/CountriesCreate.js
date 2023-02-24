@@ -18,6 +18,11 @@ import Select from '../../../components/form/Select';
 
 
 
+// Helpers
+import { handleInvalidName } from '../../../helpers/validations';
+
+
+
 // Data
 import locales from '../../../data/locales.json';
 
@@ -66,16 +71,6 @@ const CountriesCreate = () => {
    }, [dispatch]);
 
    // Errors and valids
-   const handleInvalidName = (name) => {
-      if (name.trim().length === 0) {
-         return 'El nombre es obligatorio';
-      } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/.test(name)) {
-         return 'El nombre debe contener solo letras'
-      } else {
-         return null;
-      }
-   }
-
    const handleInvalidLocale = (locale) => {
       if (locale === '') {
          return 'El código local es obligatorio';

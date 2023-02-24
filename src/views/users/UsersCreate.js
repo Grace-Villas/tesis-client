@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { isEmail } from 'validator';
 
 
 
@@ -20,7 +19,7 @@ import Form from '../../components/form/Form';
 
 
 // Helpers
-import { handleInvalidPassword } from '../../helpers/validations';
+import { handleInvalidEmail, handleInvalidName, handleInvalidPassword } from '../../helpers/validations';
 
 
 
@@ -69,47 +68,16 @@ const UsersCreate = () => {
       }
    }, [dispatch]);
 
-   // Errors and valids
-   const handleInvalidFirstName = (firstName) => {
-      if (firstName.trim().length === 0) {
-         return 'El nombre es obligatorio';
-      } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/.test(firstName)) {
-         return 'El nombre debe contener solo letras'
-      } else {
-         return null;
-      }
-   }
-   
-   const handleInvalidLastName = (lastName) => {
-      if (lastName.trim().length === 0) {
-         return 'El apellido es obligatorio';
-      } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/.test(lastName)) {
-         return 'El apellido debe contener solo letras'
-      } else {
-         return null;
-      }
-   }
-
-   const handleInvalidEmail = (email) => {
-      if (email.trim().length === 0) {
-         return 'El correo es obligatorio';
-      } else if (!isEmail(email)) {
-         return 'El correo debe tener un formato válido'
-      } else {
-         return null;
-      }
-   }
-
    // Handlers
    const handleFirstName = (value) => {
-      const firstNameE = handleInvalidFirstName(value);
+      const firstNameE = handleInvalidName(value);
       dispatch(setUsersError('firstName', firstNameE));
 
       setFirstName(value);
    }
 
    const handleLastName = (value) => {
-      const lastNameE = handleInvalidLastName(value);
+      const lastNameE = handleInvalidName(value, 'apellido');
       dispatch(setUsersError('lastName', lastNameE));
 
       setLastName(value);
@@ -135,10 +103,10 @@ const UsersCreate = () => {
    const handleSubmit = (e) => {
       e.preventDefault();
 
-      const firstNameE = handleInvalidFirstName(firstName);
+      const firstNameE = handleInvalidName(firstName);
       dispatch(setUsersError('firstName', firstNameE));
 
-      const lastNameE = handleInvalidLastName(lastName);
+      const lastNameE = handleInvalidName(lastName, 'apellido');
       dispatch(setUsersError('lastName', lastNameE));
 
       const emailE = handleInvalidEmail(email);
