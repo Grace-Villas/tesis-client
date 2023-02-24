@@ -52,7 +52,7 @@ export const handleInvalidPassword = (password) => {
    }
 }
 
-export const handleRepeatInvalidPassword = (password, compare) => {
+export const handleInvalidRepeatPassword = (password, compare) => {
    if (password.length === 0) {
       return 'La contraseña es obligatoria';
    } else if (password.length < 8) {
