@@ -14,9 +14,16 @@ import LoadingResponse from '../../components/ui/spinners/LoadingResponse';
 
 
 
+// Custom hooks
+import { useInstalled } from '../../hooks/useInstalled';
+
+
+
 const Login = () => {
 
    const dispatch = useDispatch();
+
+   useInstalled();
 
    const { loadingLogin, emailError, passwordError } = useSelector(state => state.auth);
 
