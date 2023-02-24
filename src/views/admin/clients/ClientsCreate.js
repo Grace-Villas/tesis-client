@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { isEmail } from 'validator';
 
 
 
@@ -20,6 +19,11 @@ import Input from '../../../components/form/Input';
 import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
 import Select from '../../../components/form/Select';
 import TextArea from '../../../components/form/TextArea';
+
+
+
+// Helpers
+import { handleInvalidEmail, handleInvalidName, handleInvalidPhone, handleInvalidRut } from '../../../helpers/validations';
 
 
 
@@ -112,46 +116,6 @@ const ClientsCreate = () => {
    }, [statesList, countryId]);
 
    // Errors and valids
-   const handleInvalidName = (name) => {
-      if (name.trim().length === 0) {
-         return 'El nombre es obligatorio';
-      } else if (!/^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/.test(name)) {
-         return 'El nombre debe contener solo letras'
-      } else {
-         return null;
-      }
-   }
-
-   const handleInvalidEmail = (email) => {
-      if (email.trim().length === 0) {
-         return 'El correo es obligatorio';
-      } else if (!isEmail(email)) {
-         return 'El correo debe tener un formato válido';
-      } else {
-         return null;
-      }
-   }
-
-   const handleInvalidPhone = (phone) => {
-      if (phone.trim().length === 0) {
-         return 'El teléfono es obligatorio';
-      } else if (!/^[0-9]*$/.test(phone)) {
-         return 'El teléfono debe contener solo números';
-      } else {
-         return null;
-      }
-   }
-
-   const handleInvalidRut = (rut) => {
-      if (rut.trim().length === 0) {
-         return 'El número de identificación es obligatorio';
-      } else if (!/^([a-zA-Z])([0-9])*$/.test(rut)) {
-         return 'El número de identificación debe contener un formato válido. Ejemplo: j12345678';
-      } else {
-         return null;
-      }
-   }
-
    const handleInvalidAddress = (address) => {
       if (address.trim().length === 0) {
          return 'La dirección es obligatoria';
