@@ -19,6 +19,11 @@ import Form from '../../components/form/Form';
 
 
 
+// Helpers
+import { handleInvalidPassword } from '../../helpers/validations';
+
+
+
 const UsersCreate = () => {
 
    const dispatch = useDispatch();
@@ -90,16 +95,6 @@ const UsersCreate = () => {
          return 'El correo es obligatorio';
       } else if (!isEmail(email)) {
          return 'El correo debe tener un formato válido'
-      } else {
-         return null;
-      }
-   }
-
-   const handleInvalidPassword = (password) => {
-      if (password.length === 0) {
-         return 'La contraseña es obligatoria';
-      } else if (password.length < 8) {
-         return 'La contraseña debe tener al menos 8 caracteres'
       } else {
          return null;
       }
