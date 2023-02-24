@@ -62,6 +62,8 @@ const SettingsSecurity = () => {
    }
 
    const handleNewPassword = (value) => {
+      if (/\s/g.test(value)) return;
+
       if (value.trim().length === 0) {
          dispatch(setSettingsError('newPassword', 'La nueva contraseña es obligatoria'));
       } else if (value.length < 8) {
@@ -74,6 +76,8 @@ const SettingsSecurity = () => {
    }
 
    const handleRepeatNewPassword = (value) => {
+      if (/\s/g.test(value)) return;
+
       if (value.trim().length === 0) {
          dispatch(setSettingsError('repeatNewPassword', 'Debe confirmar la nueva contraseña'));
       } else if (value.length < 8) {

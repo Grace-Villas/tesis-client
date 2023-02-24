@@ -58,6 +58,8 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
    }
 
    const handlePassword = (value) => {
+      if (/\s/g.test(value)) return;
+
       const error = handleInvalidPassword(value);
       dispatch(setInstallationError('password', error));
 
@@ -65,6 +67,8 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
    }
 
    const handleRepeatPassword = (value) => {
+      if (/\s/g.test(value)) return;
+
       const error = handleInvalidRepeatPassword(value, password);
       dispatch(setInstallationError('repeatPassword', error));
 
