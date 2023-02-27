@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // API url
 
-export const apiURL = 'http://127.0.0.1:8081';
+export const apiURL = process.env.NODE_ENV === 'production' ? 'http://3.15.215.240:8081' : 'http://127.0.0.1:8081';
 
 // Request function
 
