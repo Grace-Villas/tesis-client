@@ -1,4 +1,5 @@
 import { isEmail } from 'validator';
+import { simpleDialog } from '../helpers/alerts';
 import { request } from '../helpers/request';
 import { types } from '../reducers/authReducer';
 
@@ -13,8 +14,6 @@ export const setAuth = ({id, email, firstName, lastName, fullName, isAdmin, uuid
 
 export const startLogin = (email, password, remember = false) => {
    return async dispatch => {
-      dispatch(setLoadingLogin(true));
-
       let error = false;
 
       if (email.trim().length === 0) {
@@ -35,6 +34,8 @@ export const startLogin = (email, password, remember = false) => {
       }
 
       if (!error) {
+         dispatch(setLoadingLogin(true));
+
          try {
             const response = await request({
                path: '/auth/login',
@@ -61,9 +62,9 @@ export const startLogin = (email, password, remember = false) => {
             
             dispatch(setLoginError('email', 'El correo o la contraseña son incorrectos'));
          }
-      }
 
-      dispatch(setLoadingLogin(false));
+         dispatch(setLoadingLogin(false));
+      }
    }
 }
 
@@ -87,6 +88,102 @@ export const startLogout = () => {
       sessionStorage.removeItem('x-token');
 
       dispatch(logout());
+   }
+}
+
+
+
+// Recuperar contraseña
+
+export const startRecovery = (email) => {
+   return async dispatch => {
+      let error = false;
+
+      if (email.trim().length === 0) {
+         dispatch(setLoginError('email', 'El correo es obligatorio'));
+         error = true;
+      } else if (!isEmail(email)) {
+         dispatch(setLoginError('email', 'El correo es inválido'));
+         error = true;
+      } else {
+         dispatch(setLoginError('email', null));
+      }
+
+      if (!error) {
+         dispatch(setLoadingLogin(true));
+
+         try {
+            await request({
+               path: '/auth/password-recovery',
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json'
+               },
+               body: { email }
+            });
+
+            simpleDialog('info', '¡Correo enviado!', 'Hemos enviado un correo con un enlace para que puedas recuperar tu contraseña');
+         } catch (error) {
+            console.log(error);
+         }
+
+         dispatch(setLoadingLogin(false));
+      }
+   }
+}
+
+export const startResetPassword = (token, { password, passwordRepeat }, navigate) => {
+   return async dispatch => {
+      let error = false;
+
+      if (password.trim().length === 0) {
+         dispatch(setLoginError('password', 'La contraseña es obligatoria'));
+         error = true;
+      } else if (password.length < 8) {
+         dispatch(setLoginError('password', 'La contraseña debe contener al menos 8 caracteres'));
+         error = true;
+      } else {
+         dispatch(setLoginError('password', null));
+      }
+
+      if (passwordRepeat.trim().length === 0) {
+         dispatch(setLoginError('passwordRepeat', 'La contraseña es obligatoria'));
+         error = true;
+      } else if (passwordRepeat.length < 8) {
+         dispatch(setLoginError('passwordRepeat', 'La contraseña debe contener al menos 8 caracteres'));
+         error = true;
+      } else if (password !== passwordRepeat) {
+         dispatch(setLoginError('passwordRepeat', 'Las contraseñas no coinciden'));
+         error = true;
+      } else {
+         dispatch(setLoginError('passwordRepeat', null));
+      }
+
+      if (!error) {
+         dispatch(setLoadingLogin(true));
+
+         try {
+            await request({
+               path: '/auth/password-reset',
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json',
+                  'x-reset-token': token
+               },
+               body: { password }
+            });
+
+            await simpleDialog('success', '¡Contraseña actualizada!', 'Su contraseña ha sido actualizada satisfactoriamente');
+
+            navigate('/auth/login');
+         } catch (error) {
+            console.log(error);
+
+            simpleDialog('error', 'Ha ocurrido un error...', 'Vuelva a acceder al enlace en su correo o solicite un nuevo cambio de contraseña');
+         }
+
+         dispatch(setLoadingLogin(false));
+      }
    }
 }
 

@@ -16,11 +16,12 @@ const initialState = {
    // spinner de autenticación persistente
    loadingData: true,
    // spinner del login
-   loadingLogin: false,
+   loadingAuth: false,
 
    // Errores del login
    emailError: null,
    passwordError: null,
+   passwordRepeatError: null,
 
    // Data de autenticación
    id: null,
@@ -48,7 +49,7 @@ export const authReducer = (state = initialState, action) => {
       case types.LOADING_LOGIN:
          return {
             ...state,
-            loadingLogin: action.payload
+            loadingAuth: action.payload
          }
 
       case types.SET_ERROR:
