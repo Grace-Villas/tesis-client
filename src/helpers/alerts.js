@@ -39,7 +39,7 @@ const simpleDialogSwal = Swal.mixin({
       actions: 'gap-1',
       confirmButton: 'btn btn-primary p-50 px-2',
       cancelButton: 'btn btn-danger p-50 px-2',
-      htmlContainer: 'm-0 fs-6'
+      htmlContainer: 'm-0 px-1 fs-6'
    },
    buttonsStyling: false,
    confirmButtonText: 'Confirmar',
@@ -59,6 +59,22 @@ export const simpleConfirmDialog = async (icon, title, text) => {
       text: text,
       icon: icon,
       showCancelButton: true,
+      width: 300
+   });
+}
+
+/**
+ * Modal sencillo de información
+ * @param {string} icon Ícono del modal
+ * @param {string} title Título del modal
+ * @param {string} text Texto a mostrar en el modal
+ * @returns {Promise<{isConfirmed: boolean, isDenied: boolean, isDismissed: boolean}>}
+ */
+export const simpleDialog = async (icon, title, text) => {
+   return await simpleDialogSwal.fire({
+      title: title,
+      text: text,
+      icon: icon,
       width: 300
    });
 }
