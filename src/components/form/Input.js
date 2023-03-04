@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 const Input = ({
    value, setValue, title, type, placeholder,
    containerClass, inputClass,
-   error, isValid
+   error, isValid,
+   ...inputProps
 }) => {
 
    const handleValue = (e) => setValue(e.target.value);
@@ -41,6 +42,7 @@ const Input = ({
             value={value}
             onChange={handleValue}
             id={title}
+            {...inputProps}
          />
 
          {

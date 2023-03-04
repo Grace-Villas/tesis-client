@@ -11,7 +11,8 @@ import Icon from '../ui/Icon';
 const PasswordInput = ({
    value, setValue, title, placeholder,
    containerClass,
-   error
+   error,
+   ...inputProps
 }) => {
 
    const [show, setShow] = useState(false);
@@ -54,6 +55,7 @@ const PasswordInput = ({
                placeholder={placeholder}
                value={value}
                onChange={handleValue}
+               {...inputProps}
             />
 
             <div
