@@ -10,7 +10,7 @@ import CheckInstallation from '../components/functionals/CheckInstallation';
 // Views
 import Installation from '../views/auth/Installation';
 import Login from '../views/auth/Login';
-import LostPassword from '../views/auth/LostPassword';
+import PasswordReset from '../views/auth/PasswordReset';
 import PasswordRecovery from '../views/auth/PasswordRecovery';
 
 
@@ -29,9 +29,9 @@ const AuthRouter = () => {
          <Routes>
             <Route path='/login' element={<Login />} />
 
-            <Route path='/lost-password' element={<LostPassword />} />
-
             <Route path='/password-recovery' element={<PasswordRecovery />} />
+
+            <Route path='/password-reset/:token' element={<PasswordReset />} />
 
             <Route path='/installation' element={<Installation />} />
             
