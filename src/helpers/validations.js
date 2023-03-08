@@ -2,6 +2,14 @@ import { isEmail } from 'validator';
 
 
 
+export const handleRequired = (value, errorMsg) => {
+   if (value.trim().length === 0) {
+      return errorMsg;
+   } else {
+      return null;
+   }
+}
+
 export const handleInvalidName = (name, field = 'nombre') => {
    if (name.trim().length === 0) {
       return `El ${field} es obligatorio`;
