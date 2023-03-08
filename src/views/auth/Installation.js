@@ -7,6 +7,7 @@ import FormWizard from '../../components/form-wizard/FormWizard';
 import InstallationStep1 from '../../components/installation/InstallationStep1';
 import InstallationStep2 from '../../components/installation/InstallationStep2';
 import InstallationStep3 from '../../components/installation/InstallationStep3';
+import InstallationStep4 from '../../components/installation/InstallationStep4';
 
 
 
@@ -32,26 +33,32 @@ const Installation = () => {
          id: 1,
          icon: 'Home',
          title: 'Bienvenida',
-         subtitle: 'Introducción al sistema'
+         subtitle: 'Introducción'
       },
       {
          id: 2,
          icon: 'HelpCircle',
          title: 'Información',
-         subtitle: 'Información adicional'
+         subtitle: 'Datos adicionales'
       },
       {
          id: 3,
+         icon: 'Briefcase',
+         title: 'Empresa',
+         subtitle: 'Registro de empresa'
+      },
+      {
+         id: 4,
          icon: 'UserPlus',
          title: 'Usuario principal',
-         subtitle: 'Formulario de registro'
+         subtitle: 'Registro de usuario'
       }
    ];
 
    return (
-      <div className='container-fluid pt-lg-2'>
+      <div className='container-fluid pt-lg-2 installation'>
          <div className='row'>
-            <div className='col-md-7 mx-auto'>
+            <div className='col-md-8 mx-auto'>
                <FormWizard
                   headerSteps={header}
                   currentStep={currentStep}
@@ -70,8 +77,14 @@ const Installation = () => {
 
                   <InstallationStep3
                      currentStep={currentStep}
+                     headerProps={{title: 'Proceso de instalación', subtitle: 'Registro de datos de empresa'}}
+                     footerProps={{prevButtonHandler: () => setCurrentStep(2), nextButtonHandler: () => setCurrentStep(4)}}
+                  />
+
+                  <InstallationStep4
+                     currentStep={currentStep}
                      headerProps={{title: 'Proceso de instalación', subtitle: 'Registro de usuario principal'}}
-                     footerProps={{prevButtonHandler: () => setCurrentStep(2), nextButtonText: 'Guardar', nextButtonHandler: () => null}}
+                     footerProps={{prevButtonHandler: () => setCurrentStep(3), nextButtonText: 'Guardar', nextButtonHandler: setCurrentStep}}
                   />
                </FormWizard>
             </div>

@@ -1,166 +1,243 @@
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { isMobilePhone } from 'validator';
 
 
 
 // Actions
-import { setInstallationError, startInstallSystem } from '../../actions/installation';
+import { setInstallationError, setInstallationValue } from '../../actions/installation';
 
 
 
 // Components
 import FormWizardCard from '../form-wizard/FormWizardCard';
 import Input from '../form/Input';
-import PasswordInput from '../form/PasswordInput';
 
 
 
 // Helpers
-import { handleInvalidEmail, handleInvalidName, handleInvalidPassword, handleInvalidRepeatPassword } from '../../helpers/validations';
-import LoadingComponent from '../ui/spinners/LoadingComponent';
+import { handleInvalidEmail, handleInvalidName, handleRequired } from '../../helpers/validations';
 
 
 
 const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
 
    const dispatch = useDispatch();
-
+   
    const {
-      firstNameError, lastNameError, emailError, passwordError, repeatPasswordError,
-      loadingCreate
+      companyName, companyEmail, companyContactEmail, companyPhone,
+      palletDay,
+      state, city, address,
+
+      companyNameError, companyEmailError, companyContactEmailError, companyPhoneError,
+      palletDayError,
+      stateError, cityError, addressError
    } = useSelector(state => state.installation);
 
-   const [firstName, setFirstName] = useState('');
-   const [lastName, setLastName] = useState('');
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
-   const [repeatPassword, setRepeatPassword] = useState('');
+   // Errors
 
-   const handleFirstName = (value) => {
-      const error = handleInvalidName(value);
-      dispatch(setInstallationError('firstName', error));
-
-      setFirstName(value);
+   const handleInvalidPrice = (price) => {
+      if (price.length === 0) {
+         return 'El precio es obligatorio';
+      } else if (!/(^\d*$)|(^(\d+)(\.)(\d{0,2})$)/.test(price)) {
+         return 'El precio debe ser un valor numérico';
+      } else {
+         return null;
+      }
    }
 
-   const handleLastName = (value) => {
-      const error = handleInvalidName(value, 'apellido');
-      dispatch(setInstallationError('lastName', error));
-
-      setLastName(value);
+   const handleInvalidPhone = (phone) => {
+      if (phone.length === 0) {
+         return 'El teléfono es obligatorio';
+      } else if (!isMobilePhone(`+58${phone}`, 'es-VE')) {
+         return 'El teléfono es inválido';
+      } else {
+         return null;
+      }
    }
 
-   const handleEmail = (value) => {
+   // Handlers
+
+   const handleCompanyName = (value) => {
+      const error = handleRequired(value, 'El nombre es obligatorio');
+      dispatch(setInstallationError('companyName', error));
+
+      dispatch(setInstallationValue('companyName', value));
+   }
+
+   const handleCompanyEmail = (value) => {
       const error = handleInvalidEmail(value);
-      dispatch(setInstallationError('email', error));
+      dispatch(setInstallationError('companyEmail', error));
 
-      setEmail(value);
+      dispatch(setInstallationValue('companyEmail', value));
    }
 
-   const handlePassword = (value) => {
-      if (/\s/g.test(value)) return;
-
-      const error = handleInvalidPassword(value);
-      dispatch(setInstallationError('password', error));
-
-      setPassword(value);
+   const handleCompanyContactEmail = (value) => {
+      const error = handleInvalidEmail(value);
+      dispatch(setInstallationError('companyContactEmail', error));
+      
+      dispatch(setInstallationValue('companyContactEmail', value));
    }
 
-   const handleRepeatPassword = (value) => {
-      if (/\s/g.test(value)) return;
+   const handleCompanyPhone = (value) => {
+      if (!/^[0-9]*$/.test(value)) return
 
-      const error = handleInvalidRepeatPassword(value, password);
-      dispatch(setInstallationError('repeatPassword', error));
-
-      setRepeatPassword(value);
+      const error = handleInvalidPhone(value);
+      dispatch(setInstallationError('companyPhone', error));
+      
+      dispatch(setInstallationValue('companyPhone', value));
    }
 
-   const handleSubmit = (e) => {
-      e.preventDefault();
+   const handlePalletDay = (value) => {
+      if (!/(^\d*$)|(^(\d+)(\.)(\d{0,2})$)/.test(value)) return
 
-      const firstNameE = handleInvalidName(firstName);
-      dispatch(setInstallationError('firstName', firstNameE));
+      const error = handleInvalidPrice(value);
+      dispatch(setInstallationError('palletDay', error));
+      
+      dispatch(setInstallationValue('palletDay', value));
+   }
 
-      const lastNameE = handleInvalidName(lastName, 'apellido');
-      dispatch(setInstallationError('lastName', lastNameE));
+   const handleState = (value) => {
+      const error = handleInvalidName(value, 'estado');
+      dispatch(setInstallationError('state', error));
+      
+      dispatch(setInstallationValue('state', value));
+   }
 
-      const emailE = handleInvalidEmail(email);
-      dispatch(setInstallationError('email', emailE));
+   const handleCity = (value) => {
+      const error = handleInvalidName(value, 'campo ciudad');
+      dispatch(setInstallationError('city', error));
+      
+      dispatch(setInstallationValue('city', value));
+   }
 
-      const passwordE = handleInvalidPassword(password);
-      dispatch(setInstallationError('password', passwordE));
+   const handleAddress = (value) => {
+      const error = handleRequired(value, 'La dirección es obligatoria');
+      dispatch(setInstallationError('address', error));
+      
+      dispatch(setInstallationValue('address', value));
+   }
 
-      const rPasswordE = handleInvalidRepeatPassword(repeatPassword, password);
-      dispatch(setInstallationError('repeatPassword', rPasswordE));
+   // Submit
 
-      if (!firstNameE && !lastNameE && !emailE && !passwordE && !rPasswordE) {
-         dispatch(startInstallSystem(firstName, lastName, email, password));
+   const handleNextStep = () => {
+      const nameE = handleRequired(companyName, 'El nombre es obligatorio');
+      dispatch(setInstallationError('companyName', nameE));
+      
+      const emailE = handleInvalidEmail(companyEmail);
+      dispatch(setInstallationError('companyEmail', emailE));
+      
+      const contactE = handleInvalidEmail(companyContactEmail);
+      dispatch(setInstallationError('companyContactEmail', contactE));
+      
+      const phoneE = handleInvalidPhone(companyPhone);
+      dispatch(setInstallationError('companyPhone', phoneE));
+
+      const palletE = handleInvalidPrice(palletDay);
+      dispatch(setInstallationError('palletDay', palletE));
+      
+      const stateE = handleInvalidName(state, 'estado');
+      dispatch(setInstallationError('state', stateE));
+      
+      const cityE = handleInvalidName(city, 'ciudad');
+      dispatch(setInstallationError('city', cityE));
+      
+      const addressE = handleRequired(address, 'La dirección es obligatoria');
+      dispatch(setInstallationError('address', addressE));
+
+      if (!nameE && !emailE && !contactE && !phoneE && !palletE && !stateE && !cityE && !addressE) {
+         footerProps.nextButtonHandler();
       }
    }
 
    return (
-      <>
-         <FormWizardCard
-            step={3}
-            currentStep={currentStep}
-            headerProps={headerProps}
-            footerProps={{...footerProps, nextButtonHandler: handleSubmit}}
-         >
-            <form
-               className='row'
-               onSubmit={handleSubmit}
-            >
-               <Input
-                  value={firstName}
-                  setValue={handleFirstName}
-                  title={'Nombre'}
-                  placeholder='Ingrese su nombre'
-                  containerClass='col-md-4 col-12 mb-1'
-                  error={firstNameError}
-               />
+      <FormWizardCard
+         step={3}
+         currentStep={currentStep}
+         headerProps={headerProps}
+         footerProps={{...footerProps, nextButtonHandler: handleNextStep}}
+      >
+         <div className='row'>
+            <Input
+               value={companyName}
+               setValue={handleCompanyName}
+               title={'Nombre de la compañía'}
+               placeholder='Nombre de la compañía'
+               containerClass='col-md-8 col-12 mb-1'
+               error={companyNameError}
+            />
 
-               <Input
-                  value={lastName}
-                  setValue={handleLastName}
-                  title={'Apellido'}
-                  placeholder='Ingrese su apellido'
-                  containerClass='col-md-4 col-12 mb-1'
-                  error={lastNameError}
-               />
+            <Input
+               value={palletDay}
+               setValue={handlePalletDay}
+               title={'Precio de paleta por día (En dólares)'}
+               placeholder='Precio de paleta por día'
+               containerClass='col-md-4 col-12 mb-1'
+               error={palletDayError}
+            />
 
-               <Input
-                  value={email}
-                  setValue={handleEmail}
-                  title={'Correo'}
-                  placeholder='Ingrese su correo'
-                  containerClass='col-md-4 col-12 mb-1'
-                  error={emailError}
-               />
+            <div className='col-12'>
+               <hr />
+            </div>
 
-               <PasswordInput
-                  value={password}
-                  setValue={handlePassword}
-                  title={'Contraseña'}
-                  placeholder='Ingrese su contraseña'
-                  containerClass='col-md-6 col-12 mb-1'
-                  error={passwordError}
-               />
-
-               <PasswordInput
-                  value={repeatPassword}
-                  setValue={handleRepeatPassword}
-                  title={'Repita su contraseña'}
-                  placeholder='Ingrese su contraseña nuevamente'
-                  containerClass='col-md-6 col-12 mb-1'
-                  error={repeatPasswordError}
-               />
-            </form>
-
+            <Input
+               value={companyPhone}
+               setValue={handleCompanyPhone}
+               title={'Teléfono de contacto'}
+               placeholder='Teléfono de la compañía'
+               containerClass='col-md-4 col-12 mb-1'
+               error={companyPhoneError}
+            />
             
-         </FormWizardCard>
+            <Input
+               value={companyEmail}
+               setValue={handleCompanyEmail}
+               title={'Correo de la compañía'}
+               placeholder='Correo de la compañía'
+               containerClass='col-md-4 col-12 mb-1'
+               error={companyEmailError}
+            />
 
-         <LoadingComponent state={loadingCreate} />
-      </>
+            <Input
+               value={companyContactEmail}
+               setValue={handleCompanyContactEmail}
+               title={'Correo de contacto de la compañía'}
+               placeholder='Correo de la compañía'
+               containerClass='col-md-4 col-12 mb-1'
+               error={companyContactEmailError}
+            />
+
+            <div className='col-12'>
+               <hr />
+            </div>
+
+            <Input
+               value={state}
+               setValue={handleState}
+               title={'Estado'}
+               placeholder='Ingrese el estado donde se ubica la compañía'
+               containerClass='col-md-6 col-12 mb-1'
+               error={stateError}
+            />
+
+            <Input
+               value={city}
+               setValue={handleCity}
+               title={'Ciudad'}
+               placeholder='Ingrese la ciudad donde se ubica la compañía'
+               containerClass='col-md-6 col-12 mb-1'
+               error={cityError}
+            />
+
+            <Input
+               value={address}
+               setValue={handleAddress}
+               title={'Dirección'}
+               placeholder='Ingrese la dirección de la compañía'
+               containerClass='col-12 mb-1'
+               error={addressError}
+            />
+         </div>
+      </FormWizardCard>
    );
 }
 

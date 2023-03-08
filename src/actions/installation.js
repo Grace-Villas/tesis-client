@@ -46,12 +46,17 @@ export const startChecktInstallation = () => {
    }
 }
 
+export const setInstallationValue = (key, value) => ({
+   type: types.SET_VALUE,
+   payload: { key, value }
+});
+
 export const setInstallationError = (key, error) => ({
    type: types.SET_ERROR,
    payload: { key, error }
 });
 
-export const startInstallSystem = (firstName, lastName, email, password) => {
+export const startInstallSystem = (data, setStep) => {
    return async dispatch => {
       dispatch(setLoading('create', true));
 
@@ -62,7 +67,10 @@ export const startInstallSystem = (firstName, lastName, email, password) => {
             headers: {
                'Content-Type': 'application/json'
             },
-            body: { firstName, lastName, email, password }
+            body: {
+               ...data,
+               country: 'venezuela', locale: 'es-VE', phoneExtension: '+58'
+            }
          });
 
          const { token } = response.data;
@@ -85,12 +93,30 @@ export const startInstallSystem = (firstName, lastName, email, password) => {
 
          const { errors } = error.response.data;
 
+         const step2 = ['firstName', 'lastName', 'email', 'password'];
+         const step3 = ['companyName', 'companyEmail', 'companyContactEmail', 'companyPhone', 'palletDay', 'state', 'city', 'address'];
+
+         errors.forEach(error => {
+            if (step3.includes(error.param)) {
+               setStep(3);
+            }
+         });
+
+         dispatch(setInstallationError('companyName', errors.find(err => err.param === 'companyName')?.msg || null));
+         dispatch(setInstallationError('companyEmail', errors.find(err => err.param === 'companyEmail')?.msg || null));
+         dispatch(setInstallationError('companyContactEmail', errors.find(err => err.param === 'companyContactEmail')?.msg || null));
+         dispatch(setInstallationError('companyPhone', errors.find(err => err.param === 'companyPhone')?.msg || null));
+         dispatch(setInstallationError('palletDay', errors.find(err => err.param === 'palletDay')?.msg || null));
+         dispatch(setInstallationError('state', errors.find(err => err.param === 'state')?.msg || null));
+         dispatch(setInstallationError('city', errors.find(err => err.param === 'city')?.msg || null));
+         dispatch(setInstallationError('address', errors.find(err => err.param === 'address')?.msg || null));
+
          dispatch(setInstallationError('firstName', errors.find(err => err.param === 'firstName')?.msg || null));
          dispatch(setInstallationError('lastName', errors.find(err => err.param === 'lastName')?.msg || null));
          dispatch(setInstallationError('email', errors.find(err => err.param === 'email')?.msg || null));
          dispatch(setInstallationError('password', errors.find(err => err.param === 'password')?.msg || null));
 
-         const unhandledErrors = errors.filter(error => !['firstName', 'lastName', 'email', 'password'].includes(error.param));
+         const unhandledErrors = errors.filter(error => ![...step2, ...step3].includes(error.param));
 
          if (unhandledErrors.length > 0) {
             arrayErrorToast(unhandledErrors.map(error => error.msg));

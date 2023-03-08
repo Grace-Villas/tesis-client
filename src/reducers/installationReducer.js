@@ -5,6 +5,7 @@ export const types = {
 
    SET_INSTALLATION_STATE: '[INSTALLATION] set installation state',
 
+   SET_VALUE: '[INSTALLATION] set key-value state',
    SET_ERROR: '[INSTALLATION] set installation error',
 }
 
@@ -17,6 +18,35 @@ const initialState = {
    isInstalled: null,
 
    // Install system
+
+   // Step 3
+   companyName: '',
+   companyEmail: '',
+   companyContactEmail: '',
+   companyPhone: '',
+
+   palletDay: '',
+
+   state: '',
+   city: '',
+   address: '',
+
+   companyNameError: null,
+   companyEmailError: null,
+   companyContactEmailError: null,
+   companyPhoneError: null,
+   palletDayError: null,
+   stateError: null,
+   cityError: null,
+   addressError: null,
+
+   // Step 4
+   firstName: '',
+   lastName: '',
+   email: '',
+   password: '',
+   repeatPassword: '',
+   
    firstNameError: null,
    lastNameError: null,
    emailError: null,
@@ -43,6 +73,12 @@ export const installationReducer = (state = initialState, action) => {
          return {
             ...state,
             isInstalled: action.payload
+         }
+
+      case types.SET_VALUE:
+         return {
+            ...state,
+            [action.payload.key]: action.payload.value
          }
 
    
