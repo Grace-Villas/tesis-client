@@ -142,7 +142,7 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
       const addressE = handleRequired(address, 'La dirección es obligatoria');
       dispatch(setInstallationError('address', addressE));
 
-      if (!nameE && !emailE && !contactE && !phoneE && !palletE && !stateE && !cityE && !addressE) {
+      if (!nameE && !emailE && !contactE && !phoneE && !palletE && !stateE && !cityE && !deliverPriceE && !addressE) {
          footerProps.nextButtonHandler();
       }
    }
