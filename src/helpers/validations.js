@@ -43,8 +43,8 @@ export const handleInvalidPhone = (phone) => {
 export const handleInvalidRut = (rut) => {
    if (rut.trim().length === 0) {
       return 'El número de identificación es obligatorio';
-   } else if (!/^([a-zA-Z])([0-9])*$/.test(rut)) {
-      return 'El número de identificación debe contener un formato válido. Ejemplo: j12345678';
+   } else if (!/^([a-zA-Z])-([0-9])*$/.test(rut)) {
+      return 'El número de identificación debe contener un formato válido. Ejemplo: j-12345678';
    } else {
       return null;
    }
@@ -67,6 +67,16 @@ export const handleInvalidRepeatPassword = (password, compare) => {
       return 'La contraseña debe tener al menos 8 caracteres'
    } else if (password !== compare) {
       return 'Las contraseñas deben coincidir';
+   } else {
+      return null;
+   }
+}
+
+export const handleInvalidCurrency = (currency, field = 'precio') => {
+   if (currency.length === 0) {
+      return `El ${field} es obligatorio`;
+   } else if (!/(^\d*$)|(^(\d+)(\.)(\d{0,2})$)/.test(currency)) {
+      return `El ${field} debe ser un número con 2 decimales`;
    } else {
       return null;
    }

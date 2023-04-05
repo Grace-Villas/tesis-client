@@ -15,7 +15,7 @@ import Input from '../form/Input';
 
 
 // Helpers
-import { handleInvalidEmail, handleInvalidName, handleRequired } from '../../helpers/validations';
+import { handleInvalidCurrency, handleInvalidEmail, handleInvalidName, handleRequired } from '../../helpers/validations';
 
 
 
@@ -34,16 +34,6 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
    } = useSelector(state => state.installation);
 
    // Errors
-
-   const handleInvalidPrice = (price) => {
-      if (price.length === 0) {
-         return 'El precio es obligatorio';
-      } else if (!/(^\d*$)|(^(\d+)(\.)(\d{0,2})$)/.test(price)) {
-         return 'El precio debe ser un número con 2 decimales';
-      } else {
-         return null;
-      }
-   }
 
    const handleInvalidPhone = (phone) => {
       if (phone.length === 0) {
@@ -88,7 +78,7 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
    }
 
    const handlePalletDay = (value) => {
-      const error = handleInvalidPrice(value);
+      const error = handleInvalidCurrency(value);
       dispatch(setInstallationError('palletDay', error));
       
       dispatch(setInstallationValue('palletDay', value));
@@ -109,7 +99,7 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
    }
 
    const handleDeliveryPrice = (value) => {
-      const error = handleInvalidPrice(value);
+      const error = handleInvalidCurrency(value);
       dispatch(setInstallationError('deliveryPrice', error));
       
       dispatch(setInstallationValue('deliveryPrice', value));
@@ -137,7 +127,7 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
       const phoneE = handleInvalidPhone(companyPhone);
       dispatch(setInstallationError('companyPhone', phoneE));
 
-      const palletE = handleInvalidPrice(palletDay);
+      const palletE = handleInvalidCurrency(palletDay);
       dispatch(setInstallationError('palletDay', palletE));
       
       const stateE = handleInvalidName(state, 'estado');
@@ -145,6 +135,9 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
       
       const cityE = handleInvalidName(city, 'ciudad');
       dispatch(setInstallationError('city', cityE));
+
+      const deliverPriceE = handleInvalidCurrency(deliveryPrice);
+      dispatch(setInstallationError('deliveryPrice', deliverPriceE));
       
       const addressE = handleRequired(address, 'La dirección es obligatoria');
       dispatch(setInstallationError('address', addressE));
