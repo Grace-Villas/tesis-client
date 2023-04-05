@@ -15,7 +15,6 @@ import { setBreadcrumb } from '../../../actions/ui';
 import Form from '../../../components/form/Form';
 import Input from '../../../components/form/Input';
 import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
-import Select from '../../../components/form/Select';
 
 
 
@@ -30,12 +29,11 @@ const StatesCreate = () => {
 
    const navigate = useNavigate();
 
-   const { nameError, countryIdError, loadingCreate } = useSelector(state => state.states);
+   const { nameError, loadingCreate } = useSelector(state => state.states);
 
    const { countriesList, loadingList: loadingCountriesList } = useSelector(state => state.countries);
 
    const [name, setName] = useState('');
-   const [countryId, setCountryId] = useState('');
 
    useEffect(() => {
       dispatch(startGetCountriesList());
@@ -60,7 +58,6 @@ const StatesCreate = () => {
    useEffect(() => {
       return () => {
          setName('');
-         setCountryId('');
          
          dispatch(setStatesError('name', null));
          dispatch(setStatesError('countryId', null));
@@ -71,28 +68,12 @@ const StatesCreate = () => {
       }
    }, [dispatch]);
 
-   // Errors and valids
-   const handleInvalidCountryId = (countryId) => {
-      if (countryId === '') {
-         return 'El país es obligatorio';
-      } else {
-         return null;
-      }
-   }
-
    // Handlers
    const handleName = (value) => {
       const nameE = handleInvalidName(value);
       dispatch(setStatesError('name', nameE));
 
       setName(value);
-   }
-
-   const handleCountryId = (value) => {
-      const countryIdE = handleInvalidCountryId(value);
-      dispatch(setStatesError('countryId', countryIdE));
-
-      setCountryId(value);
    }
 
    // Submit
@@ -102,18 +83,16 @@ const StatesCreate = () => {
       const nameE = handleInvalidName(name);
       dispatch(setStatesError('name', nameE));
 
-      const countryIdE = handleInvalidCountryId(countryId);
-      dispatch(setStatesError('countryId', countryIdE));
+      const country = countriesList[0];
 
-      if (!nameE && !countryIdE) {
-         dispatch(startCreateState({name, countryId}, navigate));
+      if (!nameE) {
+         dispatch(startCreateState({name, countryId: country.value}, navigate));
       }
    }
 
    // Reset form
    const handleDiscard = () => {
       setName('');
-      setCountryId('');
       
       dispatch(setStatesError('name', null));
       dispatch(setStatesError('countryId', null));
@@ -135,20 +114,8 @@ const StatesCreate = () => {
                            setValue={handleName}
                            title={'Nombre'}
                            placeholder='Ingrese el nombre del estado'
-                           containerClass='col-md-6 col-12 mb-1'
+                           containerClass='col-md-12 col-12 mb-1'
                            error={nameError}
-                        />
-
-                        <Select
-                           value={countryId}
-                           setValue={handleCountryId}
-                           title='País'
-                           name='country'
-                           placeholder='Seleccione un país'
-                           options={countriesList}
-                           containerClass='col-md-6 col-12 mb-1'
-                           error={countryIdError}
-                           disabled={loadingCountriesList}
                         />
                      </div>
                   </div>
@@ -167,7 +134,7 @@ const StatesCreate = () => {
             </div>
          </div>
 
-         <LoadingResponse state={loadingCreate} />
+         <LoadingResponse state={loadingCreate || loadingCountriesList} />
       </>
    );
 }
