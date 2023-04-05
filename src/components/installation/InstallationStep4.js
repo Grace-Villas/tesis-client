@@ -30,7 +30,7 @@ const InstallationStep4 = ({currentStep, headerProps, footerProps}) => {
       loadingCreate,
 
       // Step 3
-      companyName, companyEmail, companyContactEmail, companyPhone, palletDay, state, city, address
+      companyName, companyEmail, companyContactEmail, companyPhone, palletDay, state, city, deliveryPrice, address
    } = useSelector(state => state.installation);
 
    const handleFirstName = (value) => {
@@ -94,7 +94,7 @@ const InstallationStep4 = ({currentStep, headerProps, footerProps}) => {
          dispatch(startInstallSystem({
             companyName, companyEmail, companyContactEmail, companyPhone,
             palletDay,
-            state, city, address,
+            state, city, deliveryPrice, address,
 
             firstName, lastName, email, password
          }, footerProps.nextButtonHandler));

@@ -93,11 +93,11 @@ export const startInstallSystem = (data, setStep) => {
 
          const { errors } = error.response.data;
 
-         const step2 = ['firstName', 'lastName', 'email', 'password'];
-         const step3 = ['companyName', 'companyEmail', 'companyContactEmail', 'companyPhone', 'palletDay', 'state', 'city', 'address'];
+         const step3 = ['firstName', 'lastName', 'email', 'password'];
+         const step4 = ['companyName', 'companyEmail', 'companyContactEmail', 'companyPhone', 'palletDay', 'state', 'city', 'deliveryPrice', 'address'];
 
          errors.forEach(error => {
-            if (step3.includes(error.param)) {
+            if (step4.includes(error.param)) {
                setStep(3);
             }
          });
@@ -109,6 +109,7 @@ export const startInstallSystem = (data, setStep) => {
          dispatch(setInstallationError('palletDay', errors.find(err => err.param === 'palletDay')?.msg || null));
          dispatch(setInstallationError('state', errors.find(err => err.param === 'state')?.msg || null));
          dispatch(setInstallationError('city', errors.find(err => err.param === 'city')?.msg || null));
+         dispatch(setInstallationError('deliveryPrice', errors.find(err => err.param === 'deliveryPrice')?.msg || null));
          dispatch(setInstallationError('address', errors.find(err => err.param === 'address')?.msg || null));
 
          dispatch(setInstallationError('firstName', errors.find(err => err.param === 'firstName')?.msg || null));
@@ -116,7 +117,7 @@ export const startInstallSystem = (data, setStep) => {
          dispatch(setInstallationError('email', errors.find(err => err.param === 'email')?.msg || null));
          dispatch(setInstallationError('password', errors.find(err => err.param === 'password')?.msg || null));
 
-         const unhandledErrors = errors.filter(error => ![...step2, ...step3].includes(error.param));
+         const unhandledErrors = errors.filter(error => ![...step3, ...step4].includes(error.param));
 
          if (unhandledErrors.length > 0) {
             arrayErrorToast(unhandledErrors.map(error => error.msg));

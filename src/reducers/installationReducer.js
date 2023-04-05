@@ -29,6 +29,7 @@ const initialState = {
 
    state: '',
    city: '',
+   deliveryPrice: '',
    address: '',
 
    companyNameError: null,
@@ -38,6 +39,7 @@ const initialState = {
    palletDayError: null,
    stateError: null,
    cityError: null,
+   deliveryPriceError: null,
    addressError: null,
 
    // Step 4

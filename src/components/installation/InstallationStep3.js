@@ -26,11 +26,11 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
    const {
       companyName, companyEmail, companyContactEmail, companyPhone,
       palletDay,
-      state, city, address,
+      state, city, deliveryPrice, address,
 
       companyNameError, companyEmailError, companyContactEmailError, companyPhoneError,
       palletDayError,
-      stateError, cityError, addressError
+      stateError, cityError, deliveryPriceError, addressError
    } = useSelector(state => state.installation);
 
    // Errors
@@ -39,7 +39,7 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
       if (price.length === 0) {
          return 'El precio es obligatorio';
       } else if (!/(^\d*$)|(^(\d+)(\.)(\d{0,2})$)/.test(price)) {
-         return 'El precio debe ser un valor numérico';
+         return 'El precio debe ser un número con 2 decimales';
       } else {
          return null;
       }
@@ -88,8 +88,6 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
    }
 
    const handlePalletDay = (value) => {
-      if (!/(^\d*$)|(^(\d+)(\.)(\d{0,2})$)/.test(value)) return
-
       const error = handleInvalidPrice(value);
       dispatch(setInstallationError('palletDay', error));
       
@@ -108,6 +106,13 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
       dispatch(setInstallationError('city', error));
       
       dispatch(setInstallationValue('city', value));
+   }
+
+   const handleDeliveryPrice = (value) => {
+      const error = handleInvalidPrice(value);
+      dispatch(setInstallationError('deliveryPrice', error));
+      
+      dispatch(setInstallationValue('deliveryPrice', value));
    }
 
    const handleAddress = (value) => {
@@ -215,7 +220,7 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
                setValue={handleState}
                title={'Estado'}
                placeholder='Ingrese el estado donde se ubica la compañía'
-               containerClass='col-md-6 col-12 mb-1'
+               containerClass='col-md-4 col-12 mb-1'
                error={stateError}
             />
 
@@ -224,8 +229,17 @@ const InstallationStep3 = ({currentStep, headerProps, footerProps}) => {
                setValue={handleCity}
                title={'Ciudad'}
                placeholder='Ingrese la ciudad donde se ubica la compañía'
-               containerClass='col-md-6 col-12 mb-1'
+               containerClass='col-md-4 col-12 mb-1'
                error={cityError}
+            />
+
+            <Input
+               value={deliveryPrice}
+               setValue={handleDeliveryPrice}
+               title={'Precio de despacho (En dólares)'}
+               placeholder='Ingrese el precio de despacho'
+               containerClass='col-md-4 col-12 mb-1'
+               error={deliveryPriceError}
             />
 
             <Input
