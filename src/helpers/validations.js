@@ -1,4 +1,4 @@
-import { isEmail } from 'validator';
+import { isEmail, isMobilePhone } from 'validator';
 
 
 
@@ -35,6 +35,8 @@ export const handleInvalidPhone = (phone) => {
       return 'El teléfono es obligatorio';
    } else if (!/^[0-9]*$/.test(phone)) {
       return 'El teléfono debe contener solo números';
+   } else if (!isMobilePhone(`+58${phone}`, 'es-VE', { strictMode: true })) {
+      return 'El teléfono es inválido';
    } else {
       return null;
    }

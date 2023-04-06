@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom';
 
 // Actions
 import { setCities, startDeleteCity, startGetCities } from '../../../actions/cities';
-import { startGetStatesList } from '../../../actions/states';
+import { setStatesList, startGetStatesList } from '../../../actions/states';
 import { setBreadcrumb } from '../../../actions/ui';
+import { resetFilters } from '../../../actions/filters';
 
 
 
@@ -27,7 +28,6 @@ import SelectFilter from '../../../components/tables/SelectFilter';
 // Custom hooks
 import { useCurrentPage } from '../../../hooks/usePagination';
 import { currencyFormat } from '../../../helpers/format';
-import { resetFilters } from '../../../actions/filters';
 
 
 
@@ -83,6 +83,7 @@ const CitiesList = () => {
       return () => {
          dispatch(setCities([], null, null));
          dispatch(setBreadcrumb([]));
+         dispatch(setStatesList([]));
          dispatch(resetFilters());
       }
    }, [dispatch]);

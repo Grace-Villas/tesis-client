@@ -1,5 +1,5 @@
 import { arrayErrorToast, simpleConfirmDialog, simpleSuccessToast } from '../helpers/alerts';
-import { capitalizeAllWords } from '../helpers/format';
+import { capitalizeAllWords, queryParamsFilter } from '../helpers/format';
 import { getPaginationQuery } from '../helpers/pagination';
 import { request } from '../helpers/request';
 import { types } from '../reducers/rolesReducer';
@@ -84,7 +84,7 @@ export const setRoles = (rows, count, pages) => ({
    payload: { rows, count, pages }
 });
 
-export const startGetRoles = (page, perPage) => {
+export const startGetRoles = (page, perPage, filters) => {
    return async dispatch => {
       dispatch(setLoading('table', true));
 
@@ -92,7 +92,7 @@ export const startGetRoles = (page, perPage) => {
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
          const response = await request({
-            path: `/roles?${getPaginationQuery(page, perPage)}`,
+            path: `/roles?${getPaginationQuery(page, perPage)}&${queryParamsFilter(filters)}`,
             headers: {
                'Content-Type': 'application/json',
                'x-token': token

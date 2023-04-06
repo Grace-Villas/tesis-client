@@ -1,4 +1,5 @@
 import { arrayErrorToast, simpleConfirmDialog, simpleSuccessToast } from '../helpers/alerts';
+import { queryParamsFilter } from '../helpers/format';
 import { capitalizeAllWords } from '../helpers/format';
 import { getPaginationQuery } from '../helpers/pagination';
 import { request } from '../helpers/request';
@@ -66,7 +67,7 @@ export const setStates = (rows, count, pages) => ({
    payload: { rows, count, pages }
 });
 
-export const startGetStates = (page, perPage) => {
+export const startGetStates = (page, perPage, filters) => {
    return async dispatch => {
       dispatch(setLoading('table', true));
 
@@ -74,7 +75,7 @@ export const startGetStates = (page, perPage) => {
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
          const response = await request({
-            path: `/states?${getPaginationQuery(page, perPage)}`,
+            path: `/states?${getPaginationQuery(page, perPage)}&${queryParamsFilter(filters)}`,
             headers: {
                'Content-Type': 'application/json',
                'x-token': token

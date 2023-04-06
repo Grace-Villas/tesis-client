@@ -7,9 +7,13 @@ export const types = {
 
 
 const initialState = {
+   search: '',
    name: '',
+   email: '',
    stateId: '',
-   hasDeliveries: ''
+   cityId: '',
+   hasDeliveries: '',
+   isPublic: ''
 }
 
 

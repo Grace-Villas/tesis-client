@@ -1,5 +1,5 @@
 import { arrayErrorToast, simpleConfirmDialog, simpleSuccessToast } from '../helpers/alerts';
-import { capitalizeAllWords } from '../helpers/format';
+import { capitalizeAllWords, queryParamsFilter } from '../helpers/format';
 import { getPaginationQuery } from '../helpers/pagination';
 import { request } from '../helpers/request';
 import { types } from '../reducers/usersReducer';
@@ -68,7 +68,7 @@ export const setUsers = (rows, count, pages) => ({
    payload: { rows, count, pages }
 });
 
-export const startGetUsers = (page, perPage) => {
+export const startGetUsers = (page, perPage, filters) => {
    return async dispatch => {
       dispatch(setLoading('table', true));
 
@@ -76,7 +76,7 @@ export const startGetUsers = (page, perPage) => {
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
          const response = await request({
-            path: `/users?${getPaginationQuery(page, perPage)}`,
+            path: `/users?${getPaginationQuery(page, perPage)}&${queryParamsFilter(filters)}`,
             headers: {
                'Content-Type': 'application/json',
                'x-token': token
