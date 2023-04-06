@@ -30,3 +30,29 @@ export const capitalizeAllWords = (string) => {
 
    return formated.join(' ');
 }
+
+/**
+ * Función para formatear un monto a formato de dolar americano
+ * @param {string|number} currency monto a formatear
+ * @returns {string}
+ */
+export const currencyFormat = (currency) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(currency);
+
+/**
+ * Función para mapear los atributos a usar a través de queryParams
+ * @param {object} params Parámetros a formatear
+ * @returns {string} queryParams formateados como string
+ */
+export const queryParamsFilter = (params) => {
+   const assoc = Object.entries(params);
+
+   let valids = [];
+
+   assoc.forEach(el => {
+      if (el[1] !== '') {
+         valids.push(`${el[0]}=${el[1]}`);
+      }
+   });
+
+   return valids.join('&');
+}
