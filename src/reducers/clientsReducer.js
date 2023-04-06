@@ -21,7 +21,6 @@ const initialState = {
    rutError: null,
    cityIdError: null,
    stateIdError: null,
-   countryIdError: null,
    
    loadingCreate: false,
 

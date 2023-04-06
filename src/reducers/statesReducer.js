@@ -17,7 +17,6 @@ export const types = {
 const initialState = {
    // Create
    nameError: null,
-   countryIdError: null,
    
    loadingCreate: false,
 
