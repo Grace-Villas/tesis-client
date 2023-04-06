@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 // Actions
 import { setCitiesError, startCreateCity } from '../../../actions/cities';
 import { setStatesList, startGetStatesList } from '../../../actions/states';
-import { startGetCountriesList } from '../../../actions/countries';
 import { setBreadcrumb } from '../../../actions/ui';
 
 
@@ -17,11 +16,12 @@ import Form from '../../../components/form/Form';
 import Input from '../../../components/form/Input';
 import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
 import Select from '../../../components/form/Select';
+import Switch from '../../../components/form/Switch';
 
 
 
 // Helpers
-import { handleInvalidName } from '../../../helpers/validations';
+import { handleInvalidCurrency, handleInvalidName } from '../../../helpers/validations';
 
 
 
@@ -31,20 +31,17 @@ const CitiesCreate = () => {
 
    const navigate = useNavigate();
 
-   const { nameError, stateIdError, countryIdError, loadingCreate } = useSelector(state => state.cities);
+   const { nameError, stateIdError, deliveryPriceError, loadingCreate } = useSelector(state => state.cities);
 
    const { statesList, loadingList: loadingStatesList } = useSelector(state => state.states);
-   const { countriesList, loadingList: loadingCountriesList } = useSelector(state => state.countries);
 
    const [name, setName] = useState('');
-   const [countryId, setCountryId] = useState('');
    const [stateId, setStateId] = useState('');
-
-   const [filteredStates, setFilteredStates] = useState([]);
+   const [hasDeliveries, setHasDeliveries] = useState(true);
+   const [deliveryPrice, setDeliveryPrice] = useState('');
 
    useEffect(() => {
       dispatch(startGetStatesList());
-      dispatch(startGetCountriesList());
    }, [dispatch]);
 
    useEffect(() => {
@@ -67,9 +64,12 @@ const CitiesCreate = () => {
       return () => {
          setName('');
          setStateId('');
+         setHasDeliveries(true);
+         setDeliveryPrice('');
          
          dispatch(setCitiesError('name', null));
          dispatch(setCitiesError('stateId', null));
+         dispatch(setCitiesError('deliveryPrice', null));
 
          dispatch(setStatesList([]));
          
@@ -78,20 +78,13 @@ const CitiesCreate = () => {
    }, [dispatch]);
 
    useEffect(() => {
-      setFilteredStates(statesList.filter(state => state.countryId === Number(countryId)));
-   }, [statesList, countryId]);
+      if (!hasDeliveries) {
+         setDeliveryPrice('');
+         dispatch(setCitiesError('deliveryPrice', null));
+      }
+   }, [hasDeliveries, dispatch]);
 
    // Errors and valids
-   const handleInvalidCountryId = (countryId) => {
-      if (countryId === '') {
-         return 'El país es obligatorio';
-      } else if (!statesList.find(state => state.countryId === Number(countryId))) {
-         return 'Este país no posee estados asociados';
-      } else {
-         return null;
-      }
-   }
-
    const handleInvalidStateId = (stateId) => {
       if (stateId === '') {
          return 'El estado es obligatorio';
@@ -115,12 +108,11 @@ const CitiesCreate = () => {
       setStateId(value);
    }
 
-   const handleCountryId = (value) => {
-      const countryIdE = handleInvalidCountryId(value);
-      dispatch(setCitiesError('countryId', countryIdE));
+   const handleDeliveryPrice = (value) => {
+      const deliverPriceE = handleInvalidCurrency(value, 'costo');
+      dispatch(setCitiesError('deliveryPrice', deliverPriceE));
 
-      setCountryId(value);
-      setStateId('');
+      setDeliveryPrice(value);
    }
 
    // Submit
@@ -133,20 +125,27 @@ const CitiesCreate = () => {
       const stateIdE = handleInvalidStateId(stateId);
       dispatch(setCitiesError('stateId', stateIdE));
 
-      if (!nameE && !stateIdE) {
-         dispatch(startCreateCity({name, stateId}, navigate));
+      const deliveryPriceE = hasDeliveries ? handleInvalidCurrency(deliveryPrice) : null;
+      dispatch(setCitiesError('deliveryPrice', deliveryPriceE));
+
+      const validatedDeliveryPrice = hasDeliveries ? deliveryPrice : undefined;
+      
+      if (!nameE && !stateIdE && !deliveryPriceE) {
+         console.log('hola');
+         dispatch(startCreateCity({name, stateId, hasDeliveries, deliveryPrice: validatedDeliveryPrice}, navigate));
       }
    }
 
    // Reset form
    const handleDiscard = () => {
       setName('');
-      setCountryId('');
       setStateId('');
+      setHasDeliveries(true);
+      setDeliveryPrice('');
       
       dispatch(setCitiesError('name', null));
-      dispatch(setCitiesError('countryId', null));
       dispatch(setCitiesError('stateId', null));
+      dispatch(setCitiesError('deliveryPrice', null));
    }
 
    return (
@@ -165,20 +164,27 @@ const CitiesCreate = () => {
                            setValue={handleName}
                            title={'Nombre'}
                            placeholder='Ingrese el nombre de la ciudad'
-                           containerClass='col-md-4 col-12 mb-1'
+                           containerClass='col-md-6 col-12 mb-1'
                            error={nameError}
                         />
 
-                        <Select
-                           value={countryId}
-                           setValue={handleCountryId}
-                           title='País'
-                           name='country'
-                           placeholder='Seleccione un país'
-                           options={countriesList}
-                           containerClass='col-md-4 col-12 mb-1'
-                           error={countryIdError}
-                           disabled={loadingCountriesList || loadingStatesList}
+                        <Switch
+                           name='list'
+                           value={hasDeliveries}
+                           setValue={() => setHasDeliveries(!hasDeliveries)}
+                           title='¿Despachable?'
+                           containerClass='col-md-2 col-5 mb-1 align-items-center'
+                           wrapperClass='my-50'
+                        />
+
+                        <Input
+                           value={deliveryPrice}
+                           setValue={handleDeliveryPrice}
+                           title={'Costo de despacho'}
+                           placeholder='Ingrese el costo de despacho'
+                           containerClass='col-md-4 col-7 mb-1'
+                           error={deliveryPriceError}
+                           disabled={!hasDeliveries}
                         />
 
                         <Select
@@ -187,10 +193,10 @@ const CitiesCreate = () => {
                            title='Estado'
                            name='state'
                            placeholder='Seleccione un estado'
-                           options={filteredStates}
-                           containerClass='col-md-4 col-12 mb-1'
+                           options={statesList}
+                           containerClass='col-md-6 col-12 mb-1'
                            error={stateIdError}
-                           disabled={filteredStates.length === 0 || countryId === ''}
+                           disabled={loadingStatesList}
                         />
                      </div>
                   </div>

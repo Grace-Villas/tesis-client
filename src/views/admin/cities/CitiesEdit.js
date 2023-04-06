@@ -7,22 +7,22 @@ import { useDispatch, useSelector } from 'react-redux';
 // Actions
 import { setLoading, setCitiesError, setCity, startGetCity, startUpdateCity } from '../../../actions/cities';
 import { setStatesList, startGetStatesList } from '../../../actions/states';
-import { setCountriesList, startGetCountriesList } from '../../../actions/countries';
 import { setBreadcrumb } from '../../../actions/ui';
 
 
 
 // Components
+import Form from '../../../components/form/Form';
 import Input from '../../../components/form/Input';
 import LoadingComponent from '../../../components/ui/spinners/LoadingComponent';
 import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
 import Select from '../../../components/form/Select';
-import Form from '../../../components/form/Form';
+import Switch from '../../../components/form/Switch';
 
 
 
 // Helpers
-import { handleInvalidName } from '../../../helpers/validations';
+import { handleInvalidCurrency, handleInvalidName } from '../../../helpers/validations';
 
 
 
@@ -32,16 +32,14 @@ const CitiesEdit = () => {
 
    const { id } = useParams();
 
-   const { nameError, stateIdError, countryIdError, loadingUpdate, loadingDetail, city } = useSelector(state => state.cities);
+   const { nameError, stateIdError, deliveryPriceError, loadingUpdate, loadingDetail, city } = useSelector(state => state.cities);
 
    const { statesList, loadingList: loadingStatesList } = useSelector(state => state.states);
-   const { countriesList, loadingList: loadingCountriesList } = useSelector(state => state.countries);
 
    const [name, setName] = useState('');
    const [stateId, setStateId] = useState('');
-   const [countryId, setCountryId] = useState('');
-
-   const [filteredStates, setFilteredStates] = useState([]);
+   const [hasDeliveries, setHasDeliveries] = useState(true);
+   const [deliveryPrice, setDeliveryPrice] = useState('');
 
    useEffect(() => {
       dispatch(setLoading('detail', true));
@@ -51,11 +49,11 @@ const CitiesEdit = () => {
    useEffect(() => {
       setName(city?.name || '');
       setStateId(city?.stateId || '');
-      setCountryId(city?.state?.countryId || '');
-   }, [city?.name, city?.stateId, city?.state?.countryId]);
+      setHasDeliveries(city?.hasDeliveries ?? true);
+      setDeliveryPrice(city?.deliveryPrice ? `${city?.deliveryPrice}` : '');
+   }, [city?.name, city?.stateId, city?.hasDeliveries, city?.deliveryPrice]);
 
    useEffect(() => {
-      dispatch(startGetCountriesList());
       dispatch(startGetStatesList());
    }, [dispatch]);
 
@@ -79,35 +77,24 @@ const CitiesEdit = () => {
       return () => {
          setName('');
          setStateId('');
-         setCountryId('');
          
          dispatch(setCitiesError('name', null));
          dispatch(setCitiesError('stateId', null));
-         dispatch(setCitiesError('countryId', null));
 
          dispatch(setCity(null));
 
          dispatch(setStatesList([]));
-         dispatch(setCountriesList([]));
          
          dispatch(setBreadcrumb([]));
       }
    }, [dispatch]);
 
    useEffect(() => {
-      setFilteredStates(statesList.filter(state => state.countryId === Number(countryId)));
-   }, [statesList, countryId]);
-
-   // Errors and valids
-   const handleInvalidCountryId = (countryId) => {
-      if (countryId === '') {
-         return 'El país es obligatorio';
-      } else if (!statesList.find(state => state.countryId === Number(countryId))) {
-         return 'Este país no posee estados asociados';
-      } else {
-         return null;
+      if (!hasDeliveries) {
+         setDeliveryPrice('');
+         dispatch(setCitiesError('deliveryPrice', null));
       }
-   }
+   }, [hasDeliveries, dispatch]);
 
    const handleInvalidStateId = (stateId) => {
       if (stateId === '') {
@@ -132,12 +119,11 @@ const CitiesEdit = () => {
       setStateId(value);
    }
 
-   const handleCountryId = (value) => {
-      const countryIdE = handleInvalidCountryId(value);
-      dispatch(setCitiesError('countryId', countryIdE));
+   const handleDeliveryPrice = (value) => {
+      const deliverPriceE = handleInvalidCurrency(value, 'costo');
+      dispatch(setCitiesError('deliveryPrice', deliverPriceE));
 
-      setCountryId(value);
-      setStateId('');
+      setDeliveryPrice(value);
    }
 
    // Submit
@@ -150,8 +136,13 @@ const CitiesEdit = () => {
       const stateIdE = handleInvalidStateId(stateId);
       dispatch(setCitiesError('stateId', stateIdE));
 
-      if (!nameE && !stateIdE) {
-         dispatch(startUpdateCity(city.id, {name, stateId}));
+      const deliveryPriceE = hasDeliveries ? handleInvalidCurrency(deliveryPrice) : null;
+      dispatch(setCitiesError('deliveryPrice', deliveryPriceE));
+
+      const validatedDeliveryPrice = hasDeliveries ? deliveryPrice : undefined;
+      
+      if (!nameE && !stateIdE && !deliveryPriceE) {
+         dispatch(startUpdateCity(city.id, {name, stateId, hasDeliveries, deliveryPrice: validatedDeliveryPrice}));
       }
    }
 
@@ -159,11 +150,12 @@ const CitiesEdit = () => {
    const handleDiscard = () => {
       setName(city?.name);
       setStateId(city?.stateId);
-      setCountryId(city?.state?.countryId);
+      setHasDeliveries(city?.hasDeliveries);
+      setDeliveryPrice(city?.deliveryPrice || '');
       
       dispatch(setCitiesError('name', null));
-      dispatch(setCitiesError('countryId', null));
       dispatch(setCitiesError('stateId', null));
+      dispatch(setCitiesError('deliveryPrice', null));
    }
 
    return (
@@ -183,20 +175,27 @@ const CitiesEdit = () => {
                            setValue={handleName}
                            title={'Nombre'}
                            placeholder='Ingrese el nombre de la ciudad'
-                           containerClass='col-md-4 col-12 mb-1'
+                           containerClass='col-md-6 col-12 mb-1'
                            error={nameError}
                         />
 
-                        <Select
-                           value={countryId}
-                           setValue={handleCountryId}
-                           title='País'
-                           name='country'
-                           placeholder='Seleccione un país'
-                           options={countriesList}
-                           containerClass='col-md-4 col-12 mb-1'
-                           error={countryIdError}
-                           disabled={loadingCountriesList || loadingStatesList}
+                        <Switch
+                           name='list'
+                           value={hasDeliveries}
+                           setValue={() => setHasDeliveries(!hasDeliveries)}
+                           title='¿Despachable?'
+                           containerClass='col-md-2 col-5 mb-1 align-items-center'
+                           wrapperClass='my-50'
+                        />
+
+                        <Input
+                           value={deliveryPrice}
+                           setValue={handleDeliveryPrice}
+                           title={'Costo de despacho'}
+                           placeholder='Ingrese el costo de despacho'
+                           containerClass='col-md-4 col-7 mb-1'
+                           error={deliveryPriceError}
+                           disabled={!hasDeliveries}
                         />
 
                         <Select
@@ -205,10 +204,10 @@ const CitiesEdit = () => {
                            title='Estado'
                            name='state'
                            placeholder='Seleccione un estado'
-                           options={filteredStates}
-                           containerClass='col-md-4 col-12 mb-1'
+                           options={statesList}
+                           containerClass='col-md-6 col-12 mb-1'
                            error={stateIdError}
-                           disabled={filteredStates.length === 0 || countryId === ''}
+                           disabled={loadingStatesList}
                         />
                      </div>
                   </div>
@@ -221,7 +220,7 @@ const CitiesEdit = () => {
                <div className='card'>
                   <div className='card-body'>
                      <Link
-                        to='/states'
+                        to='/cities'
                         className='btn btn-outline-secondary w-100 waves-effect waves-float waves-light'
                      >Volver a listado</Link>
                   </div>

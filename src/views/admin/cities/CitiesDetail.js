@@ -14,6 +14,7 @@ import { setCity, setLoading, startDeleteCity, startGetCity } from '../../../act
 import Element404 from '../../../components/ui/Element404';
 import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
 import LoadingComponent from '../../../components/ui/spinners/LoadingComponent';
+import { currencyFormat } from '../../../helpers/format';
 
 
 
@@ -87,7 +88,7 @@ const CitiesDetail = () => {
 
                   <div className='card-body invoice-padding pt-0'>
                      <div className='row'>
-                        <div className='col-xl-6 p-0 mx-xl-auto'>
+                        <div className='col-xl-6 mx-xl-auto'>
                            <table className='w-100'>
                               <tbody>
                                  <tr>
@@ -101,11 +102,25 @@ const CitiesDetail = () => {
 
                                     <td className='text-end fw-bolder'>{city?.state?.name}</td>
                                  </tr>
+                              </tbody>
+                           </table>
+                        </div>
+
+                        <div className='col-xl-6 mx-xl-auto'>
+                           <table className='w-100'>
+                              <tbody>
+                                 <tr>
+                                    <td className='pe-1'>¿Despachable?:</td>
+
+                                    <td
+                                       className={`text-end fw-bolder ${city?.hasDeliveries ? 'text-success' : 'text-danger'}`}
+                                    >{city?.hasDeliveries ? 'Sí' : 'No'}</td>
+                                 </tr>
 
                                  <tr>
-                                    <td className='pe-1'>País:</td>
+                                    <td className='pe-1'>Costo de despacho:</td>
 
-                                    <td className='text-end fw-bolder'>{city?.state?.country?.name}</td>
+                                    <td className='text-end fw-bolder'>{city?.deliveryPrice ? currencyFormat(city?.deliveryPrice) : '-'}</td>
                                  </tr>
                               </tbody>
                            </table>

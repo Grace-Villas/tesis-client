@@ -1,5 +1,5 @@
 import { arrayErrorToast, simpleConfirmDialog, simpleSuccessToast } from '../helpers/alerts';
-import { capitalizeAllWords } from '../helpers/format';
+import { capitalizeAllWords, queryParamsFilter } from '../helpers/format';
 import { getPaginationQuery } from '../helpers/pagination';
 import { request } from '../helpers/request';
 import { types } from '../reducers/citiesReducer';
@@ -18,7 +18,7 @@ export const setCitiesError = (key, error) => ({
    payload: { key, error }
 });
 
-export const startCreateCity = ({ name, stateId }, navigate) => {
+export const startCreateCity = ({ name, stateId, hasDeliveries, deliveryPrice }, navigate) => {
    return async dispatch => {
       dispatch(setLoading('create', true));
 
@@ -32,7 +32,7 @@ export const startCreateCity = ({ name, stateId }, navigate) => {
                'Content-Type': 'application/json',
                'x-token': token
             },
-            body: { name, stateId }
+            body: { name, stateId, hasDeliveries, deliveryPrice }
          });
 
          const { id, name: createdName } = response.data;
@@ -49,8 +49,10 @@ export const startCreateCity = ({ name, stateId }, navigate) => {
 
          dispatch(setCitiesError('name', errors.find(err => err.param === 'name')?.msg || null));
          dispatch(setCitiesError('stateId', errors.find(err => err.param === 'stateId')?.msg || null));
+         dispatch(setCitiesError('hasDeliveries', errors.find(err => err.param === 'hasDeliveries')?.msg || null));
+         dispatch(setCitiesError('deliveryPrice', errors.find(err => err.param === 'deliveryPrice')?.msg || null));
 
-         const unhandledErrors = errors.filter(error => !['name', 'stateId'].includes(error.param));
+         const unhandledErrors = errors.filter(error => !['name', 'stateId', 'hasDeliveries', 'deliveryPrice'].includes(error.param));
 
          if (unhandledErrors.length > 0) {
             arrayErrorToast(unhandledErrors.map(error => error.msg));
@@ -66,7 +68,7 @@ export const setCities = (rows, count, pages) => ({
    payload: { rows, count, pages }
 });
 
-export const startGetCities = (page, perPage) => {
+export const startGetCities = (page, perPage, filters) => {
    return async dispatch => {
       dispatch(setLoading('table', true));
 
@@ -74,7 +76,7 @@ export const startGetCities = (page, perPage) => {
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
          const response = await request({
-            path: `/cities?${getPaginationQuery(page, perPage)}`,
+            path: `/cities?${getPaginationQuery(page, perPage)}&${queryParamsFilter(filters)}`,
             headers: {
                'Content-Type': 'application/json',
                'x-token': token
@@ -197,7 +199,7 @@ export const startGetCity = (id) => {
    }
 }
 
-export const startUpdateCity = (id, { name, stateId }) => {
+export const startUpdateCity = (id, { name, stateId, hasDeliveries, deliveryPrice }) => {
    return async dispatch => {
       dispatch(setLoading('update', true));
 
@@ -211,7 +213,7 @@ export const startUpdateCity = (id, { name, stateId }) => {
                'Content-Type': 'application/json',
                'x-token': token
             },
-            body: { name, stateId }
+            body: { name, stateId, hasDeliveries, deliveryPrice }
          });
 
          const city = response.data;

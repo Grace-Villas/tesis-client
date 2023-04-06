@@ -18,7 +18,7 @@ const initialState = {
    // Create
    nameError: null,
    stateIdError: null,
-   countryIdError: null,
+   deliveryPriceError: null,
    
    loadingCreate: false,
 
