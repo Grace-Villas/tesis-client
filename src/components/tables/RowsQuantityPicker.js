@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 
 
@@ -9,7 +10,7 @@ import { usePagination } from '../../hooks/usePagination';
 
 
 
-const RowsQuantityPicker = () => {
+const RowsQuantityPicker = ({className}) => {
    
    const dispatch = useDispatch();
 
@@ -34,25 +35,37 @@ const RowsQuantityPicker = () => {
    }
 
    return (
-      <div className='d-flex align-items-center gap-1'>
-         <label>Mostrar</label>
+      <div className={`col-6 col-lg-2 ${className}`}>
+         <div className='d-flex align-items-center gap-1'>
+            <label>Mostrar</label>
 
-         <select
-            className='form-select'
-            style={{minWidth: '5rem'}}
-            value={perPage}
-            onChange={handleQuantity}
-         >
-            <option value={10}>10</option>
+            <select
+               className='form-select'
+               style={{minWidth: '5rem'}}
+               value={perPage}
+               onChange={handleQuantity}
+            >
+               <option value={10}>10</option>
 
-            <option value={25}>25</option>
+               <option value={25}>25</option>
 
-            <option value={50}>50</option>
+               <option value={50}>50</option>
 
-            <option value={100}>100</option>
-         </select>
+               <option value={100}>100</option>
+            </select>
+         </div>
       </div>
    );
+}
+
+
+
+RowsQuantityPicker.propTypes = {
+   className: PropTypes.string
+}
+
+RowsQuantityPicker.defaultProps = {
+   className: ''
 }
 
 
