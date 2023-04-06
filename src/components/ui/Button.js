@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 // Custom proptypes
-import { validateFeatherIcon } from '../../custom-proptypes/feather-icons';
+import { validateNullableFeatherIcon } from '../../custom-proptypes/feather-icons';
 
 
 
@@ -111,7 +111,7 @@ Button.propTypes = {
    disabled: PropTypes.bool,
 
    text: PropTypes.string,
-   icon: validateFeatherIcon,
+   icon: validateNullableFeatherIcon,
 
    color: PropTypes.oneOf(['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark']),
    style: PropTypes.oneOf(['outline', 'flat', 'gradient', 'relief']),

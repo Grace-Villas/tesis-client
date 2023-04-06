@@ -17,3 +17,23 @@ export const validateFeatherIcon = (props, propName, componentName) => {
       );
    }
 }
+
+export const validateNullableFeatherIcon = (props, propName, componentName) => {
+
+   if (!props[propName]) {
+      return null;
+   }
+   
+   const entries = Object.entries({...Icons});
+
+   const icons = entries.map(([key, _]) => key);
+
+   if (!icons.includes(props[propName])) {
+
+      const errorIcons = icons.map(icon => `"${icon}"`);
+
+      return new Error(
+         'Invalid prop `' + propName + '` of value `' + props[propName] + '` supplied to `' + componentName + '`, expected on of [' + errorIcons.toString() + '].'
+      );
+   }
+}
