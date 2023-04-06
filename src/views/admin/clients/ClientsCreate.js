@@ -34,13 +34,12 @@ const ClientsCreate = () => {
    const navigate = useNavigate();
 
    const {
-      nameError, addressError, emailError, phoneError, rutError, cityIdError, stateIdError, countryIdError,
+      nameError, addressError, emailError, phoneError, rutError, cityIdError, stateIdError,
       loadingCreate
    } = useSelector(state => state.clients);
 
    const { citiesList, loadingList: loadingCitiesList } = useSelector(state => state.cities);
    const { statesList, loadingList: loadingStatesList } = useSelector(state => state.states);
-   const { countriesList, loadingList: loadingCountriesList } = useSelector(state => state.countries);
 
    const [name, setName] = useState('');
    const [address, setAddress] = useState('');
@@ -48,11 +47,9 @@ const ClientsCreate = () => {
    const [phone, setPhone] = useState('');
    const [rut, setRut] = useState('');
    const [cityId, setCityId] = useState('');
-   const [countryId, setCountryId] = useState('');
    const [stateId, setStateId] = useState('');
 
    const [filteredCities, setFilteredCities] = useState([]);
-   const [filteredStates, setFilteredStates] = useState([]);
 
    useEffect(() => {
       dispatch(startGetCitiesList());
@@ -84,11 +81,9 @@ const ClientsCreate = () => {
          setPhone('');
          setRut('');
          setCityId('');
-         setCountryId('');
          setStateId('');
 
          setFilteredCities([]);
-         setFilteredStates([]);
 
          dispatch(setClientsError(('name', null)));
          dispatch(setClientsError(('address', null)));
@@ -111,24 +106,10 @@ const ClientsCreate = () => {
       setFilteredCities(citiesList.filter(city => city.stateId === Number(stateId)));
    }, [citiesList, stateId]);
 
-   useEffect(() => {
-      setFilteredStates(statesList.filter(state => state.countryId === Number(countryId)));
-   }, [statesList, countryId]);
-
    // Errors and valids
    const handleInvalidAddress = (address) => {
       if (address.trim().length === 0) {
          return 'La dirección es obligatoria';
-      } else {
-         return null;
-      }
-   }
-
-   const handleInvalidCountryId = (countryId) => {
-      if (countryId === '') {
-         return 'El país es obligatorio';
-      } else if (!statesList.find(state => state.countryId === Number(countryId))) {
-         return 'Este país no posee estados asociados';
       } else {
          return null;
       }
@@ -203,15 +184,6 @@ const ClientsCreate = () => {
       setCityId('');
    }
 
-   const handleCountryId = (value) => {
-      const countryIdE = handleInvalidCountryId(value);
-      dispatch(setClientsError('countryId', countryIdE));
-
-      setCountryId(value);
-      setStateId('');
-      setCityId('');
-   }
-
    // Submit
    const handleSubmit = (e) => {
       e.preventDefault();
@@ -247,11 +219,9 @@ const ClientsCreate = () => {
       setPhone('');
       setRut('');
       setCityId('');
-      setCountryId('');
       setStateId('');
 
       setFilteredCities([]);
-      setFilteredStates([]);
 
       dispatch(setClientsError('name', null));
       dispatch(setClientsError('address', null));
@@ -311,27 +281,15 @@ const ClientsCreate = () => {
                         />
 
                         <Select
-                           value={countryId}
-                           setValue={handleCountryId}
-                           title='País'
-                           name='country'
-                           placeholder='Seleccione un país'
-                           options={countriesList}
-                           containerClass='col-md-4 col-12 mb-1'
-                           error={countryIdError}
-                           disabled={loadingCountriesList || loadingStatesList || loadingCitiesList}
-                        />
-
-                        <Select
                            value={stateId}
                            setValue={handleStateId}
                            title='Estado'
                            name='state'
                            placeholder='Seleccione un estado'
-                           options={filteredStates}
-                           containerClass='col-md-4 col-12 mb-1'
+                           options={statesList}
+                           containerClass='col-md-6 col-12 mb-1'
                            error={stateIdError}
-                           disabled={filteredStates.length === 0 || countryId === ''}
+                           disabled={loadingStatesList || loadingCitiesList}
                         />
 
                         <Select
@@ -341,7 +299,7 @@ const ClientsCreate = () => {
                            name='city'
                            placeholder='Seleccione una ciudad'
                            options={filteredCities}
-                           containerClass='col-md-4 col-12 mb-1'
+                           containerClass='col-md-6 col-12 mb-1'
                            error={cityIdError}
                            disabled={filteredCities.length === 0 || stateId === ''}
                         />
