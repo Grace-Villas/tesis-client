@@ -83,6 +83,7 @@ const CitiesList = () => {
       return () => {
          dispatch(setCities([], null, null));
          dispatch(setBreadcrumb([]));
+         dispatch(resetFilters());
       }
    }, [dispatch]);
 
