@@ -109,7 +109,7 @@ const StatesList = () => {
                            <tr role='row'>
                               <th rowSpan={1} colSpan={1} className='text-center'>Estado</th>
                               
-                              <th rowSpan={1} colSpan={1} className='text-center' style={{width: 500}}>Acciones</th>
+                              <th rowSpan={1} colSpan={1} className='text-center' style={{width: 300}}>Acciones</th>
                            </tr>
                         </thead>
 
