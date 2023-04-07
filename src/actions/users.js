@@ -231,3 +231,74 @@ export const startUpdateUser = (id, { firstName, lastName, email, password }) =>
       dispatch(setLoading('update', false));
    }
 }
+
+
+
+// UserRoles
+
+export const startAllocateRoleToUser = (userId, roleId) => {
+   return async dispatch => {
+      try {
+         const { isConfirmed } = await simpleConfirmDialog('info', '¿Está seguro?', '¿Desea asignar el rol al usuario actual?');
+
+         if (isConfirmed) {
+            const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+            const response = await request({
+               path: '/roles/user-role',
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json',
+                  'x-token': token
+               },
+               body: { userId, roleId }
+            });
+
+            const userRole = response.data;
+
+            simpleSuccessToast(`El rol fue asignado satisfactoriamente`);
+
+            dispatch(startGetUser(userRole.userId));
+         }
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
+      }
+   }
+}
+
+export const startDellocateRoleFromUser = (userRoleId) => {
+   return async dispatch => {
+      try {
+         const { isConfirmed } = await simpleConfirmDialog('warning', '¿Está seguro?', '¿Desea remover el rol del usuario actual?');
+
+         if (isConfirmed) {
+            const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+            const response = await request({
+               path: `/roles/user-role/${userRoleId}`,
+               method: 'DELETE',
+               headers: {
+                  'Content-Type': 'application/json',
+                  'x-token': token
+               }
+            });
+
+            const userRole = response.data;
+
+            simpleSuccessToast(`El rol fue removido satisfactoriamente`);
+
+            dispatch(startGetUser(userRole.userId));
+         }
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
+      }
+   }
+}

@@ -273,6 +273,7 @@ export const startGetRolesList = () => {
 
          const mappedRows = rows.map(row => ({
             text: capitalizeAllWords(row.name),
+            hexColor: row.hexColor,
             value: row.id
          }));
 

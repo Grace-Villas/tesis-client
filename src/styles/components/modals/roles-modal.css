@@ -1,0 +1,11 @@
+
+
+.roles-modal {
+   width: 90%;
+}
+
+@media only screen and (min-width: 992px) {
+   .roles-modal {
+      width: 30%;
+   }
+}

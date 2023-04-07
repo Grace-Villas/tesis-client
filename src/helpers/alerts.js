@@ -39,7 +39,8 @@ const simpleDialogSwal = Swal.mixin({
       actions: 'gap-1',
       confirmButton: 'btn btn-primary p-50 px-2',
       cancelButton: 'btn btn-danger p-50 px-2',
-      htmlContainer: 'm-0 px-1 fs-6'
+      htmlContainer: 'm-0 px-1 fs-6',
+      container: 'alert-container'
    },
    buttonsStyling: false,
    confirmButtonText: 'Confirmar',
