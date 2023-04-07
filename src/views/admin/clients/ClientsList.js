@@ -13,6 +13,7 @@ import { setBreadcrumb } from '../../../actions/ui';
 
 
 // Components
+import Icon from '../../../components/ui/Icon';
 import LoadingComponent from '../../../components/ui/spinners/LoadingComponent';
 import Pagination from '../../../components/hud/Pagination';
 import RowsQuantityPicker from '../../../components/tables/RowsQuantityPicker';
@@ -148,15 +149,21 @@ const ClientsList = () => {
 
                                     <td className='text-center'>
                                        <div className='d-flex justify-content-center gap-1'>
-                                          <Link to={`${row.id}`} className='btn btn-sm btn-relief-primary'>Ver</Link>
+                                          <Link to={`${row.id}`} className='btn btn-sm btn-relief-primary'>
+                                             <Icon icon='Info' size={16} />
+                                          </Link>
 
-                                          <Link to={`edit/${row.id}`} className='btn btn-sm btn-relief-info'>Editar</Link>
+                                          <Link to={`edit/${row.id}`} className='btn btn-sm btn-relief-info'>
+                                             <Icon icon='Edit' size={16} />
+                                          </Link>
 
                                           <button
                                              type='button'
                                              className='btn btn-sm btn-relief-danger'
-                                             onClick={() => handleDelete(row.id)}
-                                          >Eliminar</button>
+                                             onClick={() => handleDelete(row.id, currentPage, perPage)}
+                                          >
+                                             <Icon icon='Trash2' size={16} />
+                                          </button>
                                        </div>
                                     </td>
                                  </tr>
