@@ -17,7 +17,7 @@ const SideBarLink = ({text, icon, url}) => {
          <NavLink className='nav-item d-flex align-items-center custom-link-item' to={url} end>
             <Icon icon={icon} />
 
-            <span className='menu-title text-truncate' style={{lineHeight: '100%'}} data-i18n='Home'>{text}</span>
+            <span className='menu-title text-truncate' data-i18n='Home'>{text}</span>
          </NavLink>
       </div>
    );

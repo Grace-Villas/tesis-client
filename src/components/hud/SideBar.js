@@ -136,6 +136,8 @@ const SideBar = () => {
 
                <SidebarTitle title='Extras' />
 
+               <SideBarLink text='Empresa' icon='Info' url='/company' />
+
                <SideBarLink text='Configuraciones' icon='Settings' url='/configurations' />
             </div>
          </div>

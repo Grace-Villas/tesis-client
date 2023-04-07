@@ -10,6 +10,7 @@ import MainBody from '../components/hud/MainBody';
 
 
 // Views
+import CompanyInfo from '../views/CompanyInfo';
 import Configurations from '../views/Configurations';
 import Dashboard from '../views/Dashboard';
 
@@ -57,6 +58,8 @@ const MainRouter = () => {
                <Route path='/settings/*' element={<SettingsRouter />} />
 
                <Route path='/configurations' element={<Configurations />} />
+
+               <Route path='/company' element={<CompanyInfo />} />
             
                <Route path='*' element={<Navigate to='/' replace />} />
             </Routes>

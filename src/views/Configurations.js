@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -13,6 +13,11 @@ import { setBreadcrumb } from '../actions/ui';
 import LoadingComponent from '../components/ui/spinners/LoadingComponent';
 import Icon from '../components/ui/Icon';
 import EditConfigModal from '../components/configurations/EditConfigModal';
+
+
+
+// Helpers
+import { currencyFormat } from '../helpers/format';
 
 
 
@@ -31,7 +36,7 @@ const Configurations = () => {
             text: 'Dashboard'
          },
          {
-            link: '/roles',
+            link: '/configurations',
             text: 'Configuraciones de la empresa'
          }
       ]));
@@ -84,7 +89,7 @@ const Configurations = () => {
                      <div className='dataTables_wrapper dt-bootstrap5 no-footer'>
                         <div className='table-responsive'>
                            <table className='invoice-list-table table dataTable no-footer dtr-column'>
-                              <thead className='table-dark'>
+                              <thead className='table-dark '>
                                  <tr role='row'>
                                     <th rowSpan={1} colSpan={1} className='text-start'>Atributo</th>
 
@@ -100,7 +105,7 @@ const Configurations = () => {
                                        <tr key={'config-' + conf.id}>
                                           <td className='text-start'>{conf.key}</td>
 
-                                          <td className='text-end'>{conf.value}</td>
+                                          <td className='text-end'>{conf.dbKey === 'palletDay' ? currencyFormat(conf.value) : conf.value}</td>
 
                                           <td className='text-center'>
                                              <div className='d-flex justify-content-center gap-1'>

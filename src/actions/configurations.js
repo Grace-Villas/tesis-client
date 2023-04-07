@@ -47,6 +47,7 @@ export const startGetConfigurations = () => {
 
          const configs = configArray.map(conf => ({
             ...config[conf.key],
+            dbKey: Object.entries(config).find(el => el[0] === conf.key)[0],
             key: conf.value,
             handleInvalid: conf.handleInvalid
          }));
