@@ -4,20 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 // Actions
-import { setConfigurations, setLoading, startGetConfigurations } from '../actions/configurations';
-import { setBreadcrumb } from '../actions/ui';
+import { setConfigurations, setLoading, startGetConfigurations } from '../../actions/configurations';
+import { setBreadcrumb } from '../../actions/ui';
 
 
 
 // Components
-import LoadingComponent from '../components/ui/spinners/LoadingComponent';
-import Icon from '../components/ui/Icon';
-import EditConfigModal from '../components/configurations/EditConfigModal';
+import LoadingComponent from '../../components/ui/spinners/LoadingComponent';
+import Icon from '../../components/ui/Icon';
+import EditConfigModal from '../../components/configurations/EditConfigModal';
 
 
 
 // Helpers
-import { currencyFormat } from '../helpers/format';
+import { currencyFormat } from '../../helpers/format';
 
 
 

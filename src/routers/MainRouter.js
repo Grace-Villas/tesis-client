@@ -11,7 +11,7 @@ import MainBody from '../components/hud/MainBody';
 
 // Views
 import CompanyInfo from '../views/CompanyInfo';
-import Configurations from '../views/Configurations';
+import Configurations from '../views/admin/Configurations';
 import Dashboard from '../views/Dashboard';
 
 
