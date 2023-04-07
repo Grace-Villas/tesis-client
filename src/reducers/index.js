@@ -1,6 +1,7 @@
 import { authReducer } from './authReducer';
 import { citiesReducer } from './citiesReducer';
 import { clientsReducer } from './clientsReducer';
+import { configurationsReducer } from './configurationsReducer';
 import { countriesReducer } from './countriesReducer';
 import { filtersReducer } from './filtersReducer';
 import { installationReducer } from './installationReducer';
@@ -18,6 +19,7 @@ export {
    authReducer,
    citiesReducer,
    clientsReducer,
+   configurationsReducer,
    countriesReducer,
    filtersReducer,
    installationReducer,
