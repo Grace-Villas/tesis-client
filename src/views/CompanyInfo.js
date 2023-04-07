@@ -32,7 +32,7 @@ const CompanyInfo = () => {
             text: 'Dashboard'
          },
          {
-            link: '/roles',
+            link: '/company',
             text: 'Información de la empresa'
          }
       ]));
