@@ -72,6 +72,7 @@ Input.propTypes = {
 
 Input.defaultProps = {
    type: 'text',
+   placeholder: '',
 
    containerClass: '',
    inputClass: null,
