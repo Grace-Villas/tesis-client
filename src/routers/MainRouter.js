@@ -10,6 +10,7 @@ import MainBody from '../components/hud/MainBody';
 
 
 // Views
+import Configurations from '../views/Configurations';
 import Dashboard from '../views/Dashboard';
 
 
@@ -54,6 +55,8 @@ const MainRouter = () => {
                <Route path='/cities/*' element={<CitiesRouter />} />
 
                <Route path='/settings/*' element={<SettingsRouter />} />
+
+               <Route path='/configurations' element={<Configurations />} />
             
                <Route path='*' element={<Navigate to='/' replace />} />
             </Routes>

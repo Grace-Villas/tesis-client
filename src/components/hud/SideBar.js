@@ -60,16 +60,16 @@ const SideBar = () => {
    return (
       <div
          className={handleClassName()}
-         data-scroll-to-active="true"
+         data-scroll-to-active='true'
          onMouseEnter={handleHovered}
          onMouseLeave={handleOnMouseLeave}
       >
          <div
-            className={hovered ? "navbar-header expanded" : "navbar-header"}
+            className={hovered ? 'navbar-header expanded' : 'navbar-header'}
          >
-            <ul className="nav navbar-nav flex-row" style={{height: '100%'}}>
-               <li className="nav-item me-auto d-flex align-items-center">
-                  <Link className="navbar-brand mt-0" to={'/'} style={{height: '100%'}}>
+            <ul className='nav navbar-nav flex-row' style={{height: '100%'}}>
+               <li className='nav-item me-auto d-flex align-items-center'>
+                  <Link className='navbar-brand mt-0' to={'/'} style={{height: '100%'}}>
                      <span className='brand-logo'>
                         <h1 className='mb-0 fw-bolder text-primary'>LC</h1>
                      </span>
@@ -78,39 +78,26 @@ const SideBar = () => {
                   </Link>
                </li>
 
-               <li className="nav-item nav-toggle d-flex align-items-center">
-                  <a href='/#' className="nav-link modern-nav-toggle pe-0 my-0" onClick={handleCollapsedMenu}>
+               <li className='nav-item nav-toggle d-flex align-items-center'>
+                  <a href='/#' className='nav-link modern-nav-toggle pe-0 my-0' onClick={handleCollapsedMenu}>
                      <Icon
                         icon='X'
-                        className="d-block d-xl-none toggle-icon font-medium-4"
+                        className='d-block d-xl-none toggle-icon font-medium-4'
                      />
 
-                     {
-                        sidebar
-                        ?
-                           (
-                              <Icon
-                                 icon='Disc'
-                                 className='d-none d-xl-block collapse-toggle-icon font-medium-4'
-                              />
-                           )
-                        :
-                           (
-                              <Icon
-                                 icon='Circle'
-                                 className='d-none d-xl-block collapse-toggle-icon font-medium-4'
-                              />
-                           )
-                     }
+                     <Icon
+                        icon={sidebar ? 'Disc' : 'Circle'}
+                        className='d-none d-xl-block collapse-toggle-icon font-medium-4'
+                     />
                   </a>
                </li>
             </ul>
          </div>
 
-         <div className="shadow-bottom"></div>
+         <div className='shadow-bottom'></div>
 
-         <div className="main-menu-content overflow-auto custom-scrollbar">
-            <div className="navigation navigation-main custom-nav" id="main-menu-navigation" data-menu="menu-navigation">
+         <div className='main-menu-content overflow-auto custom-scrollbar'>
+            <div className='navigation navigation-main custom-nav' id='main-menu-navigation' data-menu='menu-navigation'>
                <SideBarLink text='Inicio' icon='Home' url='/' />
 
                <NestedSidebarLink text='Clientes' icon='Briefcase' basePath='/clients'>
@@ -146,6 +133,10 @@ const SideBar = () => {
 
                   <SideBarLink text='Crear' icon='Circle' url='/cities/create' />
                </NestedSidebarLink>
+
+               <SidebarTitle title='Extras' />
+
+               <SideBarLink text='Configuraciones' icon='Settings' url='/configurations' />
             </div>
          </div>
       </div>
