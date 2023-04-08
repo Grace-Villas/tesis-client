@@ -106,6 +106,12 @@ const SideBar = () => {
                   <SideBarLink text='Crear' icon='Circle' url='/clients/create' />
                </NestedSidebarLink>
 
+               <NestedSidebarLink text='Productos' icon='Package' basePath='/products'>
+                  <SideBarLink text='Lista' icon='Circle' url='/products' />
+                  
+                  <SideBarLink text='Crear' icon='Circle' url='/products/create' />
+               </NestedSidebarLink>
+
                <SidebarTitle title='Usuarios' />
 
                <NestedSidebarLink text='Usuarios' icon='Users' basePath='/users'>
