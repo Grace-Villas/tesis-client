@@ -19,6 +19,7 @@ import Dashboard from '../views/Dashboard';
 // Routers
 import CitiesRouter from './views/CitiesRouter';
 import ClientsRouter from './views/ClientsRouter';
+import ProductsRouter from './views/ProductsRouter';
 import UsersRouter from './views/UsersRouter';
 import RolesRouter from './views/RolesRouter';
 import SettingsRouter from './views/SettingsRouter';
@@ -60,6 +61,8 @@ const MainRouter = () => {
                <Route path='/configurations' element={<Configurations />} />
 
                <Route path='/company' element={<CompanyInfo />} />
+
+               <Route path='/products/*' element={<ProductsRouter />} />
             
                <Route path='*' element={<Navigate to='/' replace />} />
             </Routes>
