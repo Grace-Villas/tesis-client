@@ -68,7 +68,7 @@ export const setCities = (rows, count, pages) => ({
    payload: { rows, count, pages }
 });
 
-export const startGetCities = (page, perPage, filters) => {
+export const startGetCities = (page, perPage, filters = {}) => {
    return async dispatch => {
       dispatch(setLoading('table', true));
 
@@ -117,7 +117,7 @@ export const startGetCities = (page, perPage, filters) => {
    }
 }
 
-export const startDeleteCity = (id, { page, perPage, navigate }) => {
+export const startDeleteCity = (id, { page, perPage, navigate }, filters = {}) => {
    return async dispatch => {
       try {
          const { isConfirmed } = await simpleConfirmDialog('warning', '¿Está seguro?', '¿Desea eliminar la ciudad seleccionada?');
@@ -143,7 +143,7 @@ export const startDeleteCity = (id, { page, perPage, navigate }) => {
             simpleSuccessToast(`La ciudad: ${cityName}, fue eliminada satisfactoriamente`);
 
             if (!navigate) {
-               dispatch(startGetCities(page, perPage));
+               dispatch(startGetCities(page, perPage, filters));
             } else {
                navigate('/cities');
             }

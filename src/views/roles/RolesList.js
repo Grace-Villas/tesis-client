@@ -87,7 +87,7 @@ const RolesList = () => {
    const handleResetFilters = () => dispatch(resetFilters());
 
    // handle delete
-   const handleDelete = (id) => dispatch(startDeleteRole(id, { page: currentPage, perPage }));
+   const handleDelete = (id) => dispatch(startDeleteRole(id, { page: currentPage, perPage }, { name, isPublic }));
 
    return (
       <>

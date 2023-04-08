@@ -91,7 +91,7 @@ const CitiesList = () => {
    const handleResetFilters = () => dispatch(resetFilters());
 
    // handle delete
-   const handleDelete = (id) => dispatch(startDeleteCity(id, { page: currentPage, perPage }));
+   const handleDelete = (id) => dispatch(startDeleteCity(id, { page: currentPage, perPage }, { name, stateId, hasDeliveries }));
 
    return (
       <>

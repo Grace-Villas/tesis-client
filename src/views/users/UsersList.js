@@ -72,7 +72,7 @@ const UsersList = () => {
    const handleResetFilters = () => dispatch(resetFilters());
 
    // handle delete
-   const handleDelete = (id) => dispatch(startDeleteUser(id, { page: currentPage, perPage }));
+   const handleDelete = (id) => dispatch(startDeleteUser(id, { page: currentPage, perPage }, { name, email }));
 
    return (
       <>

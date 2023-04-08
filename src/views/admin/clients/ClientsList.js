@@ -80,7 +80,7 @@ const ClientsList = () => {
    const handleResetFilters = () => dispatch(resetFilters());
 
    // handle delete
-   const handleDelete = (id) => dispatch(startDeleteClient(id, { page: currentPage, perPage }));
+   const handleDelete = (id) => dispatch(startDeleteClient(id, { page: currentPage, perPage }, { search, cityId }));
 
    return (
       <>

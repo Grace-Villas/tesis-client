@@ -73,7 +73,7 @@ const StatesList = () => {
    const handleResetFilters = () => dispatch(resetFilters());
 
    // handle delete
-   const handleDelete = (id) => dispatch(startDeleteState(id, { page: currentPage, perPage }));
+   const handleDelete = (id) => dispatch(startDeleteState(id, { page: currentPage, perPage }, { name }));
 
    return (
       <>

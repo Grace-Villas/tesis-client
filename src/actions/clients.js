@@ -70,7 +70,7 @@ export const setClients = (rows, count, pages) => ({
    payload: { rows, count, pages }
 });
 
-export const startGetClients = (page, perPage, filters) => {
+export const startGetClients = (page, perPage, filters = {}) => {
    return async dispatch => {
       dispatch(setLoading('table', true));
 
@@ -125,7 +125,7 @@ export const startGetClients = (page, perPage, filters) => {
    }
 }
 
-export const startDeleteClient = (id, { page, perPage, navigate }) => {
+export const startDeleteClient = (id, { page, perPage, navigate }, filters = {}) => {
    return async dispatch => {
       try {
          const { isConfirmed } = await simpleConfirmDialog('warning', '¿Está seguro?', '¿Desea eliminar el cliente seleccionado?');
@@ -151,7 +151,7 @@ export const startDeleteClient = (id, { page, perPage, navigate }) => {
             simpleSuccessToast(`El cliente: ${clientName}, fue eliminado satisfactoriamente`);
 
             if (!navigate) {
-               dispatch(startGetClients(page, perPage));
+               dispatch(startGetClients(page, perPage, filters));
             } else {
                navigate('/clients');
             }

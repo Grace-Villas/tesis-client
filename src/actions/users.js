@@ -68,7 +68,7 @@ export const setUsers = (rows, count, pages) => ({
    payload: { rows, count, pages }
 });
 
-export const startGetUsers = (page, perPage, filters) => {
+export const startGetUsers = (page, perPage, filters = {}) => {
    return async dispatch => {
       dispatch(setLoading('table', true));
 
@@ -105,7 +105,7 @@ export const startGetUsers = (page, perPage, filters) => {
    }
 }
 
-export const startDeleteUser = (id, { page, perPage, navigate }) => {
+export const startDeleteUser = (id, { page, perPage, navigate }, filters = {}) => {
    return async dispatch => {
       try {
          const { isConfirmed } = await simpleConfirmDialog('warning', '¿Está seguro?', '¿Desea eliminar el usuario seleccionado?');
@@ -131,7 +131,7 @@ export const startDeleteUser = (id, { page, perPage, navigate }) => {
             simpleSuccessToast(`El usuario: ${userName}, fue eliminado satisfactoriamente`);
 
             if (!navigate) {
-               dispatch(startGetUsers(page, perPage));
+               dispatch(startGetUsers(page, perPage, filters));
             } else {
                navigate('/users');
             }

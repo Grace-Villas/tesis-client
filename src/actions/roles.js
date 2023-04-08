@@ -84,7 +84,7 @@ export const setRoles = (rows, count, pages) => ({
    payload: { rows, count, pages }
 });
 
-export const startGetRoles = (page, perPage, filters) => {
+export const startGetRoles = (page, perPage, filters = {}) => {
    return async dispatch => {
       dispatch(setLoading('table', true));
 
@@ -119,7 +119,7 @@ export const startGetRoles = (page, perPage, filters) => {
    }
 }
 
-export const startDeleteRole = (id, { page, perPage, navigate }) => {
+export const startDeleteRole = (id, { page, perPage, navigate }, filters = {}) => {
    return async dispatch => {
       try {
          const { isConfirmed } = await simpleConfirmDialog('warning', '¿Está seguro?', '¿Desea eliminar el rol seleccionado?');
@@ -145,7 +145,7 @@ export const startDeleteRole = (id, { page, perPage, navigate }) => {
             simpleSuccessToast(`El rol: ${roleName}, fue eliminado satisfactoriamente`);
 
             if (!navigate) {
-               dispatch(startGetRoles(page, perPage));
+               dispatch(startGetRoles(page, perPage, filters));
             } else {
                navigate('/roles');
             }

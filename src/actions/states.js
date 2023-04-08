@@ -67,7 +67,7 @@ export const setStates = (rows, count, pages) => ({
    payload: { rows, count, pages }
 });
 
-export const startGetStates = (page, perPage, filters) => {
+export const startGetStates = (page, perPage, filters = {}) => {
    return async dispatch => {
       dispatch(setLoading('table', true));
 
@@ -111,7 +111,7 @@ export const startGetStates = (page, perPage, filters) => {
    }
 }
 
-export const startDeleteState = (id, { page, perPage, navigate }) => {
+export const startDeleteState = (id, { page, perPage, navigate }, filters = {}) => {
    return async dispatch => {
       try {
          const { isConfirmed } = await simpleConfirmDialog('warning', '¿Está seguro?', '¿Desea eliminar el estado seleccionado?');
@@ -137,7 +137,7 @@ export const startDeleteState = (id, { page, perPage, navigate }) => {
             simpleSuccessToast(`El estado: ${stateName}, fue eliminado satisfactoriamente`);
 
             if (!navigate) {
-               dispatch(startGetStates(page, perPage));
+               dispatch(startGetStates(page, perPage, filters));
             } else {
                navigate('/states');
             }
