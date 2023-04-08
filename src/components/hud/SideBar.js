@@ -100,6 +100,12 @@ const SideBar = () => {
             <div className='navigation navigation-main custom-nav' id='main-menu-navigation' data-menu='menu-navigation'>
                <SideBarLink text='Inicio' icon='Home' url='/' />
 
+               <NestedSidebarLink text='Recepciones' icon='Upload' basePath='/receptions'>
+                  <SideBarLink text='Lista' icon='Circle' url='/receptions' />
+                  
+                  <SideBarLink text='Crear' icon='Circle' url='/receptions/create' />
+               </NestedSidebarLink>
+
                <NestedSidebarLink text='Clientes' icon='Briefcase' basePath='/clients'>
                   <SideBarLink text='Lista' icon='Circle' url='/clients' />
                   

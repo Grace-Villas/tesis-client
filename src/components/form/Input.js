@@ -33,7 +33,11 @@ const Input = ({
 
    return (
       <div className={containerClass}>
-         <label className='form-label' htmlFor={title}>{title}</label>
+         {
+            title && (
+               <label className='form-label' htmlFor={title}>{title}</label>
+            )
+         }
          
          <input
             type={type}
@@ -59,8 +63,8 @@ const Input = ({
 Input.propTypes = {
    value: PropTypes.string.isRequired,
    setValue: PropTypes.func.isRequired,
-   title: PropTypes.string.isRequired,
-   type: PropTypes.oneOf(['text', 'number', 'color']),
+   title: PropTypes.string,
+   type: PropTypes.oneOf(['text', 'number', 'color', 'date']),
    placeholder: PropTypes.string,
 
    containerClass: PropTypes.string,
@@ -71,6 +75,7 @@ Input.propTypes = {
 }
 
 Input.defaultProps = {
+   title: null,
    type: 'text',
    placeholder: '',
 

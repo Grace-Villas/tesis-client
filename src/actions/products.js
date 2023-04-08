@@ -252,3 +252,51 @@ export const startGetProductsList = () => {
       dispatch(setLoading('list', false));
    }
 }
+
+
+
+// Aux
+
+export const startCreateProductAux = ({ name, qtyPerPallet }, handleCleanModal) => {
+   return async dispatch => {
+      dispatch(setLoading('create', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: '/products',
+            method: 'POST',
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            },
+            body: { name, qtyPerPallet }
+         });
+
+         const { name: createdName } = response.data;
+
+         const productName = capitalizeAllWords(createdName);
+
+         simpleSuccessToast(`El producto: ${productName}, fue creado satisfactoriamente`);
+
+         dispatch(startGetProductsList());
+
+         handleCleanModal();
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         dispatch(setProductsError('name', errors.find(err => err.param === 'name')?.msg || null));
+
+         const unhandledErrors = errors.filter(error => !['name', 'qtyPerPallet'].includes(error.param));
+
+         if (unhandledErrors.length > 0) {
+            arrayErrorToast(unhandledErrors.map(error => error.msg));
+         }
+      }
+
+      dispatch(setLoading('create', false));
+   }
+}

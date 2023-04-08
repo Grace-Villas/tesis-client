@@ -20,10 +20,11 @@ import Dashboard from '../views/Dashboard';
 import CitiesRouter from './views/CitiesRouter';
 import ClientsRouter from './views/ClientsRouter';
 import ProductsRouter from './views/ProductsRouter';
-import UsersRouter from './views/UsersRouter';
+import ReceptionsRouter from './views/ReceptionsRouter';
 import RolesRouter from './views/RolesRouter';
 import SettingsRouter from './views/SettingsRouter';
 import StatesRouter from './views/StatesRouter';
+import UsersRouter from './views/UsersRouter';
 
 
 
@@ -63,6 +64,8 @@ const MainRouter = () => {
                <Route path='/company' element={<CompanyInfo />} />
 
                <Route path='/products/*' element={<ProductsRouter />} />
+
+               <Route path='/receptions/*' element={<ReceptionsRouter />} />
             
                <Route path='*' element={<Navigate to='/' replace />} />
             </Routes>

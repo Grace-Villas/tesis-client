@@ -232,6 +232,46 @@ export const startUpdateUser = (id, { firstName, lastName, email, password }) =>
    }
 }
 
+export const setUsersList = (rows) => ({
+   type: types.SET_USERS_LIST,
+   payload: rows
+});
+
+export const startGetUsersList = () => {
+   return async dispatch => {
+      dispatch(setLoading('list', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: '/users',
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            }
+         });
+
+         const rows = response.data;
+
+         const mappedRows = rows.map(row => ({
+            text: row.fullName,
+            value: row.id
+         }));
+
+         dispatch(setUsersList(mappedRows));
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
+      }
+      
+      dispatch(setLoading('list', false));
+   }
+}
+
 
 
 // UserRoles

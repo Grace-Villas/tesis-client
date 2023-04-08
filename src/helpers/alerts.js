@@ -8,7 +8,8 @@ const simpleToastSwal = Swal.mixin({
       actions: 'gap-1',
       confirmButton: 'btn btn-primary p-50 px-2',
       cancelButton: 'btn btn-danger p-50 px-2',
-      htmlContainer: 'm-0'
+      htmlContainer: 'm-0',
+      container: 'alert-container'
    },
    buttonsStyling: false,
    confirmButtonText: 'Confirmar',

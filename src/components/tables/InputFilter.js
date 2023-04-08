@@ -9,7 +9,7 @@ import { setFilter } from '../../actions/filters';
 
 
 
-const InputFilter = ({label, placeHolder, keyName, className}) => {
+const InputFilter = ({type, label, placeHolder, keyName, className}) => {
 
    const dispatch = useDispatch();
 
@@ -36,7 +36,7 @@ const InputFilter = ({label, placeHolder, keyName, className}) => {
          <label>{label}</label>
 
          <input
-            type='search'
+            type={type}
             className='form-control'
             placeholder={placeHolder}
             value={input}
@@ -49,6 +49,7 @@ const InputFilter = ({label, placeHolder, keyName, className}) => {
 
 
 InputFilter.propTypes = {
+   type: PropTypes.oneOf(['search', 'date']),
    label: PropTypes.string,
    placeholder: PropTypes.string,
    keyName: PropTypes.string.isRequired,
@@ -56,6 +57,7 @@ InputFilter.propTypes = {
 }
 
 InputFilter.defaultProps = {
+   type: 'search',
    label: 'Buscar',
    placeHolder: 'Ingrese su búsqueda'
 }

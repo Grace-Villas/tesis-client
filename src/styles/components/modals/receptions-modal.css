@@ -1,0 +1,43 @@
+
+.modal-container.active > .receptions-modal-container {
+   transform: translateX(0);
+}
+
+.receptions-modal-container {
+   justify-content: flex-end;
+
+   transform: translateX(100%);
+}
+
+.receptions-modal {
+   width: 90%;
+
+   height: 100vh;
+}
+
+@media only screen and (min-width: 992px) {
+   .receptions-modal {
+      width: 30%;
+   }
+}
+
+.receptions-modal > * {
+   height: 100%;
+}
+
+.receptions-modal .btn-close {
+   transform: unset!important;
+}
+
+.receptions-modal-body {
+   flex-grow: 1;
+
+   overflow: scroll;
+
+   -ms-overflow-style: none;  /* IE and Edge */
+   scrollbar-width: none;  /* Firefox */
+}
+
+.receptions-modal-body::-webkit-scrollbar {
+   display: none;
+}

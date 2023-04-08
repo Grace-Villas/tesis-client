@@ -9,7 +9,7 @@ import { useWindowDimensions } from '../../hooks/useDimensions';
 
 
 
-const Modal = ({children, className, state, close}) => {
+const Modal = ({children, className, state, close, isAboveModal}) => {
 
    const modal = useRef(null);
 
@@ -18,6 +18,8 @@ const Modal = ({children, className, state, close}) => {
    const scrollWidth = useScrollbarSize();
 
    useEffect(() => {
+      if (isAboveModal) return;
+
       if (state) {
          if (width >= 768) {
             if (document.body.scrollHeight > document.body.clientHeight) {
@@ -31,7 +33,7 @@ const Modal = ({children, className, state, close}) => {
          }
          document.body.classList.remove('not-scrollable');
       }
-   }, [state, width, scrollWidth]);
+   }, [state, width, scrollWidth, isAboveModal]);
 
    const handleShow = (status) => status ? 'modal-container active' : 'modal-container';
    
@@ -56,11 +58,13 @@ Modal.propTypes = {
    children: PropTypes.element.isRequired,
    className: PropTypes.string,
    state: PropTypes.bool.isRequired,
-   close: PropTypes.func.isRequired
+   close: PropTypes.func.isRequired,
+   isAboveModal: PropTypes.bool
 }
 
 Modal.defaultProps = {
-   className: 'modal-default'
+   className: '',
+   isAboveModal: false
 }
 
 

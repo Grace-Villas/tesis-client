@@ -12,17 +12,9 @@
    visibility: hidden;
    opacity: 0;
 
-   padding-bottom: 8vh;
-
    z-index: 1100;
    
    transition: opacity 0.3s linear, visibility 0.3s linear;
-}
-
-@media only screen and (min-width: 768px) {
-   .modal-container {
-      padding-bottom: 0;
-   }
 }
 
 .modal-container.active {

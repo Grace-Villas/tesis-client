@@ -7,7 +7,9 @@ export const types = {
 
    SET_USERS: '[USERS] set table data',
 
-   SET_USER_DATA: '[USERS] set user data'
+   SET_USER_DATA: '[USERS] set user data',
+
+   SET_USERS_LIST: '[USERS] set cities list'
 }
 
 
@@ -37,7 +39,12 @@ const initialState = {
    loadingUpdate: false,
 
    // Delete
-   loadingDelete: false
+   loadingDelete: false,
+
+   // List
+   usersList: [],
+
+   loadingList: true,
 }
 
 
@@ -71,6 +78,12 @@ export const usersReducer = (state = initialState, action) => {
          return {
             ...state,
             user: action.payload
+         }
+
+      case types.SET_USERS_LIST:
+         return {
+            ...state,
+            usersList: action.payload
          }
 
       default:

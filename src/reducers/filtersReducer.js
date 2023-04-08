@@ -13,7 +13,10 @@ const initialState = {
    stateId: '',
    cityId: '',
    hasDeliveries: '',
-   isPublic: ''
+   isPublic: '',
+   date: '',
+   companyId: '',
+   userId: ''
 }
 
 
