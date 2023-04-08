@@ -18,7 +18,7 @@ import LoadingResponse from '../../components/ui/spinners/LoadingResponse';
 
 
 // Helpers
-import { handleInvalidName, handleInvalidQuantity } from '../../helpers/validations';
+import { handleRequired, handleInvalidQuantity } from '../../helpers/validations';
 
 
 
@@ -63,7 +63,7 @@ const StatesCreate = () => {
 
    // Handlers
    const handleName = (value) => {
-      const nameE = handleInvalidName(value);
+      const nameE = handleRequired(value, 'El nombre es obligatorio');
       dispatch(setProductsError('name', nameE));
 
       setName(value);
@@ -80,7 +80,7 @@ const StatesCreate = () => {
    const handleSubmit = (e) => {
       e.preventDefault();
 
-      const nameE = handleInvalidName(name);
+      const nameE = handleRequired(name, 'El nombre es obligatorio');
       dispatch(setProductsError('name', nameE));
 
       const qtyE = handleInvalidQuantity(qtyPerPallet);
