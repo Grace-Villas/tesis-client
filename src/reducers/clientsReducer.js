@@ -7,7 +7,9 @@ export const types = {
 
    SET_CLIENTS: '[CLIENTS] set table data',
 
-   SET_CLIENT_DATA: '[CLIENTS] set client data'
+   SET_CLIENT_DATA: '[CLIENTS] set client data',
+
+   SET_CLIENTS_LIST: '[CLIENTS] set cities list'
 }
 
 
@@ -41,6 +43,11 @@ const initialState = {
 
    // Delete
    loadingDelete: false,
+
+   // List
+   clientsList: [],
+
+   loadingList: true,
 }
 
 
@@ -74,6 +81,12 @@ export const clientsReducer = (state = initialState, action) => {
          return {
             ...state,
             client: action.payload
+         }
+
+      case types.SET_CLIENTS_LIST:
+         return {
+            ...state,
+            clientsList: action.payload
          }
 
       default:

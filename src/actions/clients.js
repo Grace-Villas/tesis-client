@@ -261,3 +261,43 @@ export const startUpdateClient = (id, { name, address, email, cityId, phone, rut
       dispatch(setLoading('update', false));
    }
 }
+
+export const setClientsList = (rows) => ({
+   type: types.SET_CLIENTS_LIST,
+   payload: rows
+});
+
+export const startGetClientsList = () => {
+   return async dispatch => {
+      dispatch(setLoading('list', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: '/companies',
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            }
+         });
+
+         const rows = response.data;
+
+         const mappedRows = rows.map(row => ({
+            text: row.name,
+            value: row.id
+         }));
+
+         dispatch(setClientsList(mappedRows));
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
+      }
+      
+      dispatch(setLoading('list', false));
+   }
+}
