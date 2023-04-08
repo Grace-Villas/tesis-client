@@ -192,7 +192,7 @@ const RolesList = () => {
                            {
                               (rows.length === 0 && !loadingTable) && (
                                  <tr className='odd'>
-                                    <td valign='top' colspan='6' className='text-center py-5 fw-bolder h3'>No hay resultados...</td>
+                                    <td valign='top' colSpan='6' className='text-center py-5 fw-bolder h3'>No hay resultados...</td>
                                  </tr>
                               )
                            }
