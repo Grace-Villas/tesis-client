@@ -7,6 +7,7 @@ import { filtersReducer } from './filtersReducer';
 import { installationReducer } from './installationReducer';
 import { permissionsReducer } from './permissionsReducer';
 import { productsReducer } from './productsReducer';
+import { receptionsReducer } from './receptionsReducer';
 import { rolesReducer } from './rolesReducer';
 import { settingsReducer } from './settingsReducer';
 import { statesReducer } from './statesReducer';
@@ -26,6 +27,7 @@ export {
    installationReducer,
    permissionsReducer,
    productsReducer,
+   receptionsReducer,
    rolesReducer,
    settingsReducer,
    statesReducer,
