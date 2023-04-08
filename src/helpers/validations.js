@@ -83,3 +83,15 @@ export const handleInvalidCurrency = (currency, field = 'precio') => {
       return null;
    }
 }
+
+export const handleInvalidQuantity = (quantity, field = 'cantidad') => {
+   if (quantity.length === 0) {
+      return `La ${field} es obligatoria`;
+   } else if (!/^[0-9]*$/.test(quantity)) {
+      return `La ${field} debe ser un número entero`;
+   } else if (Number(quantity < 1)) {
+      return `La ${field} debe ser mayor a cero`;
+   } else {
+      return null;
+   }
+}
