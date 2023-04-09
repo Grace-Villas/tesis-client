@@ -16,7 +16,8 @@ const initialState = {
    isPublic: '',
    date: '',
    companyId: '',
-   userId: ''
+   userId: '',
+   paymentTypeId: '',
 }
 
 
