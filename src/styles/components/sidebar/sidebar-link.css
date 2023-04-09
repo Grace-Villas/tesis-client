@@ -1,17 +1,4 @@
-.custom-nav {
-   padding-top: 0.5rem;
-   
-   height: 100%;
 
-   overflow-y: auto;
-
-   -ms-overflow-style: none;  /* IE and Edge */
-   scrollbar-width: none;  /* Firefox */
-}
-
-.custom-nav::-webkit-scrollbar {
-   display: none;
-}
 
 .custom-link {
    margin: 0 15px;
@@ -96,13 +83,4 @@
 
 .dark-layout .main-menu-content a {
    color: #d0d2d6 !important;
-}
-
-.custom-scrollbar {
-   -ms-overflow-style: none;  /* IE and Edge */
-   scrollbar-width: none;  /* Firefox */
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-   display: none;
 }
