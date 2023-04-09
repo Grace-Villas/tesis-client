@@ -22,7 +22,7 @@ const SelectFilter = ({label, keyName, className, name, options, disabled}) => {
 
          <select
             type='search'
-            className='form-control'
+            className='form-select'
             value={filters[keyName]}
             onChange={handleValue}
             disabled={disabled}

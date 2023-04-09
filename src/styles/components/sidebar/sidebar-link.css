@@ -44,6 +44,11 @@
    border-radius: 6px;
 }
 
+.dark-layout .custom-nested-link.open > .custom-link {
+   color: #dcdcdc;
+   background-color: #161d31;
+}
+
 .custom-nested-link:not(.open):hover > .custom-link {
    color: #6D62E4;
 }
@@ -83,4 +88,9 @@
 
 .dark-layout .main-menu-content a {
    color: #d0d2d6 !important;
+}
+
+.active {
+   border-radius: 4px;
+   z-index: 1;
 }
