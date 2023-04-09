@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Actions
 import { setBreadcrumb } from '../../actions/ui';
-import { setLoading, setProduct, startDeleteProduct, startGetProduct } from '../../actions/products';
+import { setLoading, setProduct, startDeleteProduct, startGetCompanyProduct, startGetProduct } from '../../actions/products';
 
 
 
@@ -14,6 +14,7 @@ import { setLoading, setProduct, startDeleteProduct, startGetProduct } from '../
 import Element404 from '../../components/ui/Element404';
 import LoadingResponse from '../../components/ui/spinners/LoadingResponse';
 import LoadingComponent from '../../components/ui/spinners/LoadingComponent';
+import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
@@ -24,6 +25,8 @@ const StatesDetail = () => {
    const dispatch = useDispatch();
 
    const { id } = useParams();
+
+   const { isAdmin } = useSelector(state => state.auth);
 
    const { product, loadingDetail, loadingDelete } = useSelector(state => state.products);
 
@@ -47,8 +50,12 @@ const StatesDetail = () => {
 
    useEffect(() => {
       dispatch(setLoading('detail', true));
-      dispatch(startGetProduct(id));
-   }, [dispatch, id]);
+      if (isAdmin) {
+         dispatch(startGetProduct(id));
+      } else {
+         dispatch(startGetCompanyProduct(id));
+      }
+   }, [dispatch, id, isAdmin]);
 
    useEffect(() => {
       return () => {
@@ -96,11 +103,21 @@ const StatesDetail = () => {
                                     <td className='text-end fw-bolder'>{product?.name}</td>
                                  </tr>
 
-                                 <tr>
-                                    <td className='pe-1'>Unidades por paleta:</td>
+                                 <PermissionNeeded onlyAdmin>
+                                    <tr>
+                                       <td className='pe-1'>Unidades por paleta:</td>
 
-                                    <td className='text-end fw-bolder'>{product?.qtyPerPallet}</td>
-                                 </tr>
+                                       <td className='text-end fw-bolder'>{product?.qtyPerPallet}</td>
+                                    </tr>
+                                 </PermissionNeeded>
+
+                                 <PermissionNeeded onlyClient>
+                                    <tr>
+                                       <td className='pe-1'>Stock:</td>
+
+                                       <td className='text-end fw-bolder'>{product?.stock}</td>
+                                    </tr>
+                                 </PermissionNeeded>
                               </tbody>
                            </table>
                         </div>

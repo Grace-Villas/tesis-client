@@ -300,3 +300,81 @@ export const startCreateProductAux = ({ name, qtyPerPallet }, handleCleanModal) 
       dispatch(setLoading('create', false));
    }
 }
+
+
+
+// Clientes
+
+export const startGetCompanyProducts = (page, perPage, filters = {}) => {
+   return async dispatch => {
+      dispatch(setLoading('table', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: `/company-products?${getPaginationQuery(page, perPage)}&${queryParamsFilter(filters)}`,
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            }
+         });
+
+         const { rows, count, pages } = response.data;
+
+         const mappedRows = rows.map(p => ({
+            ...p.product,
+            id: p.id,
+            stock: p.stock,
+            productId: p.productId
+         }));
+
+         dispatch(setProducts(mappedRows, count, pages));
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
+      }
+      
+      dispatch(setLoading('table', false));
+   }
+}
+
+export const startGetCompanyProduct = (id) => {
+   return async dispatch => {
+      dispatch(setLoading('detail', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: `/company-products/${id}`,
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            }
+         });
+
+         const product = response.data;
+
+         const productData = {
+            ...product.product,
+            id: product.id,
+            stock: product.stock,
+            productId: product.productId
+         }
+
+         dispatch(setProduct(productData));
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
+      }
+      
+      dispatch(setLoading('detail', false));
+   }
+}

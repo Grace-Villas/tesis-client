@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 // Actions
-import { setProducts, startDeleteProduct, startGetProducts } from '../../actions/products';
+import { setProducts, startDeleteProduct, startGetCompanyProducts, startGetProducts } from '../../actions/products';
 import { setBreadcrumb } from '../../actions/ui';
 import { resetFilters } from '../../actions/filters';
 
@@ -25,12 +25,15 @@ import Icon from '../../components/ui/Icon';
 
 // Custom hooks
 import { useCurrentPage } from '../../hooks/usePagination';
+import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
 const StatesList = () => {
 
    const dispatch = useDispatch();
+
+   const { isAdmin } = useSelector(state => state.auth);
 
    const { rows, count, pages, loadingTable, loadingDelete } = useSelector(state => state.products);
 
@@ -59,8 +62,14 @@ const StatesList = () => {
    useEffect(() => {
       if (currentPage === null || perPage === '') return
 
-      dispatch(startGetProducts(currentPage, perPage, { name }));
-   }, [dispatch, currentPage, perPage, name]);
+      let getMethod = startGetProducts;
+
+      if (!isAdmin) {
+         getMethod = startGetCompanyProducts;
+      }
+
+      dispatch(getMethod(currentPage, perPage, { name }));
+   }, [dispatch, isAdmin, currentPage, perPage, name]);
 
    useEffect(() => {
       return () => {
@@ -109,7 +118,13 @@ const StatesList = () => {
                            <tr role='row'>
                               <th rowSpan={1} colSpan={1} className='text-center'>Nombre</th>
 
-                              <th rowSpan={1} colSpan={1} className='text-center'>Unidades por paleta</th>
+                              <PermissionNeeded onlyAdmin>
+                                 <th rowSpan={1} colSpan={1} className='text-center'>Unidades por paleta</th>
+                              </PermissionNeeded>
+
+                              <PermissionNeeded onlyClient>
+                                 <th rowSpan={1} colSpan={1} className='text-center'>Stock</th>
+                              </PermissionNeeded>
                               
                               <th rowSpan={1} colSpan={1} className='text-center' style={{width: 300}}>Acciones</th>
                            </tr>
@@ -121,7 +136,13 @@ const StatesList = () => {
                                  <tr key={'product-' + row.id}>
                                     <td className='text-center'>{row.name}</td>
 
-                                    <td className='text-center'>{row.qtyPerPallet}</td>
+                                    <PermissionNeeded onlyAdmin>
+                                       <td className='text-center'>{row.qtyPerPallet}</td>
+                                    </PermissionNeeded>
+
+                                    <PermissionNeeded onlyClient>
+                                       <td className='text-center'>{row.stock}</td>
+                                    </PermissionNeeded>
 
                                     <td className='text-center'>
                                        <div className='d-flex justify-content-center gap-1'>
