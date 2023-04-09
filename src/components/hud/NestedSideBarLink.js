@@ -59,7 +59,7 @@ const NestedSidebarLink = ({text, basePath, icon, children}) => {
          <div className='custom-link d-flex align-items-center' onClick={handleOpen}>
             <Icon icon={icon} />
 
-            <span className='menu-title text-truncate' data-i18n='Page Layouts' style={{lineHeight: '100%'}}>{text}</span>
+            <span className='menu-title text-truncate' data-i18n='Page Layouts'>{text}</span>
 
             <div className='ms-auto custom-nested-arrow'>
                <Icon icon='ChevronRight' size={14} />
