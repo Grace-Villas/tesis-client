@@ -9,6 +9,7 @@ const simpleToastSwal = Swal.mixin({
       confirmButton: 'btn btn-primary p-50 px-2',
       cancelButton: 'btn btn-danger p-50 px-2',
       htmlContainer: 'm-0',
+      popup: 'alert-popup',
       container: 'alert-container'
    },
    buttonsStyling: false,
@@ -41,6 +42,7 @@ const simpleDialogSwal = Swal.mixin({
       confirmButton: 'btn btn-primary p-50 px-2',
       cancelButton: 'btn btn-danger p-50 px-2',
       htmlContainer: 'm-0 px-1 fs-6',
+      popup: 'alert-popup',
       container: 'alert-container'
    },
    buttonsStyling: false,
@@ -89,7 +91,9 @@ const arraySwal = Swal.mixin({
       actions: 'gap-1',
       confirmButton: 'btn btn-primary p-50 px-2',
       cancelButton: 'btn btn-danger p-50 px-2',
-      htmlContainer: 'm-0 d-flex flex-column gap-25'
+      htmlContainer: 'm-0 d-flex flex-column gap-25',
+      popup: 'alert-popup',
+      container: 'alert-container'
    },
    buttonsStyling: false,
    confirmButtonText: 'Confirmar',

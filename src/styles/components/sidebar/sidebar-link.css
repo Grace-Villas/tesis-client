@@ -97,3 +97,12 @@
 .dark-layout .main-menu-content a {
    color: #d0d2d6 !important;
 }
+
+.custom-scrollbar {
+   -ms-overflow-style: none;  /* IE and Edge */
+   scrollbar-width: none;  /* Firefox */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+   display: none;
+}

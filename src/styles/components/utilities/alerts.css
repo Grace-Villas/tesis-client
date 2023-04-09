@@ -2,3 +2,8 @@
 .alert-container {
    z-index: 1200;
 }
+
+.dark-layout .alert-popup {
+   background-color: #283046!important;
+   color: #b4b7bd!important;
+}
