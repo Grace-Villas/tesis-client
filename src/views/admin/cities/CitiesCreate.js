@@ -131,7 +131,6 @@ const CitiesCreate = () => {
       const validatedDeliveryPrice = hasDeliveries ? deliveryPrice : undefined;
       
       if (!nameE && !stateIdE && !deliveryPriceE) {
-         console.log('hola');
          dispatch(startCreateCity({name, stateId, hasDeliveries, deliveryPrice: validatedDeliveryPrice}, navigate));
       }
    }

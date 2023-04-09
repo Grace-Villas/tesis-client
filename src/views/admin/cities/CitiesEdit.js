@@ -64,8 +64,8 @@ const CitiesEdit = () => {
             text: 'Dashboard'
          },
          {
-            link: '/states',
-            text: 'Estados'
+            link: '/cities',
+            text: 'Ciudades'
          },
          {
             text: 'Editar'

@@ -30,6 +30,8 @@ const UsersDetail = () => {
 
    const { user, loadingDetail, loadingDelete } = useSelector(state => state.users);
 
+   console.log(user);
+
    const [isOpen, setIsOpen] = useState(false);
 
    useEffect(() => {
@@ -193,7 +195,7 @@ const UsersDetail = () => {
                <LoadingComponent state={loadingDetail} isBlocking />
             </div>
             
-            <div className='col-xl-3 col-md-4 col-12 invoice-actions mt-md-0 mt-2' style={{height: 10000}}>
+            <div className='col-xl-3 col-md-4 col-12 invoice-actions mt-md-0 mt-2'>
                <div className='card'>
                   <div className='card-body'>
                      <Link
