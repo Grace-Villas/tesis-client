@@ -42,11 +42,11 @@ export const handleInvalidPhone = (phone) => {
    }
 }
 
-export const handleInvalidRut = (rut) => {
+export const handleInvalidRut = (rut, field = 'número de identificación') => {
    if (rut.trim().length === 0) {
-      return 'El número de identificación es obligatorio';
+      return `El ${field} es obligatorio`;
    } else if (!/^([a-zA-Z])-([0-9])*$/.test(rut)) {
-      return 'El número de identificación debe contener un formato válido. Ejemplo: j-12345678';
+      return `El ${field} debe contener un formato válido. Ejemplo: j-12345678`;
    } else {
       return null;
    }
@@ -91,6 +91,16 @@ export const handleInvalidQuantity = (quantity, field = 'cantidad') => {
       return `La ${field} debe ser un número entero`;
    } else if (Number(quantity < 1)) {
       return `La ${field} debe ser mayor a cero`;
+   } else {
+      return null;
+   }
+}
+
+export const handleInvalidNumber = (quantity, field = 'número de cuenta') => {
+   if (quantity.length === 0) {
+      return `El ${field} es obligatorio`;
+   } else if (!/^[0-9]*$/.test(quantity)) {
+      return `El ${field} debe ser un número entero`;
    } else {
       return null;
    }
