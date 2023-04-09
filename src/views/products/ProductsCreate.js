@@ -22,7 +22,7 @@ import { handleRequired, handleInvalidQuantity } from '../../helpers/validations
 
 
 
-const StatesCreate = () => {
+const ProductsCreate = () => {
 
    const dispatch = useDispatch();
 
@@ -152,4 +152,4 @@ const StatesCreate = () => {
 
 
 
-export default StatesCreate;
+export default ProductsCreate;

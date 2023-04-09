@@ -23,7 +23,7 @@ import { handleRequired, handleInvalidQuantity } from '../../helpers/validations
 
 
 
-const StatesEdit = () => {
+const ProductsEdit = () => {
    
    const dispatch = useDispatch();
 
@@ -167,4 +167,4 @@ const StatesEdit = () => {
 
 
 
-export default StatesEdit;
+export default ProductsEdit;

@@ -18,7 +18,7 @@ import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
-const StatesDetail = () => {
+const ProductsDetail = () => {
 
    const navigate = useNavigate();
 
@@ -158,4 +158,4 @@ const StatesDetail = () => {
 
 
 
-export default StatesDetail;
+export default ProductsDetail;

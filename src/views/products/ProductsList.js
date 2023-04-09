@@ -29,7 +29,7 @@ import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
-const StatesList = () => {
+const ProductsList = () => {
 
    const dispatch = useDispatch();
 
@@ -190,4 +190,4 @@ const StatesList = () => {
 
 
 
-export default StatesList;
+export default ProductsList;
