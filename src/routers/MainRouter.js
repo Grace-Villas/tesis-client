@@ -26,6 +26,7 @@ import RolesRouter from './views/RolesRouter';
 import SettingsRouter from './views/SettingsRouter';
 import StatesRouter from './views/StatesRouter';
 import UsersRouter from './views/UsersRouter';
+import ReceiversRouter from './views/ReceiversRouter';
 
 
 
@@ -69,6 +70,8 @@ const MainRouter = () => {
                <Route path='/receptions/*' element={<ReceptionsRouter />} />
 
                <Route path='/payment-methods/*' element={<PaymentMethodsRouter />} />
+
+               <Route path='/receivers/*' element={<ReceiversRouter />} />
             
                <Route path='*' element={<Navigate to='/' replace />} />
             </Routes>

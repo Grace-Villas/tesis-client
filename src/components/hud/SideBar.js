@@ -81,7 +81,7 @@ const SideBar = () => {
                <li className='nav-item me-auto d-flex align-items-center'>
                   <Link className='navbar-brand mt-0' to={'/'} style={{height: '100%'}}>
                      <span className='brand-logo'>
-                        <h1 className='mb-0 fw-bolder text-primary'>LC</h1>
+                        <img src={process.env.PUBLIC_URL + '/images/logos/logo.png'} alt='logo' />
                      </span>
 
                      <h2 className='brand-text fs-6'>Logistics Chain</h2>
@@ -110,16 +110,30 @@ const SideBar = () => {
             <div className='navigation navigation-main custom-nav' id='main-menu-navigation' data-menu='menu-navigation'>
                <SideBarLink text='Inicio' icon='Home' url='/' />
 
-               <NestedSidebarLink text='Recepciones' icon='Upload' basePath='/receptions'>
-                  <SideBarLink text='Lista' icon='Circle' url='/receptions' />
-                  
-                  <SideBarLink text='Crear' icon='Circle' url='/receptions/create' />
-               </NestedSidebarLink>
+               <SidebarTitle title='' />
 
                <NestedSidebarLink text='Clientes' icon='Briefcase' basePath='/clients'>
                   <SideBarLink text='Lista' icon='Circle' url='/clients' />
                   
                   <SideBarLink text='Crear' icon='Circle' url='/clients/create' />
+               </NestedSidebarLink>
+
+               <NestedSidebarLink text='Despachos' icon='Truck' basePath='/receptions'>
+                  <SideBarLink text='Lista' icon='Circle' url='/receptions' />
+                  
+                  <SideBarLink text='Crear' icon='Circle' url='/receptions/create' />
+               </NestedSidebarLink>
+
+               <NestedSidebarLink text='Lotes' icon='Clipboard' basePath='/batches'>
+                  <SideBarLink text='Lista' icon='Circle' url='/batches' />
+                  
+                  <SideBarLink text='Crear' icon='Circle' url='/batches/create' />
+               </NestedSidebarLink>
+
+               <NestedSidebarLink text='Recepciones' icon='Upload' basePath='/receptions'>
+                  <SideBarLink text='Lista' icon='Circle' url='/receptions' />
+                  
+                  <SideBarLink text='Crear' icon='Circle' url='/receptions/create' />
                </NestedSidebarLink>
 
                <NestedSidebarLink text='Productos' icon='Package' basePath='/products'>
@@ -128,7 +142,21 @@ const SideBar = () => {
                   <SideBarLink text='Crear' icon='Circle' url='/products/create' />
                </NestedSidebarLink>
 
+               <NestedSidebarLink text='Destinatarios' icon='BookOpen' basePath='/receivers'>
+                  <SideBarLink text='Lista' icon='Circle' url='/receivers' />
+                  
+                  <SideBarLink text='Crear' icon='Circle' url='/receivers/create' />
+               </NestedSidebarLink>
+
                <SidebarTitle title='Pagos y facturación' />
+
+               <SideBarLink text='Facturación' icon='FileText' url='/company' />
+
+               <NestedSidebarLink text='Pagos' icon='CreditCard' basePath='/payment-methods'>
+                  <SideBarLink text='Lista' icon='Circle' url='/payment-methods' />
+
+                  <SideBarLink text='Crear' icon='Circle' url='/payment-methods/create' />
+               </NestedSidebarLink>
 
                <NestedSidebarLink text='Métodos de pago' icon='Sliders' basePath='/payment-methods'>
                   <SideBarLink text='Lista' icon='Circle' url='/payment-methods' />
