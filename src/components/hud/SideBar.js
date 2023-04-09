@@ -27,7 +27,7 @@ const SideBar = () => {
 
    const dispatch = useDispatch();
 
-   const { sidebar } = useSelector(state => state.ui);
+   const { sidebar, theme } = useSelector(state => state.ui);
 
    const [hovered, setHovered] = useState(false);
 
@@ -46,15 +46,25 @@ const SideBar = () => {
    const handleOnMouseLeave = () => !sidebar && setHovered(false);
 
    const handleClassName = () => {
+      let className = 'main-menu menu-fixed menu-accordion';
+
+      if (theme) {
+         className += ' menu-dark';
+      } else {
+         className += ' menu-light';
+      }
+
       if (width <= 768) {
-         return 'main-menu menu-fixed menu-light menu-accordion menu-shadow expanded';
+         className += ' menu-shadow expanded';
       }
 
       if (hovered || sidebar) {
-         return 'main-menu menu-fixed menu-light menu-accordion menu-shadow expanded';
+         className += ' menu-shadow expanded';
       } else {
-         return 'main-menu menu-fixed menu-light menu-accordion menu-shadow';
+         className += ' menu-shadow';
       }
+
+      return className;
    }
 
    return (

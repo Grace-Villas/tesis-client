@@ -1,19 +1,26 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom';
 
 
 
 // Components
-import PersistantLog from "../components/functionals/PersistantLog";
+import PersistantLog from '../components/functionals/PersistantLog';
 
 
 
 // Routers
-import AuthRouter from "./AuthRouter";
-import MainRouter from "./MainRouter";
+import AuthRouter from './AuthRouter';
+import MainRouter from './MainRouter';
+
+
+
+// Custom hooks
+import { useTheme } from '../hooks/useTheme';
 
 
 
 const AppRouter = () => {
+
+   useTheme();
 
    return (
       <PersistantLog>

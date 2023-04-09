@@ -3,7 +3,10 @@ export const types = {
    SIDE_BAR: '[UI] set sidebar state',
 
    // Breadcrumb
-   SET_BREADCRUMB: '[UI] set breadcrumb data'
+   SET_BREADCRUMB: '[UI] set breadcrumb data',
+
+   // Theme
+   SET_THEME: '[UI] set theme'
 }
 
 
@@ -13,7 +16,10 @@ const initialState = {
    sidebar: false,
 
    // breadcrumb
-   breadcrumb: []
+   breadcrumb: [],
+
+   // Theme:
+   theme: false
 }
 
 
@@ -30,6 +36,12 @@ export const uiReducer = (state = initialState, action) => {
          return {
             ...state,
             breadcrumb: action.payload
+         }
+
+      case types.SET_THEME:
+         return {
+            ...state,
+            theme: action.payload
          }
 
       default:
