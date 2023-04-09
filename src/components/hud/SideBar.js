@@ -128,6 +128,14 @@ const SideBar = () => {
                   <SideBarLink text='Crear' icon='Circle' url='/products/create' />
                </NestedSidebarLink>
 
+               <SidebarTitle title='Pagos y facturación' />
+
+               <NestedSidebarLink text='Métodos de pago' icon='Sliders' basePath='/payment-methods'>
+                  <SideBarLink text='Lista' icon='Circle' url='/payment-methods' />
+
+                  <SideBarLink text='Crear' icon='Circle' url='/payment-methods/create' />
+               </NestedSidebarLink>
+
                <SidebarTitle title='Usuarios' />
 
                <NestedSidebarLink text='Usuarios' icon='Users' basePath='/users'>
