@@ -19,6 +19,7 @@ import Dashboard from '../views/Dashboard';
 // Routers
 import CitiesRouter from './views/CitiesRouter';
 import ClientsRouter from './views/ClientsRouter';
+import PaymentMethodsRouter from './views/PaymentMethodsRouter';
 import ProductsRouter from './views/ProductsRouter';
 import ReceptionsRouter from './views/ReceptionsRouter';
 import RolesRouter from './views/RolesRouter';
@@ -66,6 +67,8 @@ const MainRouter = () => {
                <Route path='/products/*' element={<ProductsRouter />} />
 
                <Route path='/receptions/*' element={<ReceptionsRouter />} />
+
+               <Route path='/payment-methods/*' element={<PaymentMethodsRouter />} />
             
                <Route path='*' element={<Navigate to='/' replace />} />
             </Routes>
