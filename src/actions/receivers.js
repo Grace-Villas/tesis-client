@@ -2,7 +2,7 @@ import { arrayErrorToast, simpleConfirmDialog, simpleSuccessToast } from '../hel
 import { capitalizeAllWords, queryParamsFilter } from '../helpers/format';
 import { getPaginationQuery } from '../helpers/pagination';
 import { request } from '../helpers/request';
-import { types } from '../reducers/citiesReducer';
+import { types } from '../reducers/receiversReducer';
 
 
 
@@ -13,12 +13,12 @@ export const setLoading = (key, state) => ({
    payload: { key, state }
 });
 
-export const setCitiesError = (key, error) => ({
+export const setReceiversError = (key, error) => ({
    type: types.SET_ERROR,
    payload: { key, error }
 });
 
-export const startCreateCity = ({ name, stateId, hasDeliveries, deliveryPrice }, navigate) => {
+export const startCreateReceiver = ({ cityId, name, rut, address, phone }, navigate) => {
    return async dispatch => {
       dispatch(setLoading('create', true));
 
@@ -26,33 +26,34 @@ export const startCreateCity = ({ name, stateId, hasDeliveries, deliveryPrice },
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
          const response = await request({
-            path: '/cities',
+            path: '/receivers',
             method: 'POST',
             headers: {
                'Content-Type': 'application/json',
                'x-token': token
             },
-            body: { name, stateId, hasDeliveries, deliveryPrice }
+            body: { cityId, name, rut, address, phone }
          });
 
          const { id, name: createdName } = response.data;
 
-         const cityName = capitalizeAllWords(createdName);
+         const receiverName = capitalizeAllWords(createdName);
 
-         simpleSuccessToast(`La ciudad: ${cityName}, fue creada satisfactoriamente`);
+         simpleSuccessToast(`El destinatario: ${receiverName}, fue creado satisfactoriamente`);
 
-         navigate(`/cities/${id}`);
+         navigate(`/receivers/${id}`);
       } catch (error) {
          console.log(error);
 
          const { errors } = error.response.data;
 
-         dispatch(setCitiesError('name', errors.find(err => err.param === 'name')?.msg || null));
-         dispatch(setCitiesError('stateId', errors.find(err => err.param === 'stateId')?.msg || null));
-         dispatch(setCitiesError('hasDeliveries', errors.find(err => err.param === 'hasDeliveries')?.msg || null));
-         dispatch(setCitiesError('deliveryPrice', errors.find(err => err.param === 'deliveryPrice')?.msg || null));
+         dispatch(setReceiversError('cityId', errors.find(err => err.param === 'cityId')?.msg || null));
+         dispatch(setReceiversError('name', errors.find(err => err.param === 'name')?.msg || null));
+         dispatch(setReceiversError('rut', errors.find(err => err.param === 'rut')?.msg || null));
+         dispatch(setReceiversError('address', errors.find(err => err.param === 'address')?.msg || null));
+         dispatch(setReceiversError('phone', errors.find(err => err.param === 'phone')?.msg || null));
 
-         const unhandledErrors = errors.filter(error => !['name', 'stateId', 'hasDeliveries', 'deliveryPrice'].includes(error.param));
+         const unhandledErrors = errors.filter(error => !['cityId', 'name', 'rut', 'address', 'phone'].includes(error.param));
 
          if (unhandledErrors.length > 0) {
             arrayErrorToast(unhandledErrors.map(error => error.msg));
@@ -63,12 +64,12 @@ export const startCreateCity = ({ name, stateId, hasDeliveries, deliveryPrice },
    }
 }
 
-export const setCities = (rows, count, pages) => ({
-   type: types.SET_CITIES,
+export const setReceivers = (rows, count, pages) => ({
+   type: types.SET_RECEIVERS,
    payload: { rows, count, pages }
 });
 
-export const startGetCities = (page, perPage, filters = {}) => {
+export const startGetReceivers = (page, perPage, filters = {}) => {
    return async dispatch => {
       dispatch(setLoading('table', true));
 
@@ -76,7 +77,7 @@ export const startGetCities = (page, perPage, filters = {}) => {
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
          const response = await request({
-            path: `/cities?${getPaginationQuery(page, perPage)}&${queryParamsFilter(filters)}`,
+            path: `/receivers?${getPaginationQuery(page, perPage)}&${queryParamsFilter(filters)}`,
             headers: {
                'Content-Type': 'application/json',
                'x-token': token
@@ -86,25 +87,25 @@ export const startGetCities = (page, perPage, filters = {}) => {
          const { rows, count, pages } = response.data;
 
          const mappedRows = rows.map(row => {
-            const cityName = capitalizeAllWords(row.name);
-            const stateName = capitalizeAllWords(row.state.name);
-            const countryName = capitalizeAllWords(row.state.country.name);
+            const receiverName = capitalizeAllWords(row.name);
+            const cityName = capitalizeAllWords(row.city.name);
+            const stateName = capitalizeAllWords(row.city.state.name);
 
             return {
                ...row,
-               name: cityName,
-               state: {
-                  ...row.state,
-                  name: stateName,
-                  country: {
-                     ...row.state.country,
-                     name: countryName
+               name: receiverName,
+               city: {
+                  ...row.city,
+                  name: cityName,
+                  state: {
+                     ...row.state,
+                     name: stateName
                   }
                }
             }
          });
 
-         dispatch(setCities(mappedRows, count, pages));
+         dispatch(setReceivers(mappedRows, count, pages));
       } catch (error) {
          console.log(error);
 
@@ -117,10 +118,10 @@ export const startGetCities = (page, perPage, filters = {}) => {
    }
 }
 
-export const startDeleteCity = (id, { page, perPage, navigate }, filters = {}) => {
+export const startDeleteReceiver = (id, { page, perPage, navigate }, filters = {}) => {
    return async dispatch => {
       try {
-         const { isConfirmed } = await simpleConfirmDialog('warning', '¿Está seguro?', '¿Desea eliminar la ciudad seleccionada?');
+         const { isConfirmed } = await simpleConfirmDialog('warning', '¿Está seguro?', '¿Desea eliminar el destinatario seleccionada?');
 
          if (isConfirmed) {
             dispatch(setLoading('delete', true));
@@ -128,7 +129,7 @@ export const startDeleteCity = (id, { page, perPage, navigate }, filters = {}) =
             const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
             const response = await request({
-               path: `/cities/${id}`,
+               path: `/receivers/${id}`,
                method: 'DELETE',
                headers: {
                   'Content-Type': 'application/json',
@@ -138,14 +139,14 @@ export const startDeleteCity = (id, { page, perPage, navigate }, filters = {}) =
 
             const { name } = response.data;
 
-            const cityName = capitalizeAllWords(name);
+            const receiverName = capitalizeAllWords(name);
 
-            simpleSuccessToast(`La ciudad: ${cityName}, fue eliminada satisfactoriamente`);
+            simpleSuccessToast(`El destinatario: ${receiverName}, fue eliminado satisfactoriamente`);
 
             if (!navigate) {
-               dispatch(startGetCities(page, perPage, filters));
+               dispatch(startGetReceivers(page, perPage, filters));
             } else {
-               navigate('/cities');
+               navigate('/receivers');
             }
          }
       } catch (error) {
@@ -160,12 +161,12 @@ export const startDeleteCity = (id, { page, perPage, navigate }, filters = {}) =
    }
 }
 
-export const setCity = (city) => ({
-   type: types.SET_CITY_DATA,
+export const setReceiver = (city) => ({
+   type: types.SET_RECEIVER_DATA,
    payload: city
 });
 
-export const startGetCity = (id) => {
+export const startGetReceiver = (id) => {
    return async dispatch => {
       dispatch(setLoading('detail', true));
 
@@ -173,20 +174,20 @@ export const startGetCity = (id) => {
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
          const response = await request({
-            path: `/cities/${id}`,
+            path: `/receivers/${id}`,
             headers: {
                'Content-Type': 'application/json',
                'x-token': token
             }
          });
 
-         const city = response.data;
+         const receiver = response.data;
 
-         city.name = capitalizeAllWords(city.name);
-         city.state.name = capitalizeAllWords(city.state.name);
-         city.state.country.name = capitalizeAllWords(city.state.country.name);
+         receiver.name = capitalizeAllWords(receiver.name);
+         receiver.city.name = capitalizeAllWords(receiver.city.name);
+         receiver.city.state.name = capitalizeAllWords(receiver.city.state.name);
 
-         dispatch(setCity(city));
+         dispatch(setReceiver(receiver));
       } catch (error) {
          console.log(error);
 
@@ -199,7 +200,7 @@ export const startGetCity = (id) => {
    }
 }
 
-export const startUpdateCity = (id, { name, stateId, hasDeliveries, deliveryPrice }) => {
+export const startUpdateReceiver = (id, { cityId, name, rut, address, phone }) => {
    return async dispatch => {
       dispatch(setLoading('update', true));
 
@@ -207,31 +208,34 @@ export const startUpdateCity = (id, { name, stateId, hasDeliveries, deliveryPric
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
          const response = await request({
-            path: `/cities/${id}`,
+            path: `/receivers/${id}`,
             method: 'PUT',
             headers: {
                'Content-Type': 'application/json',
                'x-token': token
             },
-            body: { name, stateId, hasDeliveries, deliveryPrice }
+            body: { cityId, name, rut, address, phone }
          });
 
          const city = response.data;
 
-         const cityName = capitalizeAllWords(city.name);
+         const receiverName = capitalizeAllWords(city.name);
 
-         simpleSuccessToast(`La ciudad: ${cityName}, fue actualizada satisfactoriamente`);
+         simpleSuccessToast(`La ciudad: ${receiverName}, fue actualizada satisfactoriamente`);
 
-         dispatch(setCity(city));
+         dispatch(setReceiver(city));
       } catch (error) {
          console.log(error);
 
          const { errors } = error.response.data;
 
-         dispatch(setCitiesError('name', errors.find(err => err.param === 'name')?.msg || null));
-         dispatch(setCitiesError('stateId', errors.find(err => err.param === 'stateId')?.msg || null));
+         dispatch(setReceiversError('cityId', errors.find(err => err.param === 'cityId')?.msg || null));
+         dispatch(setReceiversError('name', errors.find(err => err.param === 'name')?.msg || null));
+         dispatch(setReceiversError('rut', errors.find(err => err.param === 'rut')?.msg || null));
+         dispatch(setReceiversError('address', errors.find(err => err.param === 'address')?.msg || null));
+         dispatch(setReceiversError('phone', errors.find(err => err.param === 'phone')?.msg || null));
 
-         const unhandledErrors = errors.filter(error => !['name', 'stateId'].includes(error.param));
+         const unhandledErrors = errors.filter(error => !['cityId', 'name', 'rut', 'address', 'phone'].includes(error.param));
 
          if (unhandledErrors.length > 0) {
             arrayErrorToast(unhandledErrors.map(error => error.msg));
@@ -242,12 +246,12 @@ export const startUpdateCity = (id, { name, stateId, hasDeliveries, deliveryPric
    }
 }
 
-export const setCitiesList = (rows) => ({
-   type: types.SET_CITIES_LIST,
+export const setReceiversList = (rows) => ({
+   type: types.SET_RECEIVERS_LIST,
    payload: rows
 });
 
-export const startGetCitiesList = (filters = {}) => {
+export const startGetReceiversList = () => {
    return async dispatch => {
       dispatch(setLoading('list', true));
 
@@ -255,7 +259,7 @@ export const startGetCitiesList = (filters = {}) => {
          const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
 
          const response = await request({
-            path: `/cities?${queryParamsFilter(filters)}`,
+            path: '/receivers',
             headers: {
                'Content-Type': 'application/json',
                'x-token': token
@@ -266,11 +270,10 @@ export const startGetCitiesList = (filters = {}) => {
 
          const mappedRows = rows.map(row => ({
             text: capitalizeAllWords(row.name),
-            value: row.id,
-            stateId: row.stateId
+            value: row.id
          }));
 
-         dispatch(setCitiesList(mappedRows));
+         dispatch(setReceiversList(mappedRows));
       } catch (error) {
          console.log(error);
 

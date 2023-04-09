@@ -9,6 +9,7 @@ import { paymentMethodsReducer } from './paymentMethodsReducer';
 import { paymentTypesReducer } from './paymentTypesReducer';
 import { permissionsReducer } from './permissionsReducer';
 import { productsReducer } from './productsReducer';
+import { receiversReducer } from './receiversReducer';
 import { receptionsReducer } from './receptionsReducer';
 import { rolesReducer } from './rolesReducer';
 import { settingsReducer } from './settingsReducer';
@@ -31,6 +32,7 @@ export {
    paymentTypesReducer,
    permissionsReducer,
    productsReducer,
+   receiversReducer,
    receptionsReducer,
    rolesReducer,
    settingsReducer,
