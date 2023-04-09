@@ -23,7 +23,7 @@ const UserNavBarDropdown = () => {
 
    const dispatch = useDispatch();
 
-   const { fullName } = useSelector(state => state.auth);
+   const { fullName, company } = useSelector(state => state.auth);
 
    const [displayName, setDisplayName] = useState('');
 
@@ -60,7 +60,7 @@ const UserNavBarDropdown = () => {
             <div className="user-nav d-sm-flex d-none">
                <span className="user-name fw-bolder">{displayName}</span>
 
-               <span className="user-status">Admin</span>
+               <span className="user-status">{company ? capitalizeAllWords(company?.name) : 'Admin'}</span>
             </div>
          </a>
          {/* data-bs-popper podría causar problemas con el dropdown (la posicion) */}

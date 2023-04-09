@@ -6,7 +6,7 @@ const SidebarTitle = ({title}) => {
 
    return (
       <div className='navigation-header'>
-         <span>{title}</span>
+         <span className='text-truncate'>{title}</span>
       </div>
    );
 }

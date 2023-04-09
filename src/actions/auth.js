@@ -7,9 +7,9 @@ import { types } from '../reducers/authReducer';
 
 // Actions
 
-export const setAuth = ({id, email, firstName, lastName, fullName, isAdmin, uuid, userRoles, permissions}) => ({
+export const setAuth = ({id, email, firstName, lastName, fullName, isAdmin, uuid, company, userRoles, permissions}) => ({
    type: types.LOGIN,
-   payload: { id, email, firstName, lastName, fullName, isAdmin, uuid, userRoles, permissions }
+   payload: { id, email, firstName, lastName, fullName, isAdmin, uuid, company, userRoles, permissions }
 });
 
 export const startLogin = (email, password, remember = false) => {

@@ -31,6 +31,7 @@ const initialState = {
    fullName: null,
    isAdmin: null,
    uuid: null,
+   company: null,
    roles: [],
 
    permissions: null
@@ -68,6 +69,7 @@ export const authReducer = (state = initialState, action) => {
             fullName: action.payload.fullName,
             isAdmin: action.payload.isAdmin,
             uuid: action.payload.uuid,
+            company: action.payload.company,
             userRoles: action.payload.userRoles,
             permissions: action.payload.permissions,
          }
