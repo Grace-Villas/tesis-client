@@ -134,7 +134,7 @@ const PaymentsList = () => {
 
                               <th rowSpan={1} colSpan={1} className='text-center'>Monto</th>
 
-                              <th rowSpan={1} colSpan={1} className='text-center'>Status</th>
+                              <th rowSpan={1} colSpan={1} className='text-center'>Estatus</th>
 
                               <th rowSpan={1} colSpan={1} className='text-center'>Método de pago</th>
                               

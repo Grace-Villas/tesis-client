@@ -97,7 +97,7 @@ const PaymentsDetail = () => {
                            <table className='w-100'>
                               <tbody>
                                  <tr>
-                                    <td className='pe-1'>Status:</td>
+                                    <td className='pe-1'>Estatus:</td>
 
                                     <td className='text-end fw-bolder'>{payment?.status?.name?.toLocaleUpperCase()}</td>
                                  </tr>
