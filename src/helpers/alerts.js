@@ -43,7 +43,8 @@ const simpleDialogSwal = Swal.mixin({
       cancelButton: 'btn btn-danger p-50 px-2',
       htmlContainer: 'm-0 px-1 fs-6',
       popup: 'alert-popup',
-      container: 'alert-container'
+      container: 'alert-container',
+      input: 'alert-input mb-0 mx-1 mt-1'
    },
    buttonsStyling: false,
    confirmButtonText: 'Confirmar',
@@ -68,7 +69,7 @@ export const simpleConfirmDialog = async (icon, title, text) => {
 }
 
 /**
- * Modal sencillo de información
+ * Modal sencillo de confirmación de acción
  * @param {string} icon Ícono del modal
  * @param {string} title Título del modal
  * @param {string} text Texto a mostrar en el modal
@@ -80,6 +81,29 @@ export const simpleDialog = async (icon, title, text) => {
       text: text,
       icon: icon,
       width: 300
+   });
+}
+
+/**
+ * Modal sencillo de confirmación de acción con input
+ * @param {string} icon Ícono del modal
+ * @param {string} title Título del modal
+ * @param {string} text Texto a mostrar en el modal
+ * @param {string} label Etiqueta a mostrar en el input
+ * @param {string} input Tipo de input a mostrar en el modal
+ * @param {string} placeHolder Placeholder a mostrar en el input
+ * @returns {Promise<{isConfirmed: boolean, isDenied: boolean, isDismissed: boolean, value: string}>}
+ */
+export const simpleInputDialog = async (icon, title, text, label, input, placeHolder) => {
+   return await simpleDialogSwal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+      showCancelButton: true,
+      width: 400,
+      input: input,
+      inputLabel: label,
+      inputPlaceholder: placeHolder
    });
 }
 
