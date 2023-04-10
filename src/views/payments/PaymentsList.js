@@ -36,7 +36,7 @@ import { currencyFormat } from '../../helpers/format';
 
 
 
-const CitiesList = () => {
+const PaymentsList = () => {
 
    const dispatch = useDispatch();
 
@@ -188,4 +188,4 @@ const CitiesList = () => {
 
 
 
-export default CitiesList;
+export default PaymentsList;

@@ -25,7 +25,7 @@ import { setPaymentTypesList, startGetPaymentTypesList } from '../../../actions/
 
 
 
-const CitiesEdit = () => {
+const PaymentMethodsEdit = () => {
    
    const dispatch = useDispatch();
 
@@ -362,4 +362,4 @@ const CitiesEdit = () => {
 
 
 
-export default CitiesEdit;
+export default PaymentMethodsEdit;

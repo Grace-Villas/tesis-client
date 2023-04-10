@@ -17,7 +17,7 @@ import LoadingComponent from '../../../components/ui/spinners/LoadingComponent';
 
 
 
-const CitiesDetail = () => {
+const PaymentMethodsDetail = () => {
 
    const navigate = useNavigate();
 
@@ -205,4 +205,4 @@ const CitiesDetail = () => {
 
 
 
-export default CitiesDetail;
+export default PaymentMethodsDetail;

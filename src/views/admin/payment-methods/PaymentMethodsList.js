@@ -30,7 +30,7 @@ import { useCurrentPage } from '../../../hooks/usePagination';
 
 
 
-const CitiesList = () => {
+const PaymentMethodsList = () => {
 
    const dispatch = useDispatch();
 
@@ -199,4 +199,4 @@ const CitiesList = () => {
 
 
 
-export default CitiesList;
+export default PaymentMethodsList;

@@ -25,7 +25,7 @@ import { handleInvalidEmail, handleInvalidNumber, handleRequired, handleInvalidC
 
 
 
-const PaymentMethodsCreate = () => {
+const PaymentsCreate = () => {
 
    const dispatch = useDispatch();
 
@@ -305,4 +305,4 @@ const PaymentMethodsCreate = () => {
 
 
 
-export default PaymentMethodsCreate;
+export default PaymentsCreate;
