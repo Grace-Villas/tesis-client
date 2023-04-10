@@ -90,6 +90,15 @@ const PaymentMethodsCreate = () => {
          setEmail('');
          setPhone('');
          setUser('');
+         
+         dispatch(setPaymentMethodsError('paymentTypeId', null));
+         dispatch(setPaymentMethodsError('bankName', null));
+         dispatch(setPaymentMethodsError('holderName', null));
+         dispatch(setPaymentMethodsError('holderDni', null));
+         dispatch(setPaymentMethodsError('accountNumber', null));
+         dispatch(setPaymentMethodsError('email', null));
+         dispatch(setPaymentMethodsError('phone', null));
+         dispatch(setPaymentMethodsError('user', null));
 
          dispatch(setPaymentTypesList([]));
          
