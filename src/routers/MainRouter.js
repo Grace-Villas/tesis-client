@@ -29,6 +29,7 @@ import UsersRouter from './views/UsersRouter';
 import ReceiversRouter from './views/ReceiversRouter';
 import PaymentsRouter from './views/PaymentsRouter';
 import DispatchesRouter from './views/DispatchesRouter';
+import BatchesRouter from './views/batchesRouter';
 
 
 
@@ -78,6 +79,8 @@ const MainRouter = () => {
                <Route path='/payments/*' element={<PaymentsRouter />} />
 
                <Route path='/dispatches/*' element={<DispatchesRouter />} />
+
+               <Route path='/batches/*' element={<BatchesRouter />} />
             
                <Route path='*' element={<Navigate to='/' replace />} />
             </Routes>
