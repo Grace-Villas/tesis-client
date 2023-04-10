@@ -245,6 +245,41 @@ export const startDenyDispatch = (id) => {
    }
 }
 
+export const setDispatchesList = (rows) => ({
+   type: types.SET_DISPATCHES_LIST,
+   payload: rows
+});
+
+export const startGetDispatchesList = (filters = {}) => {
+   return async dispatch => {
+      dispatch(setLoading('list', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: `/dispatches?${queryParamsFilter(filters)}`,
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            }
+         });
+
+         const rows = response.data;
+
+         dispatch(setDispatchesList(rows));
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
+      }
+      
+      dispatch(setLoading('list', false));
+   }
+}
+
 
 
 // Create dispatch

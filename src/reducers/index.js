@@ -1,4 +1,6 @@
 import { authReducer } from './authReducer';
+import { batchesReducer } from './batchesReducer';
+import { batchStatusesReducer } from './batchStatusesReducer';
 import { citiesReducer } from './citiesReducer';
 import { clientsReducer } from './clientsReducer';
 import { configurationsReducer } from './configurationsReducer';
@@ -26,6 +28,8 @@ import { usersReducer } from './usersReducer';
 
 export {
    authReducer,
+   batchesReducer,
+   batchStatusesReducer,
    citiesReducer,
    clientsReducer,
    configurationsReducer,

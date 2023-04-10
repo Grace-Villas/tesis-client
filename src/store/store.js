@@ -5,6 +5,8 @@ import { composeWithDevTools } from '@redux-devtools/extension';
 // Importaciones de los reducers
 import {
    authReducer,
+   batchStatusesReducer,
+   batchesReducer,
    citiesReducer,
    clientsReducer,
    configurationsReducer,
@@ -44,6 +46,8 @@ const composedEnhancers = composeWithDevTools(...enhancers);
 const reducers = combineReducers({
    // Lista de reducers
    auth: authReducer,
+   batches: batchesReducer,
+   batchStatuses: batchStatusesReducer,
    cities: citiesReducer,
    clients: clientsReducer,
    configurations: configurationsReducer,

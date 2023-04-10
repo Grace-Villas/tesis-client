@@ -11,6 +11,8 @@ export const types = {
 
    MODAL_STATE: '[DISPATCHES] modal state',
 
+   SET_DISPATCHES_LIST: '[DISPATCHES] set dispatches list',
+
    ADD_PRODUCT: '[DISPATCHES] add product to dispatch',
    REMOVE_PRODUCT: '[DISPATCHES] remove product from dispatch',
    UPDATE_PRODUCT: '[DISPATCHES] update product from dispatch',
@@ -39,7 +41,12 @@ const initialState = {
    // Detail
    dispatch: null,
 
-   loadingDetail: true
+   loadingDetail: true,
+
+   // List
+   dispatchesList: [],
+
+   loadingList: true,
 }
 
 
@@ -73,6 +80,12 @@ export const dispatchesReducer = (state = initialState, action) => {
          return {
             ...state,
             dispatch: action.payload
+         }
+
+      case types.SET_DISPATCHES_LIST:
+         return {
+            ...state,
+            dispatchesList: action.payload
          }
 
       case types.MODAL_STATE:
