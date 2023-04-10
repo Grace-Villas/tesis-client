@@ -118,10 +118,10 @@ const SideBar = () => {
                   <SideBarLink text='Crear' icon='Circle' url='/clients/create' />
                </NestedSidebarLink>
 
-               <NestedSidebarLink text='Despachos' icon='Truck' basePath='/receptions'>
-                  <SideBarLink text='Lista' icon='Circle' url='/receptions' />
+               <NestedSidebarLink text='Despachos' icon='Truck' basePath='/dispatches'>
+                  <SideBarLink text='Lista' icon='Circle' url='/dispatches' />
                   
-                  <SideBarLink text='Crear' icon='Circle' url='/receptions/create' />
+                  <SideBarLink text='Crear' icon='Circle' url='/dispatches/create' />
                </NestedSidebarLink>
 
                <NestedSidebarLink text='Lotes' icon='Clipboard' basePath='/batches'>

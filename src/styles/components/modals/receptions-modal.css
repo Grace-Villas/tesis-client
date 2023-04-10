@@ -19,6 +19,10 @@
    .receptions-modal {
       width: 30%;
    }
+
+   .receptions-modal.dispatches {
+      width: 50%;
+   }
 }
 
 .receptions-modal > * {

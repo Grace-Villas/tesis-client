@@ -140,18 +140,18 @@ const StatesDetail = () => {
                   </div>
                </div>
 
-               <hr className='invoice-spacing' />
+               <hr className='invoice-spacing mb-0' />
 
-               <div className='card-body invoice-padding pt-0'>
+               <div className='card-body invoice-padding pt-0 px-0'>
                   <div className='row'>
-                     <div>
+                     <div className='col'>
                         <div className='table-responsive'>
-                           <table>
+                           <table className='invoice-list-table table dataTable no-footer dtr-column'>
                               <thead>
                                  <tr>
                                     <th>Producto</th>
 
-                                    <th className='text-center' style={{width: 150}}>Cantidad de paletas</th>
+                                    <th className='text-center' style={{width: 200}}>Cantidad de paletas</th>
                                  </tr>
                               </thead>
                               
