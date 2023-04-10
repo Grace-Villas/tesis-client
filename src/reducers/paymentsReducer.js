@@ -1,29 +1,25 @@
 import { capitalize } from '../helpers/format';
 
 export const types = {
-   SET_ERROR: '[PAYMENT_METHODS] set cities error',
+   SET_ERROR: '[PAYMENTS] set cities error',
 
-   SET_LOADING: '[PAYMENT_METHODS] set loading state',
+   SET_LOADING: '[PAYMENTS] set loading state',
 
-   SET_PAYMENT_METHODS: '[PAYMENT_METHODS] set table data',
+   SET_PAYMENTS: '[PAYMENTS] set table data',
 
-   SET_PAYMENT_METHOD_DATA: '[PAYMENT_METHODS] set payment method data',
-
-   SET_PAYMENT_METHODS_LIST: '[PAYMENT_METHODS] set cities list'
+   SET_PAYMENT_DATA: '[PAYMENTS] set payment method data'
 }
 
 
 
 const initialState = {
    // Create
-   paymentTypeIdError: null,
-   bankNameError: null,
-   holderNameError: null,
-   holderDniError: null,
-   accountNumberError: null,
-   emailError: null,
-   phoneError: null,
-   userError: null,
+   paymentMethodIdError: null,
+   amountError: null,
+   dateError: null,
+   referenceError: null,
+   issuingNameError: null,
+   issuingEmailError: null,
    
    loadingCreate: false,
 
@@ -35,7 +31,7 @@ const initialState = {
    loadingTable: true,
 
    // Detail
-   paymentMethod: null,
+   payment: null,
 
    loadingDetail: true,
 
@@ -43,17 +39,12 @@ const initialState = {
    loadingUpdate: false,
 
    // Delete
-   loadingDelete: false,
-
-   // List
-   paymentMethodsList: [],
-
-   loadingList: true,
+   loadingDelete: false
 }
 
 
 
-export const paymentMethodsReducer = (state = initialState, action) => {
+export const paymentsReducer = (state = initialState, action) => {
    switch (action.type) {
       case types.SET_ERROR:
          return {
@@ -70,7 +61,7 @@ export const paymentMethodsReducer = (state = initialState, action) => {
          }
       }
 
-      case types.SET_PAYMENT_METHODS:
+      case types.SET_PAYMENTS:
          return {
             ...state,
             rows: action.payload.rows,
@@ -78,16 +69,10 @@ export const paymentMethodsReducer = (state = initialState, action) => {
             pages: action.payload.pages,
          }
 
-      case types.SET_PAYMENT_METHOD_DATA:
+      case types.SET_PAYMENT_DATA:
          return {
             ...state,
-            paymentMethod: action.payload
-         }
-
-      case types.SET_PAYMENT_METHODS_LIST:
-         return {
-            ...state,
-            paymentMethodsList: action.payload
+            payment: action.payload
          }
 
       default:

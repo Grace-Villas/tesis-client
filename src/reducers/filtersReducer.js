@@ -18,6 +18,7 @@ const initialState = {
    companyId: '',
    userId: '',
    paymentTypeId: '',
+   statusId: '',
 }
 
 

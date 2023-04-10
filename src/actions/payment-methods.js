@@ -246,11 +246,35 @@ export const startGetPaymentMethodsList = () => {
 
          const rows = response.data;
 
-         const mappedRows = rows.map(row => ({
-            ...row,
-            text: capitalizeAllWords(row.name),
-            value: row.id
-         }));
+         const mappedRows = rows.map(row => {
+            let text = capitalizeAllWords(row.paymentType.name);
+
+            if (row.bankName) {
+               text += ` - ${row.bankName}`;
+            }
+
+            if (row.holderName) {
+               text += ` - ${row.holderName}`;
+            }
+            
+            if (row.accountNumber) {
+               text += ` - ${row.accountNumber}`;
+            }
+            
+            if (row.email) {
+               text += ` - ${row.email}`;
+            }
+            
+            if (row.phone) {
+               text += ` - ${row.phone}`;
+            }
+
+            return {
+               ...row,
+               text,
+               value: row.id
+            }
+         });
 
          dispatch(setPaymentMethodsList(mappedRows));
       } catch (error) {

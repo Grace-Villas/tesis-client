@@ -5,7 +5,9 @@ import { configurationsReducer } from './configurationsReducer';
 import { countriesReducer } from './countriesReducer';
 import { filtersReducer } from './filtersReducer';
 import { installationReducer } from './installationReducer';
+import { paymentsReducer } from './paymentsReducer';
 import { paymentMethodsReducer } from './paymentMethodsReducer';
+import { paymentStatusesReducer } from './paymentStatusesReducer';
 import { paymentTypesReducer } from './paymentTypesReducer';
 import { permissionsReducer } from './permissionsReducer';
 import { productsReducer } from './productsReducer';
@@ -28,7 +30,9 @@ export {
    countriesReducer,
    filtersReducer,
    installationReducer,
+   paymentsReducer,
    paymentMethodsReducer,
+   paymentStatusesReducer,
    paymentTypesReducer,
    permissionsReducer,
    productsReducer,
