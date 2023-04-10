@@ -378,3 +378,40 @@ export const startGetCompanyProduct = (id) => {
       dispatch(setLoading('detail', false));
    }
 }
+
+export const startGetCompanyProductsList = () => {
+   return async dispatch => {
+      dispatch(setLoading('list', true));
+
+      try {
+         const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+
+         const response = await request({
+            path: '/company-products',
+            headers: {
+               'Content-Type': 'application/json',
+               'x-token': token
+            }
+         });
+
+         const rows = response.data;
+
+         const mappedRows = rows.map(p => ({
+            ...p.product,
+            id: p.id,
+            stock: p.stock,
+            productId: p.productId
+         }));
+
+         dispatch(setProductsList(mappedRows));
+      } catch (error) {
+         console.log(error);
+
+         const { errors } = error.response.data;
+
+         arrayErrorToast(errors.map(error => error.msg));
+      }
+      
+      dispatch(setLoading('list', false));
+   }
+}

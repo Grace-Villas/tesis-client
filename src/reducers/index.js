@@ -3,6 +3,8 @@ import { citiesReducer } from './citiesReducer';
 import { clientsReducer } from './clientsReducer';
 import { configurationsReducer } from './configurationsReducer';
 import { countriesReducer } from './countriesReducer';
+import { dispatchesReducer } from './dispatchesReducer';
+import { dispatchStatusesReducer } from './dispatchStatusesReducer';
 import { filtersReducer } from './filtersReducer';
 import { installationReducer } from './installationReducer';
 import { paymentsReducer } from './paymentsReducer';
@@ -28,6 +30,8 @@ export {
    clientsReducer,
    configurationsReducer,
    countriesReducer,
+   dispatchesReducer,
+   dispatchStatusesReducer,
    filtersReducer,
    installationReducer,
    paymentsReducer,
