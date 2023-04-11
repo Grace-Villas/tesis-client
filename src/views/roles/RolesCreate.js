@@ -16,7 +16,6 @@ import Form from '../../components/form/Form';
 import Input from '../../components/form/Input';
 import LoadingResponse from '../../components/ui/spinners/LoadingResponse';
 import PermissionsPicker from '../../components/roles/PermissionsPicker';
-import Switch from '../../components/form/Switch';
 
 
 
@@ -36,7 +35,6 @@ const RolesCreate = () => {
 
    const [name, setName] = useState('');
    const [hexColor, setHexColor] = useState('#FFFFFF');
-   const [isPublic, setIsPublic] = useState(false);
 
    useEffect(() => {
       dispatch(setBreadcrumb([
@@ -58,7 +56,6 @@ const RolesCreate = () => {
       return () => {
          setName('');
          setHexColor('#FFFFFF');
-         setIsPublic(false);
 
          dispatch(setRolesError('name', null));
          dispatch(setPermissionsError('permissionId', null))
@@ -105,7 +102,7 @@ const RolesCreate = () => {
             delete: per.delete
          }));
 
-         dispatch(startCreateRole({name, hexColor, isPublic, permissions}, navigate));
+         dispatch(startCreateRole({name, hexColor, permissions}, navigate));
       }
    }
 
@@ -113,7 +110,6 @@ const RolesCreate = () => {
    const handleDiscard = () => {
       setName('');
       setHexColor('#FFFFFF');
-      setIsPublic(false);
 
       dispatch(setRolesError('name', null));
       dispatch(setPermissionsError('permissionId', null))
@@ -145,16 +141,7 @@ const RolesCreate = () => {
                            type='color'
                            setValue={setHexColor}
                            title={'Color de fondo'}
-                           containerClass='col-md-4 col-6 mb-1'
-                        />
-
-                        <Switch
-                           name='public'
-                           value={isPublic}
-                           setValue={setIsPublic}
-                           title='¿Rol público?'
-                           containerClass='col-md-2 col-6 mb-1 align-items-center'
-                           wrapperClass='my-auto'
+                           containerClass='col-md-6 col-12 mb-1'
                         />
                      </div>
                   </div>

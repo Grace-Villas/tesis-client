@@ -68,8 +68,9 @@ const UserNavBarDropdown = () => {
             className="dropdown-menu dropdown-menu-end"
             aria-labelledby="dropdown-user"
             data-bs-popper="none"
+            style={{width: 'unset'}}
          >
-            <a className="dropdown-item" href="/#">
+            {/* <a className="dropdown-item" href="/#">
                <Icon icon='User' />
 
                <i className="me-50"></i>
@@ -101,7 +102,7 @@ const UserNavBarDropdown = () => {
                Chats
             </a>
 
-            <div className="dropdown-divider" />
+            <div className="dropdown-divider" /> */}
 
             <Link className="dropdown-item" to='/settings'>
                <Icon icon='Settings' />

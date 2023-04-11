@@ -20,6 +20,8 @@ import SidebarTitle from './SidebarTitle';
 // Custom hooks
 import { useSidebar } from '../../hooks/useSidebar';
 import { useWindowDimensions } from '../../hooks/useDimensions';
+import PermissionNeeded from '../ui/PermissionNeeded';
+import CheckPermissions from '../ui/CheckPermissions';
 
 
 
@@ -112,91 +114,311 @@ const SideBar = () => {
 
                <SidebarTitle title='' />
 
-               <NestedSidebarLink text='Clientes' icon='Briefcase' basePath='/clients'>
-                  <SideBarLink text='Lista' icon='Circle' url='/clients' />
-                  
-                  <SideBarLink text='Crear' icon='Circle' url='/clients/create' />
-               </NestedSidebarLink>
+               <PermissionNeeded
+                  section='companies'
+                  onlyAdmin
+               >
+                  <NestedSidebarLink text='Clientes' icon='Briefcase' basePath='/clients'>
+                     <SideBarLink text='Lista' icon='Circle' url='/clients' />
+                     
+                     <SideBarLink text='Crear' icon='Circle' url='/clients/create' />
+                  </NestedSidebarLink>
+               </PermissionNeeded>
 
-               <NestedSidebarLink text='Despachos' icon='Truck' basePath='/dispatches'>
-                  <SideBarLink text='Lista' icon='Circle' url='/dispatches' />
-                  
-                  <SideBarLink text='Crear' icon='Circle' url='/dispatches/create' />
-               </NestedSidebarLink>
+               <PermissionNeeded
+                  section='dispatches'
+               >
+                  <NestedSidebarLink text='Despachos' icon='Truck' basePath='/dispatches'>
+                     <PermissionNeeded
+                        section='dispatches'
+                        permission='list'
+                     >
+                        <SideBarLink text='Lista' icon='Circle' url='/dispatches' />
+                     </PermissionNeeded>
+                     
+                     <PermissionNeeded
+                        section='dispatches'
+                        permission='create'
+                        onlyClient
+                     >
+                        <SideBarLink text='Crear' icon='Circle' url='/dispatches/create' />
+                     </PermissionNeeded>
+                  </NestedSidebarLink>
+               </PermissionNeeded>
 
-               <NestedSidebarLink text='Lotes' icon='Clipboard' basePath='/batches'>
-                  <SideBarLink text='Lista' icon='Circle' url='/batches' />
-                  
-                  <SideBarLink text='Crear' icon='Circle' url='/batches/create' />
-               </NestedSidebarLink>
+               <PermissionNeeded
+                  section='batches'
+                  onlyAdmin
+               >
+                  <NestedSidebarLink text='Lotes' icon='Clipboard' basePath='/batches'>
+                     <PermissionNeeded
+                        section='batches'
+                        permission='list'
+                        onlyAdmin
+                     >
+                        <SideBarLink text='Lista' icon='Circle' url='/batches' />
+                     </PermissionNeeded>
+                     
+                     <PermissionNeeded
+                        section='batches'
+                        permission='create'
+                        onlyAdmin
+                     >
+                        <SideBarLink text='Crear' icon='Circle' url='/batches/create' />
+                     </PermissionNeeded>
+                  </NestedSidebarLink>
+               </PermissionNeeded>
 
-               <NestedSidebarLink text='Recepciones' icon='Upload' basePath='/receptions'>
-                  <SideBarLink text='Lista' icon='Circle' url='/receptions' />
-                  
-                  <SideBarLink text='Crear' icon='Circle' url='/receptions/create' />
-               </NestedSidebarLink>
+               <PermissionNeeded
+                  section='receptions'
+               >
+                  <NestedSidebarLink text='Recepciones' icon='Upload' basePath='/receptions'>
+                     <PermissionNeeded
+                        section='receptions'
+                        permission='list'
+                     >
+                        <SideBarLink text='Lista' icon='Circle' url='/receptions' />
+                     </PermissionNeeded>
 
-               <NestedSidebarLink text='Productos' icon='Package' basePath='/products'>
-                  <SideBarLink text='Lista' icon='Circle' url='/products' />
-                  
-                  <SideBarLink text='Crear' icon='Circle' url='/products/create' />
-               </NestedSidebarLink>
+                     <PermissionNeeded
+                        section='receptions'
+                        permission='create'
+                        onlyAdmin
+                     >
+                        <SideBarLink text='Crear' icon='Circle' url='/receptions/create' />
+                     </PermissionNeeded>
+                  </NestedSidebarLink>
+               </PermissionNeeded>
 
-               <NestedSidebarLink text='Destinatarios' icon='BookOpen' basePath='/receivers'>
-                  <SideBarLink text='Lista' icon='Circle' url='/receivers' />
-                  
-                  <SideBarLink text='Crear' icon='Circle' url='/receivers/create' />
-               </NestedSidebarLink>
+               <PermissionNeeded
+                  section='products'
+               >
+                  <NestedSidebarLink text='Productos' icon='Package' basePath='/products'>
+                     <PermissionNeeded
+                        section='products'
+                        permission='list'
+                     >
+                        <SideBarLink text='Lista' icon='Circle' url='/products' />
+                     </PermissionNeeded>
+                     
+                     <PermissionNeeded
+                        section='products'
+                        permission='create'
+                        onlyAdmin
+                     >
+                        <SideBarLink text='Crear' icon='Circle' url='/products/create' />
+                     </PermissionNeeded>
+                  </NestedSidebarLink>
+               </PermissionNeeded>
 
-               <SidebarTitle title='Pagos y facturación' />
+               <PermissionNeeded
+                  section='receivers'
+                  onlyClient
+               >
+                  <NestedSidebarLink text='Destinatarios' icon='BookOpen' basePath='/receivers'>
+                     <PermissionNeeded
+                        section='receivers'
+                        permission='list'
+                        onlyClient
+                     >
+                        <SideBarLink text='Lista' icon='Circle' url='/receivers' />
+                     </PermissionNeeded>
+                     
+                     <PermissionNeeded
+                        section='receivers'
+                        permission='create'
+                        onlyClient
+                     >
+                        <SideBarLink text='Crear' icon='Circle' url='/receivers/create' />
+                     </PermissionNeeded>
+                  </NestedSidebarLink>
+               </PermissionNeeded>
 
-               <SideBarLink text='Facturación' icon='FileText' url='/company' />
+               <CheckPermissions
+                  sections={['payments', 'payment-methods']}
+               >
+                  <SidebarTitle title='Pagos y facturación' />
+               </CheckPermissions>
 
-               <NestedSidebarLink text='Pagos' icon='CreditCard' basePath='/payments'>
-                  <SideBarLink text='Lista' icon='Circle' url='/payments' />
+               <PermissionNeeded
+                  section='payments'
+                  onlyClient
+               >
+                  <SideBarLink text='Facturación' icon='FileText' url='/company' />
+               </PermissionNeeded>
 
-                  <SideBarLink text='Reportar pago' icon='Circle' url='/payments/create' />
-               </NestedSidebarLink>
+               <PermissionNeeded
+                  section='payments'
+               >
+                  <NestedSidebarLink text='Pagos' icon='CreditCard' basePath='/payments'>
+                     <PermissionNeeded
+                        section='payments'
+                        permission='list'
+                     >
+                        <SideBarLink text='Lista' icon='Circle' url='/payments' />
+                     </PermissionNeeded>
 
-               <NestedSidebarLink text='Métodos de pago' icon='Sliders' basePath='/payment-methods'>
-                  <SideBarLink text='Lista' icon='Circle' url='/payment-methods' />
+                     <PermissionNeeded
+                        section='payments'
+                        permission='create'
+                        onlyClient
+                     >
+                        <SideBarLink text='Reportar pago' icon='Circle' url='/payments/create' />
+                     </PermissionNeeded>
+                  </NestedSidebarLink>
+               </PermissionNeeded>
 
-                  <SideBarLink text='Crear' icon='Circle' url='/payment-methods/create' />
-               </NestedSidebarLink>
+               <PermissionNeeded
+                  section='payments'
+                  permission='list'
+                  onlyClient
+               >
+                  <SideBarLink text='Métodos de pago' icon='Sliders' url='/payment-methods' />
+               </PermissionNeeded>
 
-               <SidebarTitle title='Usuarios' />
+               <PermissionNeeded
+                  section='payment-methods'
+                  onlyAdmin
+               >
+                  <NestedSidebarLink text='Métodos de pago' icon='Sliders' basePath='/payment-methods'>
+                     <PermissionNeeded
+                        section='payment-methods'
+                        permission='list'
+                        onlyAdmin
+                     >
+                        <SideBarLink text='Lista' icon='Circle' url='/payment-methods' />
+                     </PermissionNeeded>
 
-               <NestedSidebarLink text='Usuarios' icon='Users' basePath='/users'>
-                  <SideBarLink text='Lista' icon='Circle' url='/users' />
+                     <PermissionNeeded
+                        section='payment-methods'
+                        permission='create'
+                        onlyAdmin
+                     >
+                        <SideBarLink text='Crear' icon='Circle' url='/payment-methods/create' />
+                     </PermissionNeeded>
+                  </NestedSidebarLink>
+               </PermissionNeeded>
 
-                  <SideBarLink text='Crear' icon='Circle' url='/users/create' />
-               </NestedSidebarLink>
 
-               <NestedSidebarLink text='Roles' icon='Clipboard' basePath='/roles'>
-                  <SideBarLink text='Lista' icon='Circle' url='/roles' />
+               <CheckPermissions
+                  sections={['users', 'roles']}
+               >
+                  <SidebarTitle title='Usuarios' />
+               </CheckPermissions>
 
-                  <SideBarLink text='Crear' icon='Circle' url='/roles/create' />
-               </NestedSidebarLink>
+               <PermissionNeeded
+                  section='users'
+               >
+                  <NestedSidebarLink text='Usuarios' icon='Users' basePath='/users'>
+                     <PermissionNeeded
+                        section='users'
+                        permission='list'
+                     >
+                        <SideBarLink text='Lista' icon='Circle' url='/users' />
+                     </PermissionNeeded>
 
-               <SidebarTitle title='Ubicaciones' />
+                     <PermissionNeeded
+                        section='users'
+                        permission='create'
+                     >
+                        <SideBarLink text='Crear' icon='Circle' url='/users/create' />
+                     </PermissionNeeded>
+                  </NestedSidebarLink>
+               </PermissionNeeded>
 
-               <NestedSidebarLink text='Estados' icon='MapPin' basePath='/states'>
-                  <SideBarLink text='Lista' icon='Circle' url='/states' />
+               <PermissionNeeded
+                  section='roles'
+               >
+                  <NestedSidebarLink text='Roles' icon='Clipboard' basePath='/roles'>
+                     <PermissionNeeded
+                        section='roles'
+                        permission='list'
+                     >
+                        <SideBarLink text='Lista' icon='Circle' url='/roles' />
+                     </PermissionNeeded>
 
-                  <SideBarLink text='Crear' icon='Circle' url='/states/create' />
-               </NestedSidebarLink>
+                     <PermissionNeeded
+                        section='roles'
+                        permission='create'
+                     >
+                        <SideBarLink text='Crear' icon='Circle' url='/roles/create' />
+                     </PermissionNeeded>
+                  </NestedSidebarLink>
+               </PermissionNeeded>
 
-               <NestedSidebarLink text='Ciudades' icon='MapPin' basePath='/cities'>
-                  <SideBarLink text='Lista' icon='Circle' url='/cities' />
+               <CheckPermissions
+                  sections={['states', 'cities', 'payments', 'dispatches']}
+               >
+                  <SidebarTitle title='Ubicaciones' />
+               </CheckPermissions>
 
-                  <SideBarLink text='Crear' icon='Circle' url='/cities/create' />
-               </NestedSidebarLink>
+               <PermissionNeeded
+                  section='states'
+                  onlyAdmin
+               >
+                  <NestedSidebarLink text='Estados' icon='MapPin' basePath='/states'>
+                     <PermissionNeeded
+                        section='states'
+                        permission='list'
+                        onlyAdmin
+                     >
+                        <SideBarLink text='Lista' icon='Circle' url='/states' />
+                     </PermissionNeeded>
+
+                     <PermissionNeeded
+                        section='states'
+                        permission='create'
+                        onlyAdmin
+                     >
+                        <SideBarLink text='Crear' icon='Circle' url='/states/create' />
+                     </PermissionNeeded>
+                  </NestedSidebarLink>
+               </PermissionNeeded>
+
+               <CheckPermissions
+                  sections={['payments', 'dispatches']}
+                  onlyClient
+               >
+                  <SideBarLink text='Ciudades' icon='MapPin' url='/cities' />
+               </CheckPermissions>
+
+               <PermissionNeeded
+                  section='cities'
+                  onlyAdmin
+               >
+                  <NestedSidebarLink text='Ciudades' icon='MapPin' basePath='/cities'>
+                     <PermissionNeeded
+                        section='cities'
+                        permission='list'
+                        onlyAdmin
+                     >
+                        <SideBarLink text='Lista' icon='Circle' url='/cities' />
+                     </PermissionNeeded>
+
+                     <PermissionNeeded
+                        section='cities'
+                        permission='create'
+                        onlyAdmin
+                     >
+                        <SideBarLink text='Crear' icon='Circle' url='/cities/create' />
+                     </PermissionNeeded>
+                  </NestedSidebarLink>
+               </PermissionNeeded>
 
                <SidebarTitle title='Extras' />
 
-               <SideBarLink text='Empresa' icon='Info' url='/company' />
+               <PermissionNeeded
+                  onlyClient
+               >
+                  <SideBarLink text='Empresa' icon='Info' url='/company' />
+               </PermissionNeeded>
 
-               <SideBarLink text='Configuraciones' icon='Settings' url='/configurations' />
+               <PermissionNeeded
+                  section='config'
+                  onlyAdmin
+               >
+                  <SideBarLink text='Configuraciones' icon='Settings' url='/configurations' />
+               </PermissionNeeded>
             </div>
          </div>
       </div>

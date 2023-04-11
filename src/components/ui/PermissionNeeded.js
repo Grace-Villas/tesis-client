@@ -18,6 +18,10 @@ import PropTypes from 'prop-types';
 const PermissionNeeded = ({children, onlyAdmin, onlyClient, section, permission}) => {
    
    const { isAdmin, permissions } = useSelector(state => state.auth);
+   
+   if (!permissions) {
+      return (<></>);
+   }
 
    if (typeof onlyAdmin !== 'undefined' && (onlyAdmin && !isAdmin)) {
       return (<></>);
