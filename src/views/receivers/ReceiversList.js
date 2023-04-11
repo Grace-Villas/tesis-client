@@ -27,10 +27,14 @@ import SelectFilter from '../../components/tables/SelectFilter';
 
 // Custom hooks
 import { useCurrentPage } from '../../hooks/usePagination';
+import { usePermission } from '../../hooks/usePermission';
+import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
 const ReceiversList = () => {
+
+   usePermission({section: 'receivers', permission: 'list', onlyClient: true});
 
    const dispatch = useDispatch();
 
@@ -114,7 +118,13 @@ const ReceiversList = () => {
 
             <RowsQuantityPicker />
 
-            <CreateButton link='create' />
+            <PermissionNeeded
+               section='receivers'
+               permission='create'
+               onlyClient
+            >
+               <CreateButton link='create' />
+            </PermissionNeeded>
          </FiltersContainer>
 
          <div className='card mt-1 position-relative overflow-hidden'>
@@ -150,17 +160,29 @@ const ReceiversList = () => {
                                              <Icon icon='Info' size={16} />
                                           </Link>
 
-                                          <Link to={`edit/${row.id}`} className='btn btn-sm btn-relief-info'>
-                                             <Icon icon='Edit' size={16} />
-                                          </Link>
-
-                                          <button
-                                             type='button'
-                                             className='btn btn-sm btn-relief-danger'
-                                             onClick={() => handleDelete(row.id, currentPage, perPage)}
+                                          <PermissionNeeded
+                                             section='receivers'
+                                             permission='edit'
+                                             onlyClient
                                           >
-                                             <Icon icon='Trash2' size={16} />
-                                          </button>
+                                             <Link to={`edit/${row.id}`} className='btn btn-sm btn-relief-info'>
+                                                <Icon icon='Edit' size={16} />
+                                             </Link>
+                                          </PermissionNeeded>
+
+                                          <PermissionNeeded
+                                             section='receivers'
+                                             permission='delete'
+                                             onlyClient
+                                          >
+                                             <button
+                                                type='button'
+                                                className='btn btn-sm btn-relief-danger'
+                                                onClick={() => handleDelete(row.id, currentPage, perPage)}
+                                             >
+                                                <Icon icon='Trash2' size={16} />
+                                             </button>
+                                          </PermissionNeeded>
                                        </div>
                                     </td>
                                  </tr>

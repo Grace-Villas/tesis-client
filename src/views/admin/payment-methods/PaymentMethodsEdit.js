@@ -22,10 +22,13 @@ import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
 import { handleInvalidEmail, handleInvalidName, handleInvalidNumber, handleInvalidPhone, handleInvalidRut, handleRequired } from '../../../helpers/validations';
 import RequiredField from '../../../components/payment-methods/RequiredField';
 import { setPaymentTypesList, startGetPaymentTypesList } from '../../../actions/payment-types';
+import { usePermission } from '../../../hooks/usePermission';
 
 
 
 const PaymentMethodsEdit = () => {
+
+   usePermission({section: 'payment-methods', permission: 'edit', onlyAdmin: true});
    
    const dispatch = useDispatch();
 

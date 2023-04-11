@@ -20,10 +20,13 @@ import Form from '../../components/form/Form';
 
 // Helpers
 import { handleInvalidEmail, handleInvalidName, handleInvalidPassword } from '../../helpers/validations';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const UsersCreate = () => {
+
+   usePermission({section: 'users', permission: 'create'});
 
    const dispatch = useDispatch();
 

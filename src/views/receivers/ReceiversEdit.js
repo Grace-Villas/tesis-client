@@ -23,10 +23,13 @@ import Select from '../../components/form/Select';
 
 // Helpers
 import { handleRequired, handleInvalidPhone, handleInvalidRut } from '../../helpers/validations';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const ReceiversEdit = () => {
+
+   usePermission({section: 'receivers', permission: 'edit', onlyClient: true});
    
    const dispatch = useDispatch();
 

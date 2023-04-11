@@ -28,10 +28,14 @@ import SelectFilter from '../../components/tables/SelectFilter';
 
 // Custom hooks
 import { useCurrentPage } from '../../hooks/usePagination';
+import { usePermission } from '../../hooks/usePermission';
+import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
 const DispatchesList = () => {
+
+   usePermission({section: 'dispatches', permission: 'list'});
 
    const dispatch = useDispatch();
 
@@ -115,7 +119,13 @@ const DispatchesList = () => {
 
             <RowsQuantityPicker />
 
-            <CreateButton link='create' />
+            <PermissionNeeded
+               section='dispatches'
+               permission='create'
+               onlyClient
+            >
+               <CreateButton link='create' />
+            </PermissionNeeded>
          </FiltersContainer>
 
          <div className='card mt-1 position-relative overflow-hidden'>

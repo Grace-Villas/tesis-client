@@ -25,10 +25,13 @@ import AddDispatchModal from '../../../components/batches/AddDispatchModal';
 
 // Helpers
 import { handleRequired } from '../../../helpers/validations';
+import { usePermission } from '../../../hooks/usePermission';
 
 
 
 const BatchesCreate = () => {
+
+   usePermission({section: 'batches', permission: 'create', onlyAdmin: true});
 
    const dispatch = useDispatch();
 

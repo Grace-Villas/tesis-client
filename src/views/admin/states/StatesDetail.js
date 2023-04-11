@@ -14,10 +14,14 @@ import { setLoading, setState, startDeleteState, startGetState } from '../../../
 import Element404 from '../../../components/ui/Element404';
 import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
 import LoadingComponent from '../../../components/ui/spinners/LoadingComponent';
+import { usePermission } from '../../../hooks/usePermission';
+import PermissionNeeded from '../../../components/ui/PermissionNeeded';
 
 
 
 const StatesDetail = () => {
+
+   usePermission({section: 'states', permission: 'list', onlyAdmin: true});
 
    const navigate = useNavigate();
 
@@ -119,16 +123,28 @@ const StatesDetail = () => {
                         className='btn btn-outline-secondary w-100 mb-75 waves-effect waves-float waves-light'
                      >Volver a listado</Link>
 
-                     <Link
-                        to={`/states/edit/${id}`}
-                        className='btn btn-info w-100 mb-75 waves-effect waves-float waves-light'
-                     >Editar</Link>
+                     <PermissionNeeded
+                        section='states'
+                        permission='edit'
+                        onlyAdmin
+                     >
+                        <Link
+                           to={`/states/edit/${id}`}
+                           className='btn btn-info w-100 mb-75 waves-effect waves-float waves-light'
+                        >Editar</Link>
+                     </PermissionNeeded>
 
-                     <button
-                        className='btn btn-danger w-100 waves-effect waves-float waves-light'
-                        onClick={handleDelete}
-                        disabled={loadingDelete || loadingDetail}
-                     >Eliminar</button>
+                     <PermissionNeeded
+                        section='states'
+                        permission='delete'
+                        onlyAdmin
+                     >
+                        <button
+                           className='btn btn-danger w-100 waves-effect waves-float waves-light'
+                           onClick={handleDelete}
+                           disabled={loadingDelete || loadingDetail}
+                        >Eliminar</button>
+                     </PermissionNeeded>
                   </div>
                </div>
             </div>

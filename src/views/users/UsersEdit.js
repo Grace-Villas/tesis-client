@@ -21,10 +21,13 @@ import Form from '../../components/form/Form';
 
 // Helpers
 import { handleInvalidEmail, handleInvalidName } from '../../helpers/validations';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const UsersEdit = () => {
+
+   usePermission({section: 'users', permission: 'edit'});
    
    const dispatch = useDispatch();
 

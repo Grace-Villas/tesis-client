@@ -10,7 +10,14 @@ import StatesList from '../../views/admin/states/StatesList';
 
 
 
+// Custom hooks
+import { usePermission } from '../../hooks/usePermission';
+
+
+
 const StatesRouter = () => {
+
+   usePermission({section: 'states', onlyAdmin: true});
 
    return (
       <Routes>

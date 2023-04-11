@@ -7,10 +7,13 @@ import ReceiversCreate from '../../views/receivers/ReceiversCreate';
 import ReceiversDetail from '../../views/receivers/ReceiversDetail';
 import ReceiversEdit from '../../views/receivers/ReceiversEdit';
 import ReceiversList from '../../views/receivers/ReceiversList';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const ReceiversRouter = () => {
+
+   usePermission({section: 'receivers', onlyClient: true});
 
    return (
       <Routes>

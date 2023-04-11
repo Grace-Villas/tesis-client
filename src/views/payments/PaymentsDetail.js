@@ -20,10 +20,14 @@ import LoadingComponent from '../../components/ui/spinners/LoadingComponent';
 
 // Helpers
 import { currencyFormat } from '../../helpers/format';
+import { usePermission } from '../../hooks/usePermission';
+import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
 const PaymentsDetail = () => {
+
+   usePermission({section: 'payments', permission: 'list'});
 
    const dispatch = useDispatch();
 
@@ -231,45 +235,48 @@ const PaymentsDetail = () => {
                      </div>
 
                      <div className='row mt-1'>
-                        <div className='col-xl-6 mx-xl-auto'>
-                           <table className='w-100'>
-                              <tbody>
-                                 <tr>
-                                    <td className='pe-1'>Cliente:</td>
+                        <PermissionNeeded onlyAdmin>
+                           <div className='col-xl-6 mx-xl-auto'>
+                              <table className='w-100'>
+                                 <tbody>
+                                    <tr>
+                                       <td className='pe-1'>Cliente:</td>
 
-                                    <td className='text-end fw-bolder'>{payment?.company?.name}</td>
-                                 </tr>
+                                       <td className='text-end fw-bolder'>{payment?.company?.name}</td>
+                                    </tr>
 
-                                 <tr>
-                                    <td className='pe-1'>Teléfono:</td>
+                                    <tr>
+                                       <td className='pe-1'>Teléfono:</td>
 
-                                    <td className='text-end fw-bolder'>{payment?.company?.phone}</td>
-                                 </tr>
-                                 
-                                 <tr>
-                                    <td className='pe-1'>Correo:</td>
+                                       <td className='text-end fw-bolder'>{payment?.company?.phone}</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                       <td className='pe-1'>Correo:</td>
 
-                                    <td className='text-end fw-bolder'>{payment?.company?.email}</td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
+                                       <td className='text-end fw-bolder'>{payment?.company?.email}</td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </PermissionNeeded>
 
-                        <div className='col-xl-6 mx-xl-auto'>
-                           <table className='w-100'>
-                              <tbody>
-                                 {
-                                    payment?.comments && (
+                        {
+                           payment?.comments && (
+                              <div className='col-xl mx-xl-auto'>
+                                 <table className='w-100'>
+                                    <tbody>
+                                       
                                        <tr>
                                           <td className='pe-1'>Motivo:</td>
 
                                           <td className='text-end fw-bolder'>{payment?.comments}</td>
                                        </tr>
-                                    )
-                                 }
-                              </tbody>
-                           </table>
-                        </div>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           )
+                        }
                      </div>
                   </div>
                </div>
@@ -285,23 +292,29 @@ const PaymentsDetail = () => {
                         className='btn btn-outline-secondary w-100 mb-75 waves-effect waves-float waves-light'
                      >Volver a listado</Link>
 
-                     {
-                        payment?.status?.name === 'pendiente' && (
-                           <>
-                              <button
-                                 className='btn btn-success w-100 mb-75 waves-effect waves-float waves-light'
-                                 onClick={handleAprovePayment}
-                                 disabled={loadingDelete || loadingDetail}
-                              >Aprobar</button>
+                     <PermissionNeeded
+                        section='payments'
+                        permission='edit'
+                        onlyAdmin
+                     >
+                        {
+                           payment?.status?.name === 'pendiente' && (
+                              <>
+                                 <button
+                                    className='btn btn-success w-100 mb-75 waves-effect waves-float waves-light'
+                                    onClick={handleAprovePayment}
+                                    disabled={loadingDelete || loadingDetail}
+                                 >Aprobar</button>
 
-                              <button
-                                 className='btn btn-danger w-100 waves-effect waves-float waves-light'
-                                 onClick={handleDenyPayment}
-                                 disabled={loadingDelete || loadingDetail}
-                              >Rechazar</button>
-                           </>
-                        )
-                     }
+                                 <button
+                                    className='btn btn-danger w-100 waves-effect waves-float waves-light'
+                                    onClick={handleDenyPayment}
+                                    disabled={loadingDelete || loadingDetail}
+                                 >Rechazar</button>
+                              </>
+                           )
+                        }
+                     </PermissionNeeded>
                   </div>
                </div>
             </div>

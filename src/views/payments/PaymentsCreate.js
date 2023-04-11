@@ -20,12 +20,19 @@ import Select from '../../components/form/Select';
 
 
 
+// Custom hooks
+import { usePermission } from '../../hooks/usePermission';
+
+
+
 // Helpers
 import { handleInvalidEmail, handleInvalidNumber, handleRequired, handleInvalidCurrency } from '../../helpers/validations';
 
 
 
 const PaymentsCreate = () => {
+
+   usePermission({section: 'payments', permission: 'create', onlyClient: true});
 
    const dispatch = useDispatch();
 

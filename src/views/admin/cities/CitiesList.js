@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { setCities, startDeleteCity, startGetCities } from '../../../actions/cities';
 import { setStatesList, startGetStatesList } from '../../../actions/states';
 import { setBreadcrumb } from '../../../actions/ui';
-import { resetFilters } from '../../../actions/filters';
+import { resetFilters, setFilter } from '../../../actions/filters';
 
 
 
@@ -28,6 +28,7 @@ import SelectFilter from '../../../components/tables/SelectFilter';
 // Custom hooks
 import { useCurrentPage } from '../../../hooks/usePagination';
 import { currencyFormat } from '../../../helpers/format';
+import PermissionNeeded from '../../../components/ui/PermissionNeeded';
 
 
 
@@ -42,6 +43,8 @@ const hasDeliveriesData = [
 const CitiesList = () => {
 
    const dispatch = useDispatch();
+
+   const { isAdmin } = useSelector(state => state.auth);
 
    const { rows, count, pages, loadingTable, loadingDelete } = useSelector(state => state.cities);
 
@@ -70,14 +73,20 @@ const CitiesList = () => {
    }, [dispatch]);
 
    useEffect(() => {
+      if (!isAdmin) {
+         dispatch(setFilter('hasDeliveries', 1));
+      }
+   }, [isAdmin, dispatch]);
+
+   useEffect(() => {
       dispatch(startGetStatesList());
    }, [dispatch]);
 
    useEffect(() => {
       if (currentPage === null || perPage === '') return
 
-      dispatch(startGetCities(currentPage, perPage, { name, stateId, hasDeliveries }));
-   }, [dispatch, currentPage, perPage, name, stateId, hasDeliveries]);
+      dispatch(startGetCities(currentPage, perPage, { name, stateId, hasDeliveries: isAdmin ? hasDeliveries : 1 }));
+   }, [dispatch, currentPage, perPage, name, stateId, hasDeliveries, isAdmin]);
 
    useEffect(() => {
       return () => {
@@ -91,7 +100,9 @@ const CitiesList = () => {
    const handleResetFilters = () => dispatch(resetFilters());
 
    // handle delete
-   const handleDelete = (id) => dispatch(startDeleteCity(id, { page: currentPage, perPage }, { name, stateId, hasDeliveries }));
+   const handleDelete = (id) => {
+      dispatch(startDeleteCity(id, { page: currentPage, perPage }, { name, stateId, hasDeliveries: isAdmin ? hasDeliveries : 1 }));
+   }
 
    return (
       <>
@@ -110,13 +121,18 @@ const CitiesList = () => {
                disabled={loadingStatesList}
             />
 
-            <SelectFilter
-               label='Filtrar por despachable'
-               keyName='hasDeliveries'
-               className='col-12 col-lg mt-1 mt-md-0'
-               name='deliveries'
-               options={hasDeliveriesData}
-            />
+            {
+               isAdmin && (
+                  <SelectFilter
+                     label='Filtrar por despachable'
+                     keyName='hasDeliveries'
+                     className='col-12 col-lg mt-1 mt-md-0'
+                     name='deliveries'
+                     options={hasDeliveriesData}
+                  />
+               )
+            }
+
 
             <div className='col-12'>
                <Button
@@ -132,7 +148,13 @@ const CitiesList = () => {
 
             <RowsQuantityPicker />
 
-            <CreateButton link='create' />
+            <PermissionNeeded
+               section='cities'
+               permission='create'
+               onlyAdmin
+            >
+               <CreateButton link='create' />
+            </PermissionNeeded>
          </FiltersContainer>
 
          <div className='card mt-1 position-relative overflow-hidden'>
@@ -150,7 +172,11 @@ const CitiesList = () => {
 
                               <th rowSpan={1} colSpan={1} className='text-center'>Costo de despacho</th>
                               
-                              <th rowSpan={1} colSpan={1} className='text-center' style={{width: 300}}>Acciones</th>
+                              <PermissionNeeded
+                                 onlyAdmin
+                              >
+                                 <th rowSpan={1} colSpan={1} className='text-center' style={{width: 300}}>Acciones</th>
+                              </PermissionNeeded>
                            </tr>
                         </thead>
 
@@ -168,25 +194,41 @@ const CitiesList = () => {
 
                                     <td className='text-center'>{row.deliveryPrice ? currencyFormat(row.deliveryPrice) : '-'}</td>
 
-                                    <td className='text-center'>
-                                       <div className='d-flex justify-content-center gap-1'>
-                                          <Link to={`${row.id}`} className='btn btn-sm btn-relief-primary'>
-                                             <Icon icon='Info' size={16} />
-                                          </Link>
+                                    <PermissionNeeded
+                                       onlyAdmin
+                                    >
+                                       <td className='text-center'>
+                                          <div className='d-flex justify-content-center gap-1'>
+                                             <Link to={`${row.id}`} className='btn btn-sm btn-relief-primary'>
+                                                <Icon icon='Info' size={16} />
+                                             </Link>
 
-                                          <Link to={`edit/${row.id}`} className='btn btn-sm btn-relief-info'>
-                                             <Icon icon='Edit' size={16} />
-                                          </Link>
+                                             <PermissionNeeded
+                                                section='cities'
+                                                permission='edit'
+                                                onlyAdmin
+                                             >
+                                                <Link to={`edit/${row.id}`} className='btn btn-sm btn-relief-info'>
+                                                   <Icon icon='Edit' size={16} />
+                                                </Link>
+                                             </PermissionNeeded>
 
-                                          <button
-                                             type='button'
-                                             className='btn btn-sm btn-relief-danger'
-                                             onClick={() => handleDelete(row.id, currentPage, perPage)}
-                                          >
-                                             <Icon icon='Trash2' size={16} />
-                                          </button>
-                                       </div>
-                                    </td>
+                                             <PermissionNeeded
+                                                section='cities'
+                                                permission='delete'
+                                                onlyAdmin
+                                             >
+                                                <button
+                                                   type='button'
+                                                   className='btn btn-sm btn-relief-danger'
+                                                   onClick={() => handleDelete(row.id, currentPage, perPage)}
+                                                >
+                                                   <Icon icon='Trash2' size={16} />
+                                                </button>
+                                             </PermissionNeeded>
+                                          </div>
+                                       </td>
+                                    </PermissionNeeded>
                                  </tr>
                               )) 
                            }

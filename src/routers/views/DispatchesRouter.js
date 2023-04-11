@@ -6,10 +6,13 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import DispatchesCreate from '../../views/dispatches/DispatchesCreate';
 import DispatchesDetail from '../../views/dispatches/DispatchesDetail';
 import DispatchesList from '../../views/dispatches/DispatchesList';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const DispatchesRouter = () => {
+
+   usePermission({section: 'dispatches'});
 
    return (
       <Routes>

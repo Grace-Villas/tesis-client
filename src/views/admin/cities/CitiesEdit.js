@@ -23,10 +23,13 @@ import Switch from '../../../components/form/Switch';
 
 // Helpers
 import { handleInvalidCurrency, handleInvalidName } from '../../../helpers/validations';
+import { usePermission } from '../../../hooks/usePermission';
 
 
 
 const CitiesEdit = () => {
+
+   usePermission({section: 'cities', permission: 'edit', onlyAdmin: true});
    
    const dispatch = useDispatch();
 

@@ -29,10 +29,14 @@ import SelectFilter from '../../components/tables/SelectFilter';
 
 // Custom hooks
 import { useCurrentPage } from '../../hooks/usePagination';
+import { usePermission } from '../../hooks/usePermission';
+import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
 const ReceptionsList = () => {
+
+   usePermission({section: 'receptions', permission: 'list'});
 
    const dispatch = useDispatch();
 
@@ -97,23 +101,25 @@ const ReceptionsList = () => {
                label='Filtrar por fecha'
             />
 
-            <SelectFilter
-               label='Filtrar por cliente'
-               keyName='companyId'
-               className='col-12 col-lg mt-1 mt-md-0'
-               name='companies'
-               options={clientsList}
-               disabled={loadingClientsList}
-            />
+            <PermissionNeeded onlyAdmin>
+               <SelectFilter
+                  label='Filtrar por cliente'
+                  keyName='companyId'
+                  className='col-12 col-lg mt-1 mt-md-0'
+                  name='companies'
+                  options={clientsList}
+                  disabled={loadingClientsList}
+               />
 
-            <SelectFilter
-               label='Filtrar por consignador'
-               keyName='userId'
-               className='col-12 col-lg mt-1 mt-md-0'
-               name='users'
-               options={usersList}
-               disabled={loadingUsersList}
-            />
+               <SelectFilter
+                  label='Filtrar por consignador'
+                  keyName='userId'
+                  className='col-12 col-lg mt-1 mt-md-0'
+                  name='users'
+                  options={usersList}
+                  disabled={loadingUsersList}
+               />
+            </PermissionNeeded>
 
             <div className='col-12'>
                <Button
@@ -129,7 +135,9 @@ const ReceptionsList = () => {
 
             <RowsQuantityPicker />
 
-            <CreateButton link='create' />
+            <PermissionNeeded onlyAdmin>
+               <CreateButton link='create' />
+            </PermissionNeeded>
          </FiltersContainer>
 
          <div className='card mt-1 position-relative overflow-hidden'>
@@ -141,9 +149,15 @@ const ReceptionsList = () => {
                            <tr role='row'>
                               <th rowSpan={1} colSpan={1} className='text-center'>Fecha</th>
 
-                              <th rowSpan={1} colSpan={1} className='text-center'>Cliente</th>
+                              <PermissionNeeded onlyAdmin>
+                                 <th rowSpan={1} colSpan={1} className='text-center'>Cliente</th>
 
-                              <th rowSpan={1} colSpan={1} className='text-center'>Consignado por</th>
+                                 <th rowSpan={1} colSpan={1} className='text-center'>Consignado por</th>
+                              </PermissionNeeded>
+
+                              <PermissionNeeded onlyClient>
+                                 <th rowSpan={1} colSpan={1} className='text-center'># paletas total</th>
+                              </PermissionNeeded>
                               
                               <th rowSpan={1} colSpan={1} className='text-center' style={{width: 120}}>Acciones</th>
                            </tr>
@@ -155,9 +169,15 @@ const ReceptionsList = () => {
                                  <tr key={'product-' + row.id}>
                                     <td className='text-center'>{moment(row.date).format('DD-MM-YYYY')}</td>
 
-                                    <td className='text-center'>{row.company.name}</td>
+                                    <PermissionNeeded onlyAdmin>
+                                       <td className='text-center'>{row.company.name}</td>
 
-                                    <td className='text-center'>{row.consignee.fullName}</td>
+                                       <td className='text-center'>{row.consignee.fullName}</td>
+                                    </PermissionNeeded>
+
+                                    <PermissionNeeded onlyClient>
+                                       <td className='text-center'>{row.products.reduce((acc, current) => acc + current.qty, 0)}</td>
+                                    </PermissionNeeded>
 
                                     <td className='text-center'>
                                        <div className='d-flex justify-content-center gap-1'>

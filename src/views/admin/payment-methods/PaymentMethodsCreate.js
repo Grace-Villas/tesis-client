@@ -22,10 +22,13 @@ import Select from '../../../components/form/Select';
 // Helpers
 import { handleInvalidEmail, handleInvalidName, handleInvalidNumber, handleInvalidPhone, handleInvalidRut, handleRequired } from '../../../helpers/validations';
 import RequiredField from '../../../components/payment-methods/RequiredField';
+import { usePermission } from '../../../hooks/usePermission';
 
 
 
 const PaymentMethodsCreate = () => {
+
+   usePermission({section: 'payment-methods', permission: 'create', onlyAdmin: true});
 
    const dispatch = useDispatch();
 

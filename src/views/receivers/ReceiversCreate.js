@@ -22,10 +22,13 @@ import TextArea from '../../components/form/TextArea';
 
 // Helpers
 import { handleRequired, handleInvalidRut, handleInvalidPhone } from '../../helpers/validations';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const ReceiversCreate = () => {
+
+   usePermission({section: 'receivers', permission: 'create', onlyClient: true});
 
    const dispatch = useDispatch();
 

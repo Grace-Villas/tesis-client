@@ -16,10 +16,14 @@ import Element404 from '../../../components/ui/Element404';
 import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
 import LoadingComponent from '../../../components/ui/spinners/LoadingComponent';
 import Icon from '../../../components/ui/Icon';
+import { usePermission } from '../../../hooks/usePermission';
+import PermissionNeeded from '../../../components/ui/PermissionNeeded';
 
 
 
 const BatchesDetail = () => {
+
+   usePermission({section: 'batches', permission: 'list', onlyAdmin: true});
 
    const navigate = useNavigate();
 
@@ -192,17 +196,29 @@ const BatchesDetail = () => {
                      {
                         batch?.status?.name === 'pendiente' && (
                            <>
-                              <button
-                                 className='btn btn-danger w-100 mt-75 waves-effect waves-float waves-light'
-                                 onClick={handleDeleteBatch}
-                                 disabled={loadingDelete || loadingDetail}
-                              >Eliminar</button>
+                              <PermissionNeeded
+                                 section='batches'
+                                 permission='delete'
+                                 onlyAdmin
+                              >
+                                 <button
+                                    className='btn btn-danger w-100 mt-75 waves-effect waves-float waves-light'
+                                    onClick={handleDeleteBatch}
+                                    disabled={loadingDelete || loadingDetail}
+                                 >Eliminar</button>
+                              </PermissionNeeded>
 
-                              <button
-                                 className='btn btn-primary w-100 mt-75 waves-effect waves-float waves-light'
-                                 onClick={handleTransitBatch}
-                                 disabled={loadingDelete || loadingDetail}
-                              >En tránsito</button>
+                              <PermissionNeeded
+                                 section='batches'
+                                 permission='edit'
+                                 onlyAdmin
+                              >
+                                 <button
+                                    className='btn btn-primary w-100 mt-75 waves-effect waves-float waves-light'
+                                    onClick={handleTransitBatch}
+                                    disabled={loadingDelete || loadingDetail}
+                                 >En tránsito</button>
+                              </PermissionNeeded>
                            </>
                         )
                      }

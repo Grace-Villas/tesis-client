@@ -28,10 +28,13 @@ import Form from '../../components/form/Form';
 
 // Helpers
 import { handleInvalidName } from '../../helpers/validations';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const RolesEdit = () => {
+
+   usePermission({section: 'roles', permission: 'edit'});
    
    const dispatch = useDispatch();
 

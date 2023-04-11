@@ -20,10 +20,13 @@ import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
 
 // Helpers
 import { handleInvalidName } from '../../../helpers/validations';
+import { usePermission } from '../../../hooks/usePermission';
 
 
 
 const StatesCreate = () => {
+
+   usePermission({section: 'states', permission: 'create', onlyAdmin: true});
 
    const dispatch = useDispatch();
 

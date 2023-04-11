@@ -22,7 +22,15 @@ import { contrastColor } from '../../helpers/colors';
 
 
 
+// Custom hooks
+import { usePermission } from '../../hooks/usePermission';
+import PermissionNeeded from '../../components/ui/PermissionNeeded';
+
+
+
 const RolesDetail = () => {
+
+   usePermission({section: 'roles', permission: 'list'});
 
    const navigate = useNavigate();
 
@@ -114,16 +122,68 @@ const RolesDetail = () => {
                                        >{role?.hexColor}</span>
                                     </td>
                                  </tr>
-
-                                 <tr>
-                                    <td className='pe-1'>Público:</td>
-
-                                    <td className={`text-end fw-bolder ${role?.isPublic ? 'text-success' : 'text-danger'}`}>
-                                       {role?.isPublic ? 'Sí' : 'No'}
-                                    </td>
-                                 </tr>
                               </tbody>
                            </table>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div className='card invoice-preview-card mb-2'>
+                  <div className='card-body invoice-padding pb-0'>
+                     <div className='d-flex justify-content-between flex-md-row flex-column invoice-spacing my-0'>
+                        <h4 className='mb-0 fw-bolder'>Permisos</h4>
+                     </div>
+                  </div>
+
+                  <hr className='invoice-spacing mb-0' />
+
+                  <div className='card-body invoice-padding pt-0 px-0'>
+                     <div className='row'>
+                        <div className='col'>
+                           <div className='table-responsive'>
+                              <table className='invoice-list-table table dataTable no-footer dtr-column'>
+                                 <thead>
+                                    <tr>
+                                       <th className='text-center'>Nombre</th>
+
+                                       <th className='text-center'>Listar</th>
+
+                                       <th className='text-center'>Crear</th>
+
+                                       <th className='text-center'>Editar</th>
+
+                                       <th className='text-center'>Eliminar</th>
+                                    </tr>
+                                 </thead>
+                                 
+                                 <tbody>
+                                    {
+                                       role?.rolePermissions?.map(row => (
+                                          <tr key={'permission-' + row.id}>
+                                             <td className='text-center'>{row.permission.showName}</td>
+
+                                             <td className={`text-center ${row.list ? 'text-success' : 'text-danger'}`}>
+                                                {row.list ? 'Sí' : 'No'}
+                                             </td>
+
+                                             <td className={`text-center ${row.list ? 'text-success' : 'text-danger'}`}>
+                                                {row.create ? 'Sí' : 'No'}
+                                             </td>
+
+                                             <td className={`text-center ${row.list ? 'text-success' : 'text-danger'}`}>
+                                                {row.edit ? 'Sí' : 'No'}
+                                             </td>
+
+                                             <td className={`text-center ${row.list ? 'text-success' : 'text-danger'}`}>
+                                                {row.delete ? 'Sí' : 'No'}
+                                             </td>
+                                          </tr>
+                                       ))
+                                    }
+                                 </tbody>
+                              </table>
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -142,20 +202,30 @@ const RolesDetail = () => {
 
                      {
                         !role?.isPublic && (
-                           <Link
-                              to={`/roles/edit/${id}`}
-                              className='btn btn-info w-100 mt-75 waves-effect waves-float waves-light'
-                           >Editar</Link>
+                           <PermissionNeeded
+                              section='roles'
+                              permission='edit'
+                           >
+                              <Link
+                                 to={`/roles/edit/${id}`}
+                                 className='btn btn-info w-100 mt-75 waves-effect waves-float waves-light'
+                              >Editar</Link>
+                           </PermissionNeeded>
                         )
                      }
 
                      {
                         !role?.isPublic && (
-                           <button
-                              className='btn btn-danger w-100 mt-75 waves-effect waves-float waves-light'
-                              onClick={handleDelete}
-                              disabled={loadingDelete || loadingDetail}
-                           >Eliminar</button>
+                           <PermissionNeeded
+                              section='roles'
+                              permission='delete'
+                           >
+                              <button
+                                 className='btn btn-danger w-100 mt-75 waves-effect waves-float waves-light'
+                                 onClick={handleDelete}
+                                 disabled={loadingDelete || loadingDetail}
+                              >Eliminar</button>
+                           </PermissionNeeded>
                         )
                      }
                   </div>

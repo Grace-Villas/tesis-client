@@ -10,7 +10,14 @@ import ClientsList from '../../views/admin/clients/ClientsList';
 
 
 
+// Custom hook
+import { usePermission } from '../../hooks/usePermission';
+
+
+
 const ClientsRouter = () => {
+
+   usePermission({section: 'companies', onlyAdmin: true});
 
    return (
       <Routes>
@@ -20,7 +27,7 @@ const ClientsRouter = () => {
 
          <Route path='/edit/:id' element={<ClientsEdit />} />
 
-         <Route path='/:id' element={<ClientsDetail />} />
+         <Route path='/:id/*' element={<ClientsDetail />} />
       
          <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>

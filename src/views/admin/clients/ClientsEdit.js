@@ -23,12 +23,19 @@ import TextArea from '../../../components/form/TextArea';
 
 
 
+// Custom hooks
+import { usePermission } from '../../../hooks/usePermission';
+
+
+
 // Helpers
 import { handleInvalidEmail, handleInvalidName, handleInvalidPhone, handleInvalidRut } from '../../../helpers/validations';
 
 
 
 const ClientsEdit = () => {
+
+   usePermission({section: 'companies', permission: 'edit', onlyAdmin: true});
    
    const dispatch = useDispatch();
 

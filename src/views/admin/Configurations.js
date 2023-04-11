@@ -18,10 +18,13 @@ import EditConfigModal from '../../components/configurations/EditConfigModal';
 
 // Helpers
 import { currencyFormat } from '../../helpers/format';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const Configurations = () => {
+
+   usePermission({section: 'config', onlyAdmin: true});
 
    const dispatch = useDispatch();
 

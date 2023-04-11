@@ -22,10 +22,13 @@ import Select from '../../../components/form/Select';
 
 // Helpers
 import { handleInvalidName } from '../../../helpers/validations';
+import { usePermission } from '../../../hooks/usePermission';
 
 
 
 const StatesEdit = () => {
+
+   usePermission({section: 'states', permission: 'edit', onlyAdmin: true});
    
    const dispatch = useDispatch();
 

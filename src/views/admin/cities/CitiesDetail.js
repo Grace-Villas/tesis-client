@@ -15,10 +15,14 @@ import Element404 from '../../../components/ui/Element404';
 import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
 import LoadingComponent from '../../../components/ui/spinners/LoadingComponent';
 import { currencyFormat } from '../../../helpers/format';
+import { usePermission } from '../../../hooks/usePermission';
+import PermissionNeeded from '../../../components/ui/PermissionNeeded';
 
 
 
 const CitiesDetail = () => {
+
+   usePermission({section: 'cities', permission: 'list', onlyAdmin: true});
 
    const navigate = useNavigate();
 
@@ -140,16 +144,28 @@ const CitiesDetail = () => {
                         className='btn btn-outline-secondary w-100 mb-75 waves-effect waves-float waves-light'
                      >Volver a listado</Link>
 
-                     <Link
-                        to={`/cities/edit/${id}`}
-                        className='btn btn-info w-100 mb-75 waves-effect waves-float waves-light'
-                     >Editar</Link>
+                     <PermissionNeeded
+                        section='cities'
+                        permission='edit'
+                        onlyAdmin
+                     >
+                        <Link
+                           to={`/cities/edit/${id}`}
+                           className='btn btn-info w-100 mb-75 waves-effect waves-float waves-light'
+                        >Editar</Link>
+                     </PermissionNeeded>
 
-                     <button
-                        className='btn btn-danger w-100 waves-effect waves-float waves-light'
-                        onClick={handleDelete}
-                        disabled={loadingDelete || loadingDetail}
-                     >Eliminar</button>
+                     <PermissionNeeded
+                        section='cities'
+                        permission='delete'
+                        onlyAdmin
+                     >
+                        <button
+                           className='btn btn-danger w-100 waves-effect waves-float waves-light'
+                           onClick={handleDelete}
+                           disabled={loadingDelete || loadingDetail}
+                        >Eliminar</button>
+                     </PermissionNeeded>
                   </div>
                </div>
             </div>

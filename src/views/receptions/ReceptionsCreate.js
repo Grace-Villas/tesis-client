@@ -25,10 +25,13 @@ import { startGetClientsList } from '../../actions/clients';
 import Button from '../../components/ui/Button';
 import AddProductModal from '../../components/receptions/AddProductModal';
 import Icon from '../../components/ui/Icon';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const ReceptionsCreate = () => {
+
+   usePermission({section: 'receptions', permission: 'list', onlyAdmin: true});
 
    const dispatch = useDispatch();
 

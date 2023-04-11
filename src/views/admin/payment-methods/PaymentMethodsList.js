@@ -27,6 +27,7 @@ import SelectFilter from '../../../components/tables/SelectFilter';
 
 // Custom hooks
 import { useCurrentPage } from '../../../hooks/usePagination';
+import PermissionNeeded from '../../../components/ui/PermissionNeeded';
 
 
 
@@ -115,7 +116,13 @@ const PaymentMethodsList = () => {
 
             <RowsQuantityPicker />
 
-            <CreateButton link='create' />
+            <PermissionNeeded
+               section='payment-methods'
+               permission='create'
+               onlyAdmin
+            >
+               <CreateButton link='create' />
+            </PermissionNeeded>
          </FiltersContainer>
 
          <div className='card mt-1 position-relative overflow-hidden'>
@@ -159,17 +166,29 @@ const PaymentMethodsList = () => {
                                              <Icon icon='Info' size={16} />
                                           </Link>
 
-                                          <Link to={`edit/${row.id}`} className='btn btn-sm btn-relief-info'>
-                                             <Icon icon='Edit' size={16} />
-                                          </Link>
-
-                                          <button
-                                             type='button'
-                                             className='btn btn-sm btn-relief-danger'
-                                             onClick={() => handleDelete(row.id, currentPage, perPage)}
+                                          <PermissionNeeded
+                                             section='payment-methods'
+                                             permission='edit'
+                                             onlyAdmin
                                           >
-                                             <Icon icon='Trash2' size={16} />
-                                          </button>
+                                             <Link to={`edit/${row.id}`} className='btn btn-sm btn-relief-info'>
+                                                <Icon icon='Edit' size={16} />
+                                             </Link>
+                                          </PermissionNeeded>
+
+                                          <PermissionNeeded
+                                             section='payment-methods'
+                                             permission='delete'
+                                             onlyAdmin
+                                          >
+                                             <button
+                                                type='button'
+                                                className='btn btn-sm btn-relief-danger'
+                                                onClick={() => handleDelete(row.id, currentPage, perPage)}
+                                             >
+                                                <Icon icon='Trash2' size={16} />
+                                             </button>
+                                          </PermissionNeeded>
                                        </div>
                                     </td>
                                  </tr>

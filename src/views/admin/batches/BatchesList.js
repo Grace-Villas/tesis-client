@@ -29,10 +29,14 @@ import SelectFilter from '../../../components/tables/SelectFilter';
 
 // Custom hooks
 import { useCurrentPage } from '../../../hooks/usePagination';
+import { usePermission } from '../../../hooks/usePermission';
+import PermissionNeeded from '../../../components/ui/PermissionNeeded';
 
 
 
 const BatchesList = () => {
+
+   usePermission({section: 'batches', permission: 'list', onlyAdmin: true});
 
    const dispatch = useDispatch();
 
@@ -127,7 +131,13 @@ const BatchesList = () => {
                <hr className='my-2' />
             </div>
 
-            <RowsQuantityPicker />
+            <PermissionNeeded
+               section='batches'
+               permission='create'
+               onlyAdmin
+            >
+               <RowsQuantityPicker />
+            </PermissionNeeded>
 
             <CreateButton link='create' />
          </FiltersContainer>

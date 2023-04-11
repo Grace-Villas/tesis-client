@@ -10,7 +10,14 @@ import UsersList from '../../views/users/UsersList';
 
 
 
+// Custom hooks
+import { usePermission } from '../../hooks/usePermission';
+
+
+
 const UsersRouter = () => {
+
+   usePermission({section: 'users'});
       
    return (
       <Routes>

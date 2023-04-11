@@ -138,7 +138,7 @@ export const startGetPayment = (id) => {
 export const startAprovePayment = (id) => {
    return async dispatch => {
       try {
-         const { isConfirmed } = await simpleConfirmDialog('warning', '¿Está seguro?', '¿Desea aprovar el pago seleccionado? Una vez aprovado no se puede revertir');
+         const { isConfirmed } = await simpleConfirmDialog('warning', '¿Está seguro?', '¿Desea aprovar el pago seleccionado? Una vez aprobado no se puede revertir');
 
          if (isConfirmed) {
             dispatch(setLoading('delete', true));
@@ -156,7 +156,7 @@ export const startAprovePayment = (id) => {
 
             const payment = response.data;
 
-            simpleSuccessToast('El método de pago fue aprovado satisfactoriamente');
+            simpleSuccessToast('El pago fue aprobado satisfactoriamente');
             
             dispatch(setPayment(payment));
          }
@@ -194,7 +194,7 @@ export const startDenyPayment = (id) => {
 
             const payment = response.data;
 
-            simpleSuccessToast('El método de pago fue rechazado satisfactoriamente');
+            simpleSuccessToast('El pago fue rechazado satisfactoriamente');
             
             dispatch(setPayment(payment));
          }

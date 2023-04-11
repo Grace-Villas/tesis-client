@@ -10,7 +10,14 @@ import RolesList from '../../views/roles/RolesList';
 
 
 
+// Custom hooks
+import { usePermission } from '../../hooks/usePermission';
+
+
+
 const RolesRouter = () => {
+
+   usePermission({section: 'roles'});
 
    return (
       <Routes>

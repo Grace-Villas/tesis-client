@@ -26,10 +26,13 @@ import AddProductModal from '../../components/dispatches/AddProductModal';
 
 // Helpers
 import { handleInvalidQuantity, handleRequired } from '../../helpers/validations';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const DispatchesCreate = () => {
+
+   usePermission({section: 'dispatches', permission: 'create', onlyClient: true});
 
    const dispatch = useDispatch();
 

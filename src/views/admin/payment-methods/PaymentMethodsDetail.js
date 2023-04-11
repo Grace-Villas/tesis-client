@@ -14,6 +14,7 @@ import { setPaymentMethod, setLoading, startDeletePaymentMethod, startGetPayment
 import Element404 from '../../../components/ui/Element404';
 import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
 import LoadingComponent from '../../../components/ui/spinners/LoadingComponent';
+import PermissionNeeded from '../../../components/ui/PermissionNeeded';
 
 
 
@@ -180,19 +181,31 @@ const PaymentMethodsDetail = () => {
                   <div className='card-body'>
                      <Link
                         to='/payment-methods'
-                        className='btn btn-outline-secondary w-100 mb-75 waves-effect waves-float waves-light'
+                        className='btn btn-outline-secondary w-100 waves-effect waves-float waves-light'
                      >Volver a listado</Link>
 
-                     <Link
-                        to={`/payment-methods/edit/${id}`}
-                        className='btn btn-info w-100 mb-75 waves-effect waves-float waves-light'
-                     >Editar</Link>
+                     <PermissionNeeded
+                        section='payment-methods'
+                        permission='edit'
+                        onlyAdmin
+                     >
+                        <Link
+                           to={`/payment-methods/edit/${id}`}
+                           className='btn btn-info w-100 mt-75 waves-effect waves-float waves-light'
+                        >Editar</Link>
+                     </PermissionNeeded>
 
-                     <button
-                        className='btn btn-danger w-100 waves-effect waves-float waves-light'
-                        onClick={handleDelete}
-                        disabled={loadingDelete || loadingDetail}
-                     >Eliminar</button>
+                     <PermissionNeeded
+                        section='payment-methods'
+                        permission='delete'
+                        onlyAdmin
+                     >
+                        <button
+                           className='btn btn-danger w-100 mt-75 waves-effect waves-float waves-light'
+                           onClick={handleDelete}
+                           disabled={loadingDelete || loadingDetail}
+                        >Eliminar</button>
+                     </PermissionNeeded>
                   </div>
                </div>
             </div>

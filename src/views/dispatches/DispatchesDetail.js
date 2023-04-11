@@ -20,6 +20,7 @@ import LoadingComponent from '../../components/ui/spinners/LoadingComponent';
 
 // Helpers
 import { currencyFormat } from '../../helpers/format';
+import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
@@ -159,51 +160,55 @@ const DispatchesDetail = () => {
                      </div>
 
                      <div className='row mt-1'>
-                        <div className='col-xl-6 mx-xl-auto'>
+                        <div className='col-xl-6'>
                            <table className='w-100'>
                               <tbody>
-                                 <tr>
-                                    <td className='pe-1'>Cliente:</td>
+                                 <PermissionNeeded onlyAdmin>
+                                    <tr>
+                                       <td className='pe-1'>Cliente:</td>
 
-                                    <td className='text-end fw-bolder'>{dispatchData?.company?.name}</td>
-                                 </tr>
+                                       <td className='text-end fw-bolder'>{dispatchData?.company?.name}</td>
+                                    </tr>
 
-                                 <tr>
-                                    <td className='pe-1'>Teléfono:</td>
+                                    <tr>
+                                       <td className='pe-1'>Teléfono:</td>
 
-                                    <td className='text-end fw-bolder'>{dispatchData?.company?.phone}</td>
-                                 </tr>
+                                       <td className='text-end fw-bolder'>{dispatchData?.company?.phone}</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                       <td className='pe-1'>Correo:</td>
+
+                                       <td className='text-end fw-bolder'>{dispatchData?.company?.email}</td>
+                                    </tr>
+                                 </PermissionNeeded>
                                  
-                                 <tr>
-                                    <td className='pe-1'>Correo:</td>
+                                 <PermissionNeeded onlyClient>
+                                    <tr>
+                                       <td className='pe-1'>Aplicante:</td>
 
-                                    <td className='text-end fw-bolder'>{dispatchData?.company?.email}</td>
-                                 </tr>
-                                 
-                                 <tr>
-                                    <td className='pe-1'>Aplicante:</td>
-
-                                    <td className='text-end fw-bolder'>{dispatchData?.applicant?.fullName}</td>
-                                 </tr>
+                                       <td className='text-end fw-bolder'>{dispatchData?.applicant?.fullName}</td>
+                                    </tr>
+                                 </PermissionNeeded>
                               </tbody>
                            </table>
                         </div>
 
-                        <div className='col-xl-6 mx-xl-auto'>
-                           <table className='w-100'>
-                              <tbody>
-                                 {
-                                    dispatchData?.comments && (
+                        {
+                           dispatchData?.comments && (
+                              <div className='col-xl mx-xl-auto'>
+                                 <table className='w-100'>
+                                    <tbody>
                                        <tr>
                                           <td className='pe-1'>Motivo:</td>
 
                                           <td className='text-end fw-bolder'>{dispatchData?.comments}</td>
                                        </tr>
-                                    )
-                                 }
-                              </tbody>
-                           </table>
-                        </div>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           )
+                        }
                      </div>
                   </div>
                </div>
@@ -259,35 +264,53 @@ const DispatchesDetail = () => {
                         className='btn btn-outline-secondary w-100 waves-effect waves-float waves-light'
                      >Volver a listado</Link>
 
-                     {
-                        dispatchData?.status?.name === 'pendiente' && (
-                           <button
-                              className='btn btn-danger w-100 mt-75 waves-effect waves-float waves-light'
-                              onClick={handleDeleteDispatch}
-                              disabled={loadingDelete || loadingDetail}
-                           >Cancelar</button>
-                        )
-                     }
+                     <PermissionNeeded
+                        section='dispatches'
+                        permission='delete'
+                        onlyClient
+                     >
+                        {
+                           dispatchData?.status?.name === 'pendiente' && (
+                              <button
+                                 className='btn btn-danger w-100 mt-75 waves-effect waves-float waves-light'
+                                 onClick={handleDeleteDispatch}
+                                 disabled={loadingDelete || loadingDetail}
+                              >Cancelar</button>
+                           )
+                        }
+                     </PermissionNeeded>
 
-                     {
-                        dispatchData?.status?.name === 'embarcado' && (
-                           <button
-                              className='btn btn-success w-100 mt-75 waves-effect waves-float waves-light'
-                              onClick={handleDeliverDispatch}
-                              disabled={loadingDelete || loadingDetail}
-                           >Entregar</button>
-                        )
-                     }
+                     <PermissionNeeded
+                        section='dispatches'
+                        permission='edit'
+                        onlyAdmin
+                     >
+                        {
+                           dispatchData?.status?.name === 'embarcado' && (
+                              <button
+                                 className='btn btn-success w-100 mt-75 waves-effect waves-float waves-light'
+                                 onClick={handleDeliverDispatch}
+                                 disabled={loadingDelete || loadingDetail}
+                              >Entregar</button>
+                           )
+                        }
+                     </PermissionNeeded>
 
-                     {
-                        dispatchData?.status?.name !== 'entregado' && (
-                           <button
-                              className='btn btn-danger w-100 mt-75 waves-effect waves-float waves-light'
-                              onClick={handleDenyDispatch}
-                              disabled={loadingDelete || loadingDetail}
-                           >Rechazar</button>
-                        )
-                     }
+                     <PermissionNeeded
+                        section='dispatches'
+                        permission='delete'
+                        onlyAdmin
+                     >
+                        {
+                           dispatchData?.status?.name !== 'entregado' && (
+                              <button
+                                 className='btn btn-danger w-100 mt-75 waves-effect waves-float waves-light'
+                                 onClick={handleDenyDispatch}
+                                 disabled={loadingDelete || loadingDetail}
+                              >Rechazar</button>
+                           )
+                        }
+                     </PermissionNeeded>
                   </div>
                </div>
             </div>

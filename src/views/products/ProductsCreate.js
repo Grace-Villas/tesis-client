@@ -19,10 +19,13 @@ import LoadingResponse from '../../components/ui/spinners/LoadingResponse';
 
 // Helpers
 import { handleRequired, handleInvalidQuantity } from '../../helpers/validations';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const ProductsCreate = () => {
+
+   usePermission({section: 'products', permission: 'create', onlyAdmin: true});
 
    const dispatch = useDispatch();
 

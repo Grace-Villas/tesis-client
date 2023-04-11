@@ -19,7 +19,6 @@ import Icon from '../../components/ui/Icon';
 import FiltersContainer from '../../components/tables/FiltersContainer';
 import InputFilter from '../../components/tables/InputFilter';
 import Button from '../../components/ui/Button';
-import SelectFilter from '../../components/tables/SelectFilter';
 import CreateButton from '../../components/tables/CreateButton';
 
 
@@ -31,24 +30,20 @@ import { useCurrentPage } from '../../hooks/usePagination';
 
 // Helpers
 import { contrastColor } from '../../helpers/colors';
-
-
-
-// Mocks
-const isPublicData = [
-   { value: 1, text: 'Público' },
-   { value: 0, text: 'Privado' }
-];
+import { usePermission } from '../../hooks/usePermission';
+import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
 const RolesList = () => {
 
+   usePermission({section: 'roles', permission: 'list'});
+
    const dispatch = useDispatch();
 
    const { rows, count, pages, loadingTable, loadingDelete } = useSelector(state => state.roles);
 
-   const { name, isPublic } = useSelector(state => state.filters);
+   const { name } = useSelector(state => state.filters);
 
    const { perPage } = useSelector(state => state.tables);
 
@@ -73,8 +68,8 @@ const RolesList = () => {
    useEffect(() => {
       if (currentPage === null || perPage === '') return
 
-      dispatch(startGetRoles(currentPage, perPage, { name, isPublic }));
-   }, [dispatch, currentPage, perPage, name, isPublic]);
+      dispatch(startGetRoles(currentPage, perPage, { name }));
+   }, [dispatch, currentPage, perPage, name]);
 
    useEffect(() => {
       return () => {
@@ -87,7 +82,7 @@ const RolesList = () => {
    const handleResetFilters = () => dispatch(resetFilters());
 
    // handle delete
-   const handleDelete = (id) => dispatch(startDeleteRole(id, { page: currentPage, perPage }, { name, isPublic }));
+   const handleDelete = (id) => dispatch(startDeleteRole(id, { page: currentPage, perPage }, { name }));
 
    return (
       <>
@@ -95,14 +90,6 @@ const RolesList = () => {
             <InputFilter
                className='col-12 col-lg'
                keyName='name'
-            />
-
-            <SelectFilter
-               label='Filtrar por status'
-               keyName='isPublic'
-               className='col-12 col-lg mt-1 mt-md-0'
-               name='deliveries'
-               options={isPublicData}
             />
 
             <div className='col-12'>
@@ -119,7 +106,12 @@ const RolesList = () => {
 
             <RowsQuantityPicker />
 
-            <CreateButton link='create' />
+            <PermissionNeeded
+               section='roles'
+               permission='create'
+            >
+               <CreateButton link='create' />
+            </PermissionNeeded>
          </FiltersContainer>
 
          <div className='card mt-1 position-relative overflow-hidden'>
@@ -132,8 +124,6 @@ const RolesList = () => {
                               <th rowSpan={1} colSpan={1} className='text-center'>Nombre</th>
 
                               <th rowSpan={1} colSpan={1} className='text-center'>Color</th>
-
-                              <th rowSpan={1} colSpan={1} className='text-center'>Público</th>
                               
                               <th rowSpan={1} colSpan={1} className='text-center' style={{width: 300}}>Acciones</th>
                            </tr>
@@ -154,10 +144,6 @@ const RolesList = () => {
                                           }}>{row.hexColor}</span>
                                     </td>
 
-                                    <td className={`text-center ${row.isPublic ? 'text-success' : 'text-danger'}`}>
-                                       {row.isPublic ? 'Sí' : 'No'}
-                                    </td>
-
                                     <td className='text-center'>
                                        <div className='d-flex justify-content-center gap-1'>
                                           <Link to={`${row.id}`} className='btn btn-sm btn-relief-primary'>
@@ -166,21 +152,31 @@ const RolesList = () => {
 
                                           {
                                              !row.isPublic && (
-                                                <Link to={`edit/${row.id}`} className='btn btn-sm btn-relief-info'>
-                                                   <Icon icon='Edit' size={16} />
-                                                </Link>
+                                                <PermissionNeeded
+                                                   section='roles'
+                                                   permission='edit'
+                                                >
+                                                   <Link to={`edit/${row.id}`} className='btn btn-sm btn-relief-info'>
+                                                      <Icon icon='Edit' size={16} />
+                                                   </Link>
+                                                </PermissionNeeded>
                                              )
                                           }
 
                                           {
                                              !row.isPublic && (
-                                                <button
-                                                   type='button'
-                                                   className='btn btn-sm btn-relief-danger'
-                                                   onClick={() => handleDelete(row.id, currentPage, perPage)}
+                                                <PermissionNeeded
+                                                   section='roles'
+                                                   permission='delete'
                                                 >
-                                                   <Icon icon='Trash2' size={16} />
-                                                </button>
+                                                   <button
+                                                      type='button'
+                                                      className='btn btn-sm btn-relief-danger'
+                                                      onClick={() => handleDelete(row.id, currentPage, perPage)}
+                                                   >
+                                                      <Icon icon='Trash2' size={16} />
+                                                   </button>
+                                                </PermissionNeeded>
                                              )
                                           }
                                        </div>

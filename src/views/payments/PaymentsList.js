@@ -33,10 +33,14 @@ import { useCurrentPage } from '../../hooks/usePagination';
 
 // Helpers
 import { currencyFormat } from '../../helpers/format';
+import { usePermission } from '../../hooks/usePermission';
+import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
 const PaymentsList = () => {
+
+   usePermission({section: 'payments', permission: 'list'});
 
    const dispatch = useDispatch();
 
@@ -120,7 +124,13 @@ const PaymentsList = () => {
 
             <RowsQuantityPicker />
 
-            <CreateButton link='create' />
+            <PermissionNeeded
+               section='payments'
+               permission='create'
+               onlyClient
+            >
+               <CreateButton link='create' />
+            </PermissionNeeded>
          </FiltersContainer>
 
          <div className='card mt-1 position-relative overflow-hidden'>

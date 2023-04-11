@@ -13,11 +13,24 @@ import { setClient, setLoading, startDeleteClient, startGetClient } from '../../
 // Components
 import Element404 from '../../../components/ui/Element404';
 import LoadingResponse from '../../../components/ui/spinners/LoadingResponse';
-import LoadingComponent from '../../../components/ui/spinners/LoadingComponent';
+import ClientsNav from '../../../components/clients/ClientsNav';
+
+
+
+// Routers
+import ClientsDetailRouter from '../../../routers/views/ClientsDetailRouter';
+
+
+
+// Custom hooks
+import { usePermission } from '../../../hooks/usePermission';
+import PermissionNeeded from '../../../components/ui/PermissionNeeded';
 
 
 
 const ClientsDetail = () => {
+
+   usePermission({section: 'companies', permission: 'list', onlyAdmin: true});
 
    const navigate = useNavigate();
 
@@ -57,7 +70,7 @@ const ClientsDetail = () => {
       }
    }, [dispatch]);
 
-   const handleDelete = () => dispatch(startDeleteClient(id, { navigate }));
+   const handleDelete = () => dispatch(startDeleteClient(client?.id, { navigate }));
 
    if (!loadingDetail && !client) {
       return (
@@ -71,92 +84,12 @@ const ClientsDetail = () => {
    return (
       <>
          <div className='row invoice-preview mt-2'>
-            <div className='col-xl-9 col-md-8 col-12 position-relative'>
-               <div className='card invoice-preview-card mb-2'>
-                  <div className='card-body invoice-padding pb-0'>
-                     <div className='d-flex justify-content-between flex-md-row flex-column invoice-spacing my-0'>
-                        <h4 className='mb-0 fw-bolder'>Detalles del cliente</h4>
-
-                        <div className='mt-md-0 mt-2'>
-                           <h4 className='invoice-title mb-0'><span className='invoice-number'>#{client?.id}</span></h4>
-                        </div>
-                     </div>
-                  </div>
-
-                  <hr className='invoice-spacing' />
-
-                  <div className='card-body invoice-padding pt-0'>
-                     <div className='row'>
-                        <div className='col-xl-6 px-0 px-xl-1'>
-                           <h5 className='text-center fw-bolder'>Información</h5>
-
-                           <table className='w-100'>
-                              <tbody>
-                                 <tr>
-                                    <td className='pe-1'>Nombre:</td>
-
-                                    <td className='text-end fw-bolder'>{client?.name}</td>
-                                 </tr>
-
-                                 <tr>
-                                    <td className='pe-1'>DNI:</td>
-
-                                    <td className='text-end fw-bolder'>{client?.rut}</td>
-                                 </tr>
-
-                                 <tr>
-                                    <td className='pe-1'>Correo:</td>
-
-                                    <td className='text-end fw-bolder'>{client?.email}</td>
-                                 </tr>
-
-                                 <tr>
-                                    <td className='pe-1'>Teléfono:</td>
-
-                                    <td className='text-end fw-bolder'>{client?.phone}</td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-
-                        <div className='col-xl-6 px-0 px-xl-1 mt-2 mt-xl-0'>
-                           <h5 className='text-center fw-bolder'>Dirección</h5>
-
-                           <table className='w-100'>
-                              <tbody>
-                                 <tr>
-                                    <td className='pe-1'>País:</td>
-
-                                    <td className='text-end fw-bolder'>{client?.city?.state?.country?.name}</td>
-                                 </tr>
-
-                                 <tr>
-                                    <td className='pe-1'>Estado:</td>
-
-                                    <td className='text-end fw-bolder'>{client?.city?.state?.name}</td>
-                                 </tr>
-
-                                 <tr>
-                                    <td className='pe-1'>Ciudad:</td>
-
-                                    <td className='text-end fw-bolder'>{client?.city?.name}</td>
-                                 </tr>
-
-                                 <tr>
-                                    <td className='pe-1'>Dirección:</td>
-
-                                    <td className='text-end fw-bolder'>{client?.address}</td>
-                                 </tr>
-                              </tbody>
-                           </table>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-
-               <LoadingComponent state={loadingDetail} isBlocking />
+            <div className='col-12'>
+               <ClientsNav />
             </div>
-            
+
+            <ClientsDetailRouter />
+
             <div className='col-xl-3 col-md-4 col-12 invoice-actions mt-md-0 mt-2'>
                <div className='card'>
                   <div className='card-body'>
@@ -165,16 +98,28 @@ const ClientsDetail = () => {
                         className='btn btn-outline-secondary w-100 mb-75 waves-effect waves-float waves-light'
                      >Volver a listado</Link>
 
-                     <Link
-                        to={`/clients/edit/${id}`}
-                        className='btn btn-info w-100 mb-75 waves-effect waves-float waves-light'
-                     >Editar</Link>
+                     <PermissionNeeded
+                        section='companies'
+                        permission='edit'
+                        onlyAdmin
+                     >
+                        <Link
+                           to={`/clients/edit/${client?.id}`}
+                           className='btn btn-info w-100 mb-75 waves-effect waves-float waves-light'
+                        >Editar</Link>
+                     </PermissionNeeded>
 
-                     <button
-                        className='btn btn-danger w-100 waves-effect waves-float waves-light'
-                        onClick={handleDelete}
-                        disabled={loadingDelete || loadingDetail}
-                     >Eliminar</button>
+                     <PermissionNeeded
+                        section='companies'
+                        permission='delete'
+                        onlyAdmin
+                     >
+                        <button
+                           className='btn btn-danger w-100 waves-effect waves-float waves-light'
+                           onClick={handleDelete}
+                           disabled={loadingDelete || loadingDetail}
+                        >Eliminar</button>
+                     </PermissionNeeded>
                   </div>
                </div>
             </div>

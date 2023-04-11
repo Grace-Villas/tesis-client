@@ -6,10 +6,13 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import PaymentsCreate from '../../views/payments/PaymentsCreate';
 import PaymentsDetail from '../../views/payments/PaymentsDetail';
 import PaymentsList from '../../views/payments/PaymentsList';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const PaymentsRouter = () => {
+
+   usePermission({section: 'payments'});
 
    return (
       <Routes>

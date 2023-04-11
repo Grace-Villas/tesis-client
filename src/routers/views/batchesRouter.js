@@ -6,10 +6,13 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import BatchesCreate from '../../views/admin/batches/BatchesCreate';
 import BatchesDetail from '../../views/admin/batches/BatchesDetail';
 import BatchesList from '../../views/admin/batches/BatchesList';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const BatchesRouter = () => {
+
+   usePermission({section: 'batches', onlyAdmin: true});
 
    return (
       <Routes>

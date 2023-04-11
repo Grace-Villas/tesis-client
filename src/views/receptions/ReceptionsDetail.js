@@ -14,10 +14,14 @@ import { setLoading, setReception, startGetReception } from '../../actions/recep
 // Components
 import Element404 from '../../components/ui/Element404';
 import LoadingComponent from '../../components/ui/spinners/LoadingComponent';
+import { usePermission } from '../../hooks/usePermission';
+import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
 const StatesDetail = () => {
+
+   usePermission({section: 'receptions', permission: 'list'});
 
    const dispatch = useDispatch();
 
@@ -91,44 +95,48 @@ const StatesDetail = () => {
                                  <td className='text-end fw-bolder'>{moment(reception?.date).format('DD-MM-YYYY')}</td>
                               </tr>
 
-                              <tr>
-                                 <td className='pe-1'>Fecha de creación:</td>
+                              <PermissionNeeded onlyAdmin>
+                                 <tr>
+                                    <td className='pe-1'>Fecha de creación:</td>
 
-                                 <td className='text-end fw-bolder'>{moment(reception?.createdAt).format('DD-MM-YYYY HH:mm a')}</td>
-                              </tr>
+                                    <td className='text-end fw-bolder'>{moment(reception?.createdAt).format('DD-MM-YYYY HH:mm a')}</td>
+                                 </tr>
 
-                              <tr>
-                                 <td className='pe-1'>Consignado por:</td>
+                                 <tr>
+                                    <td className='pe-1'>Consignado por:</td>
 
-                                 <td className='text-end fw-bolder'>{reception?.consignee?.fullName}</td>
-                              </tr>
+                                    <td className='text-end fw-bolder'>{reception?.consignee?.fullName}</td>
+                                 </tr>
+                              </PermissionNeeded>
                            </tbody>
                         </table>
                      </div>
 
-                     <div className='col-xl-6'>
-                        <table className='w-100'>
-                           <tbody>
-                              <tr>
-                                 <td className='pe-1'>Empresa:</td>
+                     <PermissionNeeded onlyAdmin>
+                        <div className='col-xl-6'>
+                           <table className='w-100'>
+                              <tbody>
+                                 <tr>
+                                    <td className='pe-1'>Empresa:</td>
 
-                                 <td className='text-end fw-bolder'>{reception?.company?.name}</td>
-                              </tr>
+                                    <td className='text-end fw-bolder'>{reception?.company?.name}</td>
+                                 </tr>
 
-                              <tr>
-                                 <td className='pe-1'>Fecha de creación:</td>
+                                 <tr>
+                                    <td className='pe-1'>Fecha de creación:</td>
 
-                                 <td className='text-end fw-bolder'>{moment(reception?.createdAt).format('DD-MM-YYYY HH:mm a')}</td>
-                              </tr>
+                                    <td className='text-end fw-bolder'>{moment(reception?.createdAt).format('DD-MM-YYYY HH:mm a')}</td>
+                                 </tr>
 
-                              <tr>
-                                 <td className='pe-1'>Consignado por:</td>
+                                 <tr>
+                                    <td className='pe-1'>Consignado por:</td>
 
-                                 <td className='text-end fw-bolder'>{reception?.consignee?.fullName}</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
+                                    <td className='text-end fw-bolder'>{reception?.consignee?.fullName}</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                        </div>
+                     </PermissionNeeded>
                   </div>
                </div>
             </div>

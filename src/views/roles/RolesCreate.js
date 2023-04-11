@@ -21,10 +21,13 @@ import PermissionsPicker from '../../components/roles/PermissionsPicker';
 
 // Helpers
 import { handleInvalidName } from '../../helpers/validations';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const RolesCreate = () => {
+
+   usePermission({section: 'roles', permission: 'create'});
 
    const dispatch = useDispatch();
 

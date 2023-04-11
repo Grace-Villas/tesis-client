@@ -6,10 +6,13 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import ReceptionsCreate from '../../views/receptions/ReceptionsCreate';
 import ReceptionsDetail from '../../views/receptions/ReceptionsDetail';
 import ReceptionsList from '../../views/receptions/ReceptionsList';
+import { usePermission } from '../../hooks/usePermission';
 
 
 
 const ReceptionsRouter = () => {
+
+   usePermission({section: 'receptions'});
 
    return (
       <Routes>

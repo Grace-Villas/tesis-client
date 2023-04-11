@@ -17,10 +17,14 @@ import LoadingComponent from '../../components/ui/spinners/LoadingComponent';
 import AddRoleModal from '../../components/roles/AddRoleModal';
 import { contrastColor } from '../../helpers/colors';
 import Icon from '../../components/ui/Icon';
+import { usePermission } from '../../hooks/usePermission';
+import PermissionNeeded from '../../components/ui/PermissionNeeded';
 
 
 
 const UsersDetail = () => {
+
+   usePermission({section: 'users', permission: 'list'});
 
    const navigate = useNavigate();
 
@@ -29,8 +33,6 @@ const UsersDetail = () => {
    const { id } = useParams();
 
    const { user, loadingDetail, loadingDelete } = useSelector(state => state.users);
-
-   console.log(user);
 
    const [isOpen, setIsOpen] = useState(false);
 
@@ -144,53 +146,58 @@ const UsersDetail = () => {
                   </div>
                </div>
 
-               <div className='card invoice-preview-card mb-2'>
-                  <div className='card-body invoice-padding pb-0'>
-                     <div className='d-flex justify-content-center flex-md-row flex-column invoice-spacing my-0'>
-                        <h4 className='mb-0 fw-bolder text-center'>Roles del usuario</h4>
+               <PermissionNeeded
+                  section='roles'
+                  permission='delete'
+               >
+                  <div className='card invoice-preview-card mb-2'>
+                     <div className='card-body invoice-padding pb-0'>
+                        <div className='d-flex justify-content-center flex-md-row flex-column invoice-spacing my-0'>
+                           <h4 className='mb-0 fw-bolder text-center'>Roles del usuario</h4>
+                        </div>
                      </div>
-                  </div>
 
-                  <hr className='invoice-spacing' />
+                     <hr className='invoice-spacing' />
 
-                  <div className='card-body invoice-padding pt-0'>
-                     <div className='row'>
-                        <div className='col mx-xl-auto'>
-                           <table className='w-100'>
-                              <tbody>
-                                 {
-                                    user?.userRoles?.map(role => (
-                                       <tr key={'user-role-' + role.id}>
-                                          <td className='text-center'>
-                                             <span
-                                                className='px-50 py-25 rounded'
-                                                style={{
-                                                   backgroundColor: role.role.hexColor,
-                                                   color: contrastColor(role.role.hexColor)
-                                                }}
-                                             >{role.role.name}</span>
-                                          </td>
+                     <div className='card-body invoice-padding pt-0'>
+                        <div className='row'>
+                           <div className='col mx-xl-auto'>
+                              <table className='w-100'>
+                                 <tbody>
+                                    {
+                                       user?.userRoles?.map(role => (
+                                          <tr key={'user-role-' + role.id}>
+                                             <td className='text-center'>
+                                                <span
+                                                   className='px-50 py-25 rounded'
+                                                   style={{
+                                                      backgroundColor: role.role.hexColor,
+                                                      color: contrastColor(role.role.hexColor)
+                                                   }}
+                                                >{role.role.name}</span>
+                                             </td>
 
-                                          <td className='text-center'>
-                                             <div className='d-flex justify-content-center gap-1'>
-                                                <button
-                                                   type='button'
-                                                   className='btn btn-sm btn-relief-danger'
-                                                   onClick={() => handleRemoveRole(role.id)}
-                                                >
-                                                   <Icon icon='Trash2' size={16} />
-                                                </button>
-                                             </div>
-                                          </td>
-                                       </tr>
-                                    ))
-                                 }
-                              </tbody>
-                           </table>
+                                             <td className='text-center'>
+                                                <div className='d-flex justify-content-center gap-1'>
+                                                   <button
+                                                      type='button'
+                                                      className='btn btn-sm btn-relief-danger'
+                                                      onClick={() => handleRemoveRole(role.id)}
+                                                   >
+                                                      <Icon icon='Trash2' size={16} />
+                                                   </button>
+                                                </div>
+                                             </td>
+                                          </tr>
+                                       ))
+                                    }
+                                 </tbody>
+                              </table>
+                           </div>
                         </div>
                      </div>
                   </div>
-               </div>
+               </PermissionNeeded>
 
                <LoadingComponent state={loadingDetail} isBlocking />
             </div>
@@ -203,32 +210,52 @@ const UsersDetail = () => {
                         className='btn btn-outline-secondary w-100 mb-75 waves-effect waves-float waves-light'
                      >Volver a listado</Link>
 
-                     <button
-                        className='btn btn-warning w-100 mb-75 waves-effect waves-float waves-light'
-                        onClick={handleRoleModal}
-                        disabled={loadingDelete || loadingDetail}
-                     >Asignar roles</button>
+                     <PermissionNeeded
+                        section='roles'
+                        permission='create'
+                     >
+                        <button
+                           className='btn btn-warning w-100 mb-75 waves-effect waves-float waves-light'
+                           onClick={handleRoleModal}
+                           disabled={loadingDelete || loadingDetail}
+                        >Asignar roles</button>
+                     </PermissionNeeded>
 
-                     <Link
-                        to={`/users/edit/${id}`}
-                        className='btn btn-info w-100 mb-75 waves-effect waves-float waves-light'
-                     >Editar</Link>
+                     <PermissionNeeded
+                        section='users'
+                        permission='edit'
+                     >
+                        <Link
+                           to={`/users/edit/${id}`}
+                           className='btn btn-info w-100 mb-75 waves-effect waves-float waves-light'
+                        >Editar</Link>
+                     </PermissionNeeded>
 
-                     <button
-                        className='btn btn-danger w-100 waves-effect waves-float waves-light'
-                        onClick={handleDelete}
-                        disabled={loadingDelete || loadingDetail}
-                     >Eliminar</button>
+                     <PermissionNeeded
+                        section='users'
+                        permission='delete'
+                     >
+                        <button
+                           className='btn btn-danger w-100 waves-effect waves-float waves-light'
+                           onClick={handleDelete}
+                           disabled={loadingDelete || loadingDetail}
+                        >Eliminar</button>
+                     </PermissionNeeded>
                   </div>
                </div>
             </div>
          </div>
 
-         <AddRoleModal
-            userId={user?.id}
-            isOpen={isOpen}
-            handleOpen={setIsOpen}
-         />
+         <PermissionNeeded
+            section='roles'
+            permission='create'
+         >
+            <AddRoleModal
+               userId={user?.id}
+               isOpen={isOpen}
+               handleOpen={setIsOpen}
+            />
+         </PermissionNeeded>
 
          <LoadingResponse state={loadingDelete} />
       </>

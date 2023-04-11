@@ -22,15 +22,19 @@ import InputFilter from '../../../components/tables/InputFilter';
 import SelectFilter from '../../../components/tables/SelectFilter';
 import Button from '../../../components/ui/Button';
 import CreateButton from '../../../components/tables/CreateButton';
+import PermissionNeeded from '../../../components/ui/PermissionNeeded';
 
 
 
 // Custom hooks
 import { useCurrentPage } from '../../../hooks/usePagination';
+import { usePermission } from '../../../hooks/usePermission';
 
 
 
 const ClientsList = () => {
+
+   usePermission({section: 'companies', permission: 'list', onlyAdmin: true});
 
    const dispatch = useDispatch();
 
@@ -113,7 +117,13 @@ const ClientsList = () => {
 
             <RowsQuantityPicker />
 
-            <CreateButton link='create' />
+            <PermissionNeeded
+               section='companies'
+               permission='create'
+               onlyAdmin
+            >
+               <CreateButton link='create' />
+            </PermissionNeeded>
          </FiltersContainer>
 
          <div className='card mt-1 position-relative overflow-hidden'>
@@ -149,21 +159,39 @@ const ClientsList = () => {
 
                                     <td className='text-center'>
                                        <div className='d-flex justify-content-center gap-1'>
-                                          <Link to={`${row.id}`} className='btn btn-sm btn-relief-primary'>
-                                             <Icon icon='Info' size={16} />
-                                          </Link>
-
-                                          <Link to={`edit/${row.id}`} className='btn btn-sm btn-relief-info'>
-                                             <Icon icon='Edit' size={16} />
-                                          </Link>
-
-                                          <button
-                                             type='button'
-                                             className='btn btn-sm btn-relief-danger'
-                                             onClick={() => handleDelete(row.id, currentPage, perPage)}
+                                          <PermissionNeeded
+                                             section='companies'
+                                             permission='list'
+                                             onlyAdmin
                                           >
-                                             <Icon icon='Trash2' size={16} />
-                                          </button>
+                                             <Link to={`${row.id}`} className='btn btn-sm btn-relief-primary'>
+                                                <Icon icon='Info' size={16} />
+                                             </Link>
+                                          </PermissionNeeded>
+
+                                          <PermissionNeeded
+                                             section='companies'
+                                             permission='edit'
+                                             onlyAdmin
+                                          >
+                                             <Link to={`edit/${row.id}`} className='btn btn-sm btn-relief-info'>
+                                                <Icon icon='Edit' size={16} />
+                                             </Link>
+                                          </PermissionNeeded>
+
+                                          <PermissionNeeded
+                                             section='companies'
+                                             permission='delete'
+                                             onlyAdmin
+                                          >
+                                             <button
+                                                type='button'
+                                                className='btn btn-sm btn-relief-danger'
+                                                onClick={() => handleDelete(row.id, currentPage, perPage)}
+                                             >
+                                                <Icon icon='Trash2' size={16} />
+                                             </button>
+                                          </PermissionNeeded>
                                        </div>
                                     </td>
                                  </tr>
