@@ -7,7 +7,7 @@ import moment from 'moment/moment';
 
 // Actions
 import { setBreadcrumb } from '../../actions/ui';
-import { setDispatch, setLoading, startDeleteDispatch, startDeliverDispatch, startDenyDispatch, startGetDispatch } from '../../actions/dispatches';
+import { setDispatch, setLoading, startDeleteDispatch, startDeliverDispatch, startDenyDispatch, startDownloadPdf, startGetDispatch } from '../../actions/dispatches';
 
 
 
@@ -69,6 +69,8 @@ const DispatchesDetail = () => {
    const handleDenyDispatch = () => dispatch(startDenyDispatch(id));
 
    const handleDeleteDispatch = () => dispatch(startDeleteDispatch(id, { navigate }));
+
+   const handleDownload = () => dispatch(startDownloadPdf(id));
 
    if (!loadingDetail && !dispatchData) {
       return (
@@ -263,6 +265,11 @@ const DispatchesDetail = () => {
                         to='/dispatches'
                         className='btn btn-outline-secondary w-100 waves-effect waves-float waves-light'
                      >Volver a listado</Link>
+                     
+                     <button
+                        className='btn btn-primary w-100 mt-75 waves-effect waves-float waves-light'
+                        onClick={handleDownload}
+                     >Exportar</button>
 
                      <PermissionNeeded
                         section='dispatches'

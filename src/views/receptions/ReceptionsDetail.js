@@ -7,7 +7,7 @@ import moment from 'moment/moment';
 
 // Actions
 import { setBreadcrumb } from '../../actions/ui';
-import { setLoading, setReception, startGetReception } from '../../actions/receptions';
+import { setLoading, setReception, startDownloadPdf, startGetReception } from '../../actions/receptions';
 
 
 
@@ -58,6 +58,8 @@ const StatesDetail = () => {
          dispatch(setBreadcrumb([]));
       }
    }, [dispatch]);
+
+   const handleDownload = () => dispatch(startDownloadPdf(id));
 
    if (!loadingDetail && !reception) {
       return (
@@ -191,6 +193,11 @@ const StatesDetail = () => {
                      to='/receptions'
                      className='btn btn-outline-secondary w-100 waves-effect waves-float waves-light'
                   >Volver a listado</Link>
+                     
+                  <button
+                     className='btn btn-primary w-100 mt-75 waves-effect waves-float waves-light'
+                     onClick={handleDownload}
+                  >Exportar</button>
                </div>
             </div>
          </div>

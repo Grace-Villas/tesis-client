@@ -1,8 +1,10 @@
+import axios from 'axios';
 import { arrayErrorToast, simpleSuccessToast } from '../helpers/alerts';
 import { queryParamsFilter } from '../helpers/format';
 import { getPaginationQuery } from '../helpers/pagination';
-import { request } from '../helpers/request';
+import { apiURL, request } from '../helpers/request';
 import { types } from '../reducers/receptionsReducer';
+import download from 'downloadjs';
 
 
 
@@ -130,6 +132,26 @@ export const startGetReception = (id) => {
       }
       
       dispatch(setLoading('detail', false));
+   }
+}
+
+export const startDownloadPdf = (id) => {
+   return async () => {
+      const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+      
+      const response = await axios({
+         url: `${apiURL}/api/receptions/export/${id}`,
+         method: 'GET',
+         responseType: 'blob',
+         headers: {
+            'x-token': token,
+            'Content-Disposition': 'attachment',
+         }
+     });
+
+      if (response.status === 200) {
+         download(response.data, `recepcion-${id}.pdf`);
+      }
    }
 }
 

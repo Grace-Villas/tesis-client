@@ -1,7 +1,9 @@
+import axios from 'axios';
+import download from 'downloadjs';
 import { arrayErrorToast, simpleConfirmDialog, simpleInputDialog, simpleSuccessToast } from '../helpers/alerts';
 import { queryParamsFilter } from '../helpers/format';
 import { getPaginationQuery } from '../helpers/pagination';
-import { request } from '../helpers/request';
+import { apiURL, request } from '../helpers/request';
 import { types } from '../reducers/dispatchesReducer';
 
 
@@ -277,6 +279,26 @@ export const startGetDispatchesList = (filters = {}) => {
       }
       
       dispatch(setLoading('list', false));
+   }
+}
+
+export const startDownloadPdf = (id) => {
+   return async () => {
+      const token = localStorage.getItem('x-token') || sessionStorage.getItem('x-token');
+      
+      const response = await axios({
+         url: `${apiURL}/api/dispatches/export/${id}`,
+         method: 'GET',
+         responseType: 'blob',
+         headers: {
+            'x-token': token,
+            'Content-Disposition': 'attachment',
+         }
+     });
+
+      if (response.status === 200) {
+         download(response.data, `despacho-${id}.pdf`);
+      }
    }
 }
 
