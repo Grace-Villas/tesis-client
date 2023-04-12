@@ -36,7 +36,9 @@ export const capitalizeAllWords = (string) => {
  * @param {string|number} currency monto a formatear
  * @returns {string}
  */
-export const currencyFormat = (currency) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(currency);
+export const currencyFormat = (value, { locale = 'en-US', currency = 'USD' } = {}) => {
+   return new Intl.NumberFormat(locale, { style: 'currency', currency }).format(value);
+}
 
 /**
  * Función para mapear los atributos a usar a través de queryParams

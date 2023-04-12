@@ -5,6 +5,7 @@ import { citiesReducer } from './citiesReducer';
 import { clientsReducer } from './clientsReducer';
 import { configurationsReducer } from './configurationsReducer';
 import { countriesReducer } from './countriesReducer';
+import { dashboardReducer } from './dashboardReducer';
 import { dispatchesReducer } from './dispatchesReducer';
 import { dispatchStatusesReducer } from './dispatchStatusesReducer';
 import { filtersReducer } from './filtersReducer';
@@ -34,6 +35,7 @@ export {
    clientsReducer,
    configurationsReducer,
    countriesReducer,
+   dashboardReducer,
    dispatchesReducer,
    dispatchStatusesReducer,
    filtersReducer,
