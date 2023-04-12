@@ -242,13 +242,6 @@ const SideBar = () => {
 
                <PermissionNeeded
                   section='payments'
-                  onlyClient
-               >
-                  <SideBarLink text='Facturación' icon='FileText' url='/company' />
-               </PermissionNeeded>
-
-               <PermissionNeeded
-                  section='payments'
                >
                   <NestedSidebarLink text='Pagos' icon='CreditCard' basePath='/payments'>
                      <PermissionNeeded

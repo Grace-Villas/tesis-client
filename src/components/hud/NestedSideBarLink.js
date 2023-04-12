@@ -19,7 +19,9 @@ const NestedSidebarLink = ({text, basePath, icon, children}) => {
    const nestedRef = useRef();
 
    useEffect(() => {
-      if (currentPath.includes(basePath)) {
+      const paths = currentPath.split('/');
+
+      if (`/${paths[1]}` === basePath) {
          setIsOpen(true);
       } else {
          setIsOpen(false);

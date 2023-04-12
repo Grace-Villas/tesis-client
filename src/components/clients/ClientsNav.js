@@ -20,15 +20,7 @@ const ClientsNav = () => {
          </li>
          
          <li className='nav-item'>
-            <NavLink className='nav-link' to='security'>
-               <Icon icon='FileText' size={18} />
-
-               <span className='fw-bold'>Facturación</span>
-            </NavLink>
-         </li>
-         
-         <li className='nav-item'>
-            <NavLink className='nav-link' to='security'>
+            <NavLink className='nav-link' to='products'>
                <Icon icon='Package' size={18} />
 
                <span className='fw-bold'>Productos</span>
@@ -36,7 +28,7 @@ const ClientsNav = () => {
          </li>
          
          <li className='nav-item'>
-            <NavLink className='nav-link' to='security'>
+            <NavLink className='nav-link' to='receptions'>
                <Icon icon='Upload' size={18} />
 
                <span className='fw-bold'>Recepciones</span>
@@ -44,10 +36,18 @@ const ClientsNav = () => {
          </li>
          
          <li className='nav-item'>
-            <NavLink className='nav-link' to='security'>
+            <NavLink className='nav-link' to='dispatches'>
                <Icon icon='Truck' size={18} />
 
                <span className='fw-bold'>Despachos</span>
+            </NavLink>
+         </li>
+         
+         <li className='nav-item'>
+            <NavLink className='nav-link' to='payments'>
+               <Icon icon='CreditCard' size={18} />
+
+               <span className='fw-bold'>Pagos</span>
             </NavLink>
          </li>
       </ul>
