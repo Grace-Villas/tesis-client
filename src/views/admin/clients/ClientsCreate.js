@@ -29,6 +29,7 @@ import { usePermission } from '../../../hooks/usePermission';
 
 // Helpers
 import { handleInvalidEmail, handleInvalidName, handleInvalidPhone, handleInvalidRut } from '../../../helpers/validations';
+import InputPhone from '../../../components/form/InputPhone';
 
 
 
@@ -269,7 +270,7 @@ const ClientsCreate = () => {
                            error={emailError}
                         />
 
-                        <Input
+                        <InputPhone
                            value={phone}
                            setValue={handlePhone}
                            title={'Teléfono'}

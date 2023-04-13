@@ -266,7 +266,7 @@ export const startGetPaymentMethodsList = () => {
             }
             
             if (row.phone) {
-               text += ` - ${row.phone}`;
+               text += ` - +58${row.phone}`;
             }
 
             return {

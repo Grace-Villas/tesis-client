@@ -225,7 +225,7 @@ const PaymentsDetail = () => {
                                        <tr>
                                           <td className='pe-1'>Teléfono:</td>
 
-                                          <td className='text-end fw-bolder'>{payment?.paymentMethod?.phone}</td>
+                                          <td className='text-end fw-bolder'>+58{payment?.paymentMethod?.phone}</td>
                                        </tr>
                                     )
                                  }
@@ -248,7 +248,7 @@ const PaymentsDetail = () => {
                                     <tr>
                                        <td className='pe-1'>Teléfono:</td>
 
-                                       <td className='text-end fw-bolder'>{payment?.company?.phone}</td>
+                                       <td className='text-end fw-bolder'>+58{payment?.company?.phone}</td>
                                     </tr>
                                     
                                     <tr>

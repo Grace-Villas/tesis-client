@@ -24,6 +24,7 @@ import Select from '../../components/form/Select';
 // Helpers
 import { handleRequired, handleInvalidPhone, handleInvalidRut } from '../../helpers/validations';
 import { usePermission } from '../../hooks/usePermission';
+import InputPhone from '../../components/form/InputPhone';
 
 
 
@@ -208,7 +209,7 @@ const ReceiversEdit = () => {
                            error={rutError}
                         />
 
-                        <Input
+                        <InputPhone
                            value={phone}
                            setValue={handlePhone}
                            title={'Teléfono'}

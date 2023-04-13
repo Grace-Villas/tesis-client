@@ -158,7 +158,7 @@ const PaymentMethodsList = () => {
 
                                     <td className='text-center'>{row.email ?? '-'}</td>
 
-                                    <td className='text-center'>{row.phone ?? '-'}</td>
+                                    <td className='text-center'>{row.phone ? `+58${row.phone}` : '-'}</td>
 
                                     <td className='text-center'>
                                        <div className='d-flex justify-content-center gap-1'>

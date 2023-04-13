@@ -130,7 +130,7 @@ const DispatchesDetail = () => {
                                  <tr>
                                     <td className='pe-1'>Teléfono:</td>
 
-                                    <td className='text-end fw-bolder'>{dispatchData?.receiver?.phone}</td>
+                                    <td className='text-end fw-bolder'>+58{dispatchData?.receiver?.phone}</td>
                                  </tr>
 
                                  <tr>
@@ -175,7 +175,7 @@ const DispatchesDetail = () => {
                                     <tr>
                                        <td className='pe-1'>Teléfono:</td>
 
-                                       <td className='text-end fw-bolder'>{dispatchData?.company?.phone}</td>
+                                       <td className='text-end fw-bolder'>+58{dispatchData?.company?.phone}</td>
                                     </tr>
                                     
                                     <tr>

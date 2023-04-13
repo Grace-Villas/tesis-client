@@ -23,6 +23,7 @@ import TextArea from '../../components/form/TextArea';
 // Helpers
 import { handleRequired, handleInvalidRut, handleInvalidPhone } from '../../helpers/validations';
 import { usePermission } from '../../hooks/usePermission';
+import InputPhone from '../../components/form/InputPhone';
 
 
 
@@ -188,7 +189,7 @@ const ReceiversCreate = () => {
                            error={rutError}
                         />
 
-                        <Input
+                        <InputPhone
                            value={phone}
                            setValue={handlePhone}
                            title={'Teléfono'}

@@ -109,7 +109,7 @@ const ReceiversDetail = () => {
                                  <tr>
                                     <td className='pe-1'>Teléfono:</td>
 
-                                    <td className='text-end fw-bolder'>{receiver?.phone}</td>
+                                    <td className='text-end fw-bolder'>+58{receiver?.phone}</td>
                                  </tr>
                               </tbody>
                            </table>
@@ -165,7 +165,7 @@ const ReceiversDetail = () => {
                      </PermissionNeeded>
 
                      <PermissionNeeded
-                        section='s'
+                        section='receivers'
                         permission='delete'
                         onlyClient
                      >

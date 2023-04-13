@@ -206,7 +206,7 @@ textarea.form-control-lg {
 .input-group.is-valid:not(.bootstrap-touchspin):focus-within .input-group-text {
   border-color: #28c76f; }
 
-.input-group.is-invalid .input-group-text {
+.input-group.is-invalid input:focus ~ .input-group-text {
   border-color: #ea5455 !important; }
 
 .input-group.is-invalid:not(.bootstrap-touchspin):focus-within .input-group-text {

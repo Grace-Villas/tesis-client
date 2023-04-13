@@ -23,6 +23,7 @@ import { handleInvalidEmail, handleInvalidName, handleInvalidNumber, handleInval
 import RequiredField from '../../../components/payment-methods/RequiredField';
 import { setPaymentTypesList, startGetPaymentTypesList } from '../../../actions/payment-types';
 import { usePermission } from '../../../hooks/usePermission';
+import InputPhone from '../../../components/form/InputPhone';
 
 
 
@@ -330,7 +331,7 @@ const PaymentMethodsEdit = () => {
                            paymentTypeId={Number(paymentMethod?.paymentTypeId)}
                            fieldName='phone'
                         >
-                           <Input
+                           <InputPhone
                               value={phone}
                               setValue={handlePhone}
                               title={'Teléfono'}

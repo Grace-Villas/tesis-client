@@ -23,6 +23,7 @@ import Select from '../../../components/form/Select';
 import { handleInvalidEmail, handleInvalidName, handleInvalidNumber, handleInvalidPhone, handleInvalidRut, handleRequired } from '../../../helpers/validations';
 import RequiredField from '../../../components/payment-methods/RequiredField';
 import { usePermission } from '../../../hooks/usePermission';
+import InputPhone from '../../../components/form/InputPhone';
 
 
 
@@ -367,7 +368,7 @@ const PaymentMethodsCreate = () => {
                            paymentTypeId={Number(paymentTypeId)}
                            fieldName='phone'
                         >
-                           <Input
+                           <InputPhone
                               value={phone}
                               setValue={handlePhone}
                               title={'Teléfono'}

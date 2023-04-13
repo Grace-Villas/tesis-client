@@ -162,7 +162,7 @@ const PaymentMethodsDetail = () => {
                                        <tr>
                                           <td className='pe-1'>Teléfono:</td>
 
-                                          <td className='text-end fw-bolder'>{paymentMethod?.phone}</td>
+                                          <td className='text-end fw-bolder'>+58{paymentMethod?.phone}</td>
                                        </tr>
                                     )
                                  }
